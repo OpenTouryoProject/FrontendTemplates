@@ -19,7 +19,7 @@ rem --------------------------------------------------
 rem Batch build of UWP_sample_Xaml.
 rem --------------------------------------------------
 nuget.exe restore "Native\UWP_sample\UWP_sample_Xaml.sln"
-%BUILDFILEPATH% %COMMANDLINE% "Samples4NetCore\Frontend\UWP_sample\UWP_sample_Xaml.sln"
+%BUILDFILEPATH% %COMMANDLINE% "Native\UWP_sample\UWP_sample_Xaml.sln"
 
 pause
 
@@ -27,7 +27,7 @@ rem --------------------------------------------------
 rem Batch build of UWP_sample_Html.
 rem --------------------------------------------------
 nuget.exe restore "Native\UWP_sample\UWP_sample_Html.sln"
-%BUILDFILEPATH% %COMMANDLINE% "Samples4NetCore\Frontend\UWP_sample\UWP_sample_Html.sln"
+%BUILDFILEPATH% %COMMANDLINE% "Native\UWP_sample\UWP_sample_Html.sln"
 
 pause
 
