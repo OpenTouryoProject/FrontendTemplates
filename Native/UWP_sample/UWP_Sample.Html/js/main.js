@@ -39,6 +39,9 @@ $(function () {
         $.ajax({
             type: 'POST',
             url: rootUrl + 'SelectCount',
+            //headers: {
+            //    Authorization: 'Bearer ' + 'xxxxxxxxxx' // テスト用
+            //},
             data: param,
             dataType: 'json',
             success: function (data, dataType) {
