@@ -16,7 +16,7 @@ namespace UWP_Sample.Xaml
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        public string rootUrl = "http://localhost:8888/JsonController/";
+        public string rootUrl = "http://localhost:8888/api/json/";
 
         /// <summary>constructor</summary>
         public MainPage()

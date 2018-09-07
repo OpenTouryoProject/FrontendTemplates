@@ -23,7 +23,7 @@ $(function () {
     });
 
     // Web API のサーバーの URL
-    var rootUrl = 'http://localhost:8888/JsonController/';
+    var rootUrl = 'http://localhost:8888/api/json/';
 
     // 件数表示ボタンをクリックしたときの動き
     $('#btnGetCount').on('click', function () {
@@ -43,15 +43,15 @@ $(function () {
             dataType: 'json',
             success: function (data, dataType) {
 
-                if (data.Message != undefined) {
+                if (data.Message !== undefined) {
                     // 正常終了
                     $('#result').text(data.Message);
                 }
-                else if (data.ErrorMSG != undefined) {
+                else if (data.ErrorMSG !== undefined) {
                     // 業務例外
                     $('#result').text(JSON.stringify(data.ErrorMSG));
                 }
-                else if (data.ExceptionMSG != undefined) {
+                else if (data.ExceptionMSG !== undefined) {
                     // その他例外
                     $('#result').text(JSON.stringify(data.ExceptionMSG));
                 }
@@ -76,11 +76,11 @@ $(function () {
         // Ajax でリクエストを送信
         $.ajax({
             type: 'POST',
-            url: rootUrl + 'SelectAll_DR',
+            url: rootUrl + 'SelectAll_DT', //'SelectAll_DR',
             data: param,
             dataType: 'json',
             success: function (data, dataType) {
-                if (data.Message != undefined) {
+                if (data.Message !== undefined) {
                     // 正常終了
                     $('#result').text('正常終了しました');
 
@@ -95,11 +95,11 @@ $(function () {
                         $('#lstTable tbody tr:last').append('<td>' + item.Phone + '</td>');
                     });
                 }
-                else if (data.ErrorMSG != undefined) {
+                else if (data.ErrorMSG !== undefined) {
                     // 業務例外
                     $('#result').text(JSON.stringify(data.ErrorMSG));
                 }
-                else if (data.ExceptionMSG != undefined) {
+                else if (data.ExceptionMSG !== undefined) {
                     // その他例外
                     $('#result').text(JSON.stringify(data.ExceptionMSG));
                 }
@@ -122,7 +122,7 @@ $(function () {
             Shipper: {
                 ShipperID: $('#txtShipperID').val(),
                 CompanyName: "",
-                Phone: "",
+                Phone: ""
             }
         };
 
@@ -140,18 +140,18 @@ $(function () {
             contentType: 'application/json',
             success: function (data, dataType) {
 
-                if (data.Message != undefined) {
+                if (data.Message !== undefined) {
                     // 正常終了
                     $('#result').text('正常終了しました');
                     $('#txtShipperID').val(data.Result.ShipperID);
                     $('#txtCompanyName').val(data.Result.CompanyName);
                     $('#txtPhone').val(data.Result.Phone);
                 }
-                else if (data.ErrorMSG != undefined) {
+                else if (data.ErrorMSG !== undefined) {
                     // 業務例外
                     $('#result').text(JSON.stringify(data.ErrorMSG));
                 }
-                else if (data.ExceptionMSG != undefined) {
+                else if (data.ExceptionMSG !== undefined) {
                     // その他例外
                     $('#result').text(JSON.stringify(data.ExceptionMSG));
                 }
@@ -174,7 +174,7 @@ $(function () {
             Shipper: {
                 ShipperID: "0",
                 CompanyName: $('#txtCompanyName').val(),
-                Phone: $('#txtPhone').val(),
+                Phone: $('#txtPhone').val()
             }
         };
 
@@ -192,15 +192,15 @@ $(function () {
             dataType: 'json',
             contentType: 'application/json',
             success: function (data, dataType) {
-                if (data.Message != undefined) {
+                if (data.Message !== undefined) {
                     // 正常終了
                     $('#result').text(data.Message);
                 }
-                else if (data.ErrorMSG != undefined) {
+                else if (data.ErrorMSG !== undefined) {
                     // 業務例外
                     $('#result').text(JSON.stringify(data.ErrorMSG));
                 }
-                else if (data.ExceptionMSG != undefined) {
+                else if (data.ExceptionMSG !== undefined) {
                     // その他例外
                     $('#result').text(JSON.stringify(data.ExceptionMSG));
                 }
@@ -223,7 +223,7 @@ $(function () {
             Shipper: {
                 ShipperID: $('#txtShipperID').val(), 
                 CompanyName: $('#txtCompanyName').val(),
-                Phone: $('#txtPhone').val(),
+                Phone: $('#txtPhone').val()
             }
         };
 
@@ -242,15 +242,15 @@ $(function () {
             dataType: 'json',
             contentType: 'application/json',
             success: function (data, dataType) {
-                if (data.Message != undefined) {
+                if (data.Message !== undefined) {
                     // 正常終了
                     $('#result').text(data.Message);
                 }
-                else if (data.ErrorMSG != undefined) {
+                else if (data.ErrorMSG !== undefined) {
                     // 業務例外
                     $('#result').text(JSON.stringify(data.ErrorMSG));
                 }
-                else if (data.ExceptionMSG != undefined) {
+                else if (data.ExceptionMSG !== undefined) {
                     // その他例外
                     $('#result').text(JSON.stringify(data.ExceptionMSG));
                 }
@@ -273,7 +273,7 @@ $(function () {
             Shipper: {
                 ShipperID: $('#txtShipperID').val(),
                 CompanyName: "",
-                Phone: "",
+                Phone: ""
             }
         };
 
@@ -290,15 +290,15 @@ $(function () {
             dataType: 'json',
             contentType: 'application/json',
             success: function (data, dataType) {
-                if (data.Message != undefined) {
+                if (data.Message !== undefined) {
                     // 正常終了
                     $('#result').text(data.Message);
                 }
-                else if (data.ErrorMSG != undefined) {
+                else if (data.ErrorMSG !== undefined) {
                     // 業務例外
                     $('#result').text(JSON.stringify(data.ErrorMSG));
                 }
-                else if (data.ExceptionMSG != undefined) {
+                else if (data.ExceptionMSG !== undefined) {
                     // その他例外
                     $('#result').text(JSON.stringify(data.ExceptionMSG));
                 }
