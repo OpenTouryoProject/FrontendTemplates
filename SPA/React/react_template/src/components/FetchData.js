@@ -5,7 +5,7 @@ export class FetchData extends React.Component {
     constructor() {
         super();
         this.state = { forecasts: [], loading: true };
-        fetch('http://localhost:5000/hoge1.json')
+        fetch('http://localhost:8888/api/sampledata/weatherforecasts?1')
             .then(response => response.json())
             .then(data => {
             this.setState({ forecasts: data, loading: false });
@@ -36,11 +36,11 @@ export class FetchData extends React.Component {
             </thead>
             <tbody>
             {forecasts.map(forecast =>
-                <tr key={ forecast.DateFormatted }>
-                    <td>{ forecast.DateFormatted }</td>
-                    <td>{ forecast.TemperatureC }</td>
-                    <td>{ forecast.TemperatureF }</td>
-                    <td>{ forecast.Summary }</td>
+                <tr key={ forecast.dateFormatted }>
+                    <td>{ forecast.dateFormatted }</td>
+                    <td>{ forecast.temperatureC }</td>
+                    <td>{ forecast.temperatureF }</td>
+                    <td>{ forecast.summary }</td>
                 </tr>
             )}
             </tbody>

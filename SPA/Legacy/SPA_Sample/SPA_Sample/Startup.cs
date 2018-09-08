@@ -17,13 +17,16 @@
 //*  20xx/xx/xx  ＸＸ ＸＸ         ＸＸＸＸ
 //**********************************************************************************
 
-using Owin;
-using Microsoft.Owin;
-
+using System.Net.Http;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+
+using Owin;
+using Microsoft.Owin;
+
+using Touryo.Infrastructure.Framework.Authentication;
 
 [assembly: OwinStartup(typeof(SPA_Sample.Startup))]
 
@@ -54,6 +57,9 @@ namespace SPA_Sample
 
             // バンドル＆ミニフィケーションの登録
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            // JwkSet取得用
+            OAuth2AndOIDCClient.HttpClient = new HttpClient();
         }
     }
 }

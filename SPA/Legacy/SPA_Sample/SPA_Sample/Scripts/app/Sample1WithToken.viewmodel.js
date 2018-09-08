@@ -103,7 +103,7 @@ function Sample1ViewModel() {
             url: rootUrl + 'SelectCount',
             crossDomain: true,
             headers: {
-                'Authorization': 'Bearer ' + token
+                Authorization: 'Bearer ' + token
             },
             data: param,
             dataType: 'json',
@@ -152,7 +152,7 @@ function Sample1ViewModel() {
             url: rootUrl + 'SelectAll_DT',
             crossDomain: true,
             headers: {
-                'Authorization': 'Bearer ' + token
+                Authorization: 'Bearer ' + token
             },
             data: param,
             dataType: 'json',
@@ -201,7 +201,7 @@ function Sample1ViewModel() {
             url: rootUrl + 'SelectAll_DS',
             crossDomain: true,
             headers: {
-                'Authorization': 'Bearer ' + token
+                Authorization: 'Bearer ' + token
             },
             data: param,
             dataType: 'json',
@@ -250,7 +250,7 @@ function Sample1ViewModel() {
             url: rootUrl + 'SelectAll_DR',
             crossDomain: true,
             headers: {
-                'Authorization': 'Bearer ' + token
+                Authorization: 'Bearer ' + token
             },
             data: param,
             dataType: 'json',
@@ -301,7 +301,7 @@ function Sample1ViewModel() {
             url: rootUrl + 'SelectAll_DSQL',
             crossDomain: true,
             headers: {
-                'Authorization': 'Bearer ' + token
+                Authorization: 'Bearer ' + token
             },
             data: param,
             dataType: 'json',
@@ -355,7 +355,7 @@ function Sample1ViewModel() {
             url: rootUrl + 'Select',
             crossDomain: true,
             headers: {
-                'Authorization': 'Bearer ' + token
+                Authorization: 'Bearer ' + token
             },
             data: JSON.stringify(param),
             dataType: 'json',
@@ -411,7 +411,7 @@ function Sample1ViewModel() {
             url: rootUrl + 'Insert',
             crossDomain: true,
             headers: {
-                'Authorization': 'Bearer ' + token
+                Authorization: 'Bearer ' + token
             },
             data: JSON.stringify(param),
             dataType: 'json',
@@ -464,7 +464,7 @@ function Sample1ViewModel() {
             url: rootUrl + 'Update',
             crossDomain: true,
             headers: {
-                'Authorization': 'Bearer ' + token
+                Authorization: 'Bearer ' + token
             },
             data: JSON.stringify(param),
             dataType: 'json',
@@ -518,7 +518,7 @@ function Sample1ViewModel() {
             url: rootUrl + 'Delete',
             crossDomain: true,
             headers: {
-                'Authorization': 'Bearer ' + token
+                Authorization: 'Bearer ' + token
             },
             data: JSON.stringify(param),
             dataType: 'json',
