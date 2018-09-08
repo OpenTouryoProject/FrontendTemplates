@@ -27,7 +27,7 @@ export const GET_DATA_ASYNC = (startDateIndex) => {
   return (dispatch) => {
 
     // URL
-    let url = 'http://localhost:5000/hoge' + startDateIndex + '.json';
+    let url = 'http://localhost:8888/api/sampledata/weatherforecasts?' + startDateIndex;
     console.log("GET_DATA_ASYNC > url: " + url);
 
     // リクエスト開始前処理

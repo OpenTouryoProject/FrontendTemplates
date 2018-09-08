@@ -45,11 +45,11 @@ export default class FetchData extends React.Component {
                 </thead>
                 <tbody>
                 {forecasts.map(forecast =>
-                    <tr key={ forecast.DateFormatted }>
-                        <td>{ forecast.DateFormatted }</td>
-                        <td>{ forecast.TemperatureC }</td>
-                        <td>{ forecast.TemperatureF }</td>
-                        <td>{ forecast.Summary }</td>
+                    <tr key={ forecast.dateFormatted }>
+                        <td>{ forecast.dateFormatted }</td>
+                        <td>{ forecast.temperatureC }</td>
+                        <td>{ forecast.temperatureF }</td>
+                        <td>{ forecast.summary }</td>
                     </tr>
                 )}
                 </tbody>

@@ -4,8 +4,6 @@ https://github.com/OpenTouryoProject/SampleProgram/tree/master/Template/SPATempl
 - このプログラムは、以下のコマンドで実行できる。
   - npm i
   - npm start
-- サーバーはExpressとASP.NET Coreを使用する。
-  - Express（FetchDataサンプル）  
-node server/server.js
+- サーバーはASP.NET Coreを使用する。
   - ASP.NET Core（CRUDサンプル）  
-・・・
+https://github.com/OpenTouryoProject/OpenTouryo/tree/develop/root/programs/CS/Samples4NetCore/Backend/ASPNETWebService
