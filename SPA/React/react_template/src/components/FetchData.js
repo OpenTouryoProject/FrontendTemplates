@@ -8,7 +8,7 @@ export class FetchData extends React.Component {
         fetch('http://localhost:8888/api/sampledata/weatherforecasts?1')
             .then(response => response.json())
             .then(data => {
-            this.setState({ forecasts: data, loading: false });
+                this.setState({ forecasts: data, loading: false });
         });
     }
 
