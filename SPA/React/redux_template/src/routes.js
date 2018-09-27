@@ -5,6 +5,7 @@ import { Layout } from './components/Layout';
 import Home from './components/Home';
 import Counter from './containers/Counter';
 import FetchData from './containers/FetchData';
+import CrudSample from './containers/CrudSample';
 
 export const routes = 
         <Router>
@@ -12,5 +13,6 @@ export const routes =
                 <Route exact path='/' component={ Home } />
                 <Route path='/counter' component={ Counter } />
                 <Route path='/fetchdata/:startDateIndex?' component={ FetchData } />
+                <Route path='/crudsample/:startDateIndex?' component={ CrudSample } />
             </Layout>
         </Router>;
