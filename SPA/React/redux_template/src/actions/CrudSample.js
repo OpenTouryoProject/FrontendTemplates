@@ -1,52 +1,82 @@
-// fetchの開始前
-export const GET_POSTS_REQUEST = () => {
-  return {
-    type: 'GET_POSTS_REQUEST'
-  }
-};
+import {CrudSampleRootUrl} from '../const.js';
 
-// fetchの成功
-export const GET_POSTS_SUCCESS = (data, startDateIndex) => {
+// fetchの開始前
+export const PRE_REQUEST = () => {
   return {
-    type: 'GET_POSTS_SUCCESS',
-    forecasts: data,
-    startDateIndex: startDateIndex
+    type: 'PRE_REQUEST'
   }
 };
 
 // fetchの失敗
-export const GET_POSTS_FAILURE = (error) => {
+export const REQUEST_FAILURE = (error) => {
   return {
-    type: 'GET_POSTS_FAILURE',
-    error: error
+    type: 'REQUEST_FAILURE',
+    message: error
+  }
+};
+
+/*
+  message : state.CrudSampleReducer.message,
+  shipper : state.CrudSampleReducer.shipper,
+  shippers : state.CrudSampleReducer.shippers,
+  loading: state.CrudSampleReducer.loading
+*/
+
+// fetchの成功
+export const SELECT_COUNT_SUCCESS = (message) => {
+  return {
+    type: 'SELECT_COUNT_SUCCESS',
+    message: message
   }
 };
 
 // fetchのルート
-export const GET_DATA_ASYNC = (startDateIndex) => {
+export const SELECT_COUNT_ASYNC = (ddl) => {
   return (dispatch) => {
 
     // URL
-    let url = 'http://localhost:8888/api/sampledata/weatherforecasts?' + startDateIndex;
-    console.log("GET_DATA_ASYNC > url: " + url);
+    let url = CrudSampleRootUrl + 'SelectCount';
+
+    // リクエストの生成
+    const method = "POST";
+    const headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded'
+    };
+    const body = 
+        "ddlDap=" + ddl.ddlDap
+        + "&ddlMode1=" + ddl.ddlMode1
+        + "&ddlMode2=" + ddl.ddlMode2
+        + "&ddlExRollback=" + ddl.ddlExRollback;
 
     // リクエスト開始前処理
-    dispatch(GET_POSTS_REQUEST());
+    dispatch(PRE_REQUEST());
 
     // fetchする。
-    fetch(url)　
+    fetch(url, {method, headers, body})　
     .then(response => response.json())
     .then(data => 
       {
-        console.log("GET_DATA_ASYNC > GET_POSTS_SUCCESS: " + JSON.stringify(data));
-        dispatch(GET_POSTS_SUCCESS(data, startDateIndex));
+        console.log("SELECT_COUNT_ASYNC: " + JSON.stringify(data));
+
+        if(data.Message)
+        {
+          dispatch(SELECT_COUNT_SUCCESS(data.Message));
+        }
+        else if(data.ErrorMSG)
+        {
+          dispatch(REQUEST_FAILURE(JSON.stringify(data.ErrorMSG)));
+        }
+        else if(data.ExceptionMSG)
+        {
+          dispatch(REQUEST_FAILURE(JSON.stringify(data.ExceptionMSG)));
+        }
       }
     )
     .catch(
       // 異常系
       error => {
-        console.log("GET_DATA_ASYNC > GET_POSTS_FAILURE: " + JSON.stringify(error));
-        dispatch(GET_POSTS_FAILURE(error));
+        dispatch(REQUEST_FAILURE(error));
       }
     );
   }

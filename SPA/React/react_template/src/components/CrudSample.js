@@ -1,5 +1,6 @@
 import * as React from 'react';
 import 'isomorphic-fetch';
+import {CrudSampleRootUrl} from '../const.js';
 
 export class CrudSample extends React.Component {
     // constructor
@@ -32,8 +33,6 @@ export class CrudSample extends React.Component {
             ],
             loading: true
         };
-
-        this.rootUrl = 'http://localhost:8888/api/json/';
 
         // データアクセス制御クラス
         this.ddlDap = [
@@ -138,12 +137,11 @@ export class CrudSample extends React.Component {
                 <p>処理結果：{this.state.message}</p>
             </div>
             <div>
-                <button className='btn' onClick={ () => { this.selectCount() } }>getCount</button>&nbsp;
+                <button className='btn' onClick={ () => { this.selectCount() } }>SelectCount</button>&nbsp;
                 <button className='btn' onClick={ () => { this.selectAll_DT() } }>SelectAll_DT</button>&nbsp;
                 <button className='btn' onClick={ () => { this.selectAll_DS() } }>SelectAll_DS</button>&nbsp;
                 <button className='btn' onClick={ () => { this.selectAll_DR() } }>SelectAll_DS</button>&nbsp;
                 <button className='btn' onClick={ () => { this.selectAll_DSQL() } }>SelectAll_DSQL</button>
-                
             </div>
             <div>
                 <button className='btn' onClick={ () => { this.select() } }>select</button>&nbsp;
@@ -339,7 +337,7 @@ export class CrudSample extends React.Component {
             + "&ddlExRollback=" + this.state.ddl.ddlExRollback;
 
         // リクエストしてレスポンスを処理
-        fetch(this.rootUrl + 'SelectCount', {method, headers, body})
+        fetch(CrudSampleRootUrl + 'SelectCount', {method, headers, body})
             .then(response => response.json())
             .then(data =>  {
                 if(data.Message)
@@ -375,7 +373,7 @@ export class CrudSample extends React.Component {
             + "&ddlExRollback=" + this.state.ddl.ddlExRollback;
 
         // リクエストしてレスポンスを処理
-        fetch(this.rootUrl + 'SelectAll_DT', {method, headers, body})
+        fetch(CrudSampleRootUrl + 'SelectAll_DT', {method, headers, body})
             .then(response => response.json())
             .then(data =>  {
                 if(data.Result)
@@ -416,7 +414,7 @@ export class CrudSample extends React.Component {
             + "&ddlExRollback=" + this.state.ddl.ddlExRollback;
 
         // リクエストしてレスポンスを処理
-        fetch(this.rootUrl + 'SelectAll_DS', {method, headers, body})
+        fetch(CrudSampleRootUrl + 'SelectAll_DS', {method, headers, body})
             .then(response => response.json())
             .then(data =>  {
                 if(data.Result)
@@ -457,7 +455,7 @@ export class CrudSample extends React.Component {
             + "&ddlExRollback=" + this.state.ddl.ddlExRollback;
 
         // リクエストしてレスポンスを処理
-        fetch(this.rootUrl + 'SelectAll_DR', {method, headers, body})
+        fetch(CrudSampleRootUrl + 'SelectAll_DR', {method, headers, body})
             .then(response => response.json())
             .then(data =>  {
                 if(data.Result)
@@ -500,7 +498,7 @@ export class CrudSample extends React.Component {
             + "&OrderSequence=" + this.state.ddl.ddlOrderSequence;
 
         // リクエストしてレスポンスを処理
-        fetch(this.rootUrl + 'SelectAll_DSQL', {method, headers, body})
+        fetch(CrudSampleRootUrl + 'SelectAll_DSQL', {method, headers, body})
             .then(response => response.json())
             .then(data =>  {
                 if(data.Result)
@@ -547,7 +545,7 @@ export class CrudSample extends React.Component {
         });
 
         // リクエストしてレスポンスを処理
-        fetch(this.rootUrl + 'Select', {method, headers, body})
+        fetch(CrudSampleRootUrl + 'Select', {method, headers, body})
             .then(response => response.json())
             .then(data =>  {
                 if(data.Result)
@@ -596,7 +594,7 @@ export class CrudSample extends React.Component {
         });
 
         // リクエストしてレスポンスを処理
-        fetch(this.rootUrl + 'Insert', {method, headers, body})
+        fetch(CrudSampleRootUrl + 'Insert', {method, headers, body})
             .then(response => response.json())
             .then(data =>  {
                 if(data.Message)
@@ -638,7 +636,7 @@ export class CrudSample extends React.Component {
         });
 
         // リクエストしてレスポンスを処理
-        fetch(this.rootUrl + 'Update', {method, headers, body})
+        fetch(CrudSampleRootUrl + 'Update', {method, headers, body})
             .then(response => response.json())
             .then(data =>  {
                 if(data.Message)
@@ -680,7 +678,7 @@ export class CrudSample extends React.Component {
         });
 
         // リクエストしてレスポンスを処理
-        fetch(this.rootUrl + 'Delete', {method, headers, body})
+        fetch(CrudSampleRootUrl + 'Delete', {method, headers, body})
             .then(response => response.json())
             .then(data =>  {
                 if(data.Message)

@@ -1,11 +1,12 @@
 import * as React from 'react';
 import 'isomorphic-fetch';
+import {FetchDataRootUrl} from '../const.js';
 
 export class FetchData extends React.Component {
     constructor() {
         super();
         this.state = { forecasts: [], loading: true };
-        fetch('http://localhost:8888/api/sampledata/weatherforecasts?1')
+        fetch(FetchDataRootUrl)
             .then(response => response.json())
             .then(data => {
                 this.setState({ forecasts: data, loading: false });

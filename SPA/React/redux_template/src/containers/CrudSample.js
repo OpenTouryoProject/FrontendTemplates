@@ -4,15 +4,16 @@ import CrudSample from '../components/CrudSample';
 
 const mapStateToProps = state => {
   return {
-    isLoading: state.CrudSampleReducer.isLoading,
-    forecasts: state.CrudSampleReducer.forecasts,
-    startDateIndex: state.CrudSampleReducer.startDateIndex
+    message : state.CrudSampleReducer.message,
+    shipper : state.CrudSampleReducer.shipper,
+    shippers : state.CrudSampleReducer.shippers,
+    loading: state.CrudSampleReducer.loading
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    GET_DATA_ASYNC: (startDateIndex) => dispatch(actions.GET_DATA_ASYNC(startDateIndex)),
+    SELECT_COUNT_ASYNC: (startDateIndex) => dispatch(actions.SELECT_COUNT_ASYNC(startDateIndex)),
   }
 }
 

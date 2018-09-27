@@ -1,23 +1,25 @@
+import {FetchDataRootUrl} from '../const.js';
+
 // fetchの開始前
-export const GET_POSTS_REQUEST = () => {
+export const PRE_REQUEST = () => {
   return {
-    type: 'GET_POSTS_REQUEST'
+    type: 'PRE_REQUEST'
   }
 };
 
 // fetchの成功
-export const GET_POSTS_SUCCESS = (data, startDateIndex) => {
+export const REQUEST_SUCCESS = (data, startDateIndex) => {
   return {
-    type: 'GET_POSTS_SUCCESS',
+    type: 'REQUEST_SUCCESS',
     forecasts: data,
     startDateIndex: startDateIndex
   }
 };
 
 // fetchの失敗
-export const GET_POSTS_FAILURE = (error) => {
+export const REQUEST_FAILURE = (error) => {
   return {
-    type: 'GET_POSTS_FAILURE',
+    type: 'REQUEST_FAILURE',
     error: error
   }
 };
@@ -27,26 +29,26 @@ export const GET_DATA_ASYNC = (startDateIndex) => {
   return (dispatch) => {
 
     // URL
-    let url = 'http://localhost:8888/api/sampledata/weatherforecasts?' + startDateIndex;
+    let url = FetchDataRootUrl + startDateIndex;
     console.log("GET_DATA_ASYNC > url: " + url);
 
     // リクエスト開始前処理
-    dispatch(GET_POSTS_REQUEST());
+    dispatch(PRE_REQUEST());
 
     // fetchする。
     fetch(url)　
     .then(response => response.json())
     .then(data => 
       {
-        console.log("GET_DATA_ASYNC > GET_POSTS_SUCCESS: " + JSON.stringify(data));
-        dispatch(GET_POSTS_SUCCESS(data, startDateIndex));
+        console.log("GET_DATA_ASYNC > REQUEST_SUCCESS: " + JSON.stringify(data));
+        dispatch(REQUEST_SUCCESS(data, startDateIndex));
       }
     )
     .catch(
       // 異常系
       error => {
-        console.log("GET_DATA_ASYNC > GET_POSTS_FAILURE: " + JSON.stringify(error));
-        dispatch(GET_POSTS_FAILURE(error));
+        console.log("GET_DATA_ASYNC > REQUEST_FAILURE: " + JSON.stringify(error));
+        dispatch(REQUEST_FAILURE(error));
       }
     );
   }

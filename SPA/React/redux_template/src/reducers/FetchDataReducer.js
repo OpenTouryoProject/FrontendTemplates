@@ -8,7 +8,7 @@ const FetchDataReducer = (state = initialState, action) => {
   
   switch (action.type) {
     
-    case 'GET_POSTS_REQUEST':
+    case 'PRE_REQUEST':
       // stateを複製して
       newState = Object.assign({}, state);
       // isLoadingをtrueにする
@@ -18,9 +18,9 @@ const FetchDataReducer = (state = initialState, action) => {
 
       return newState;
       
-    case 'GET_POSTS_SUCCESS':
+    case 'REQUEST_SUCCESS':
     
-      console.log("GET_POSTS_SUCCESS: " + JSON.stringify(action.forecasts));
+      console.log("REQUEST_SUCCESS: " + JSON.stringify(action.forecasts));
 
       // stateを複製して
       newState = Object.assign({}, state);
@@ -33,7 +33,7 @@ const FetchDataReducer = (state = initialState, action) => {
 
       return newState;
 
-    case 'GET_POSTS_FAILURE':
+    case 'REQUEST_FAILURE':
       // stateを複製して
       newState = Object.assign({}, state);
       // isLoadingをfalseにして、値をセット。
