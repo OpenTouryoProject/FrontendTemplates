@@ -80,13 +80,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\OpenTouryo\root\programs\CS\Frameworks\Infrastructure\Build\OpenTouryo.Business.dll</HintPath>
     </Reference>
-    <Reference Include="OpenTouryo.Framework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\OpenTouryo\root\programs\CS\Frameworks\Infrastructure\Build\OpenTouryo.Framework.dll</HintPath>
+    <Reference Include="OpenTouryo.Framework, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Touryo.Infrastructure.Framework.2.3.0\lib\net46\OpenTouryo.Framework.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="OpenTouryo.Public, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\OpenTouryo\root\programs\CS\Frameworks\Infrastructure\Build\OpenTouryo.Public.dll</HintPath>
+    <Reference Include="OpenTouryo.Public, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Touryo.Infrastructure.Public.2.3.0\lib\net46\OpenTouryo.Public.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
@@ -174,11 +174,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Logic\Business\LayerB.cs" />
-    <Compile Include="Logic\Common\TestParameterValue.cs" />
-    <Compile Include="Logic\Common\TestReturnValue.cs" />
-    <Compile Include="Logic\Dao\DaoShippers.cs" />
-    <Compile Include="Logic\Dao\LayerD.cs" />
     <Compile Include="Models\ViewModels\BaseViewModel.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
     <Compile Include="Models\WebApiParams.cs" />

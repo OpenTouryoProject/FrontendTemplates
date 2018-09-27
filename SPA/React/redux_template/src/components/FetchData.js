@@ -16,7 +16,7 @@ export default class FetchData extends React.Component {
         let startDateIndex = parseInt(nextProps.match.params.startDateIndex) || 1;
 
         // 無限ループ（stack overflow）防止
-        if(startDateIndex != nextProps.startDateIndex) {
+        if(startDateIndex !== nextProps.startDateIndex) {
             this.props.GET_DATA_ASYNC(startDateIndex);
         }
     }
