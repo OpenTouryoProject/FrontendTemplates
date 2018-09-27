@@ -1,6 +1,5 @@
 import * as React from 'react';
 import 'isomorphic-fetch';
-import cloneDeep from 'lodash/cloneDeep'
 
 export class CrudSample extends React.Component {
     // constructor
@@ -278,56 +277,46 @@ export class CrudSample extends React.Component {
 
     // drop down list
     onChangeDdlDap(e){
-        var ddl = cloneDeep(this.state.ddl);
-        ddl.ddlDap = e.target.value;
-        this.setState({ddl: ddl});
+        this.state.ddl.ddlDap = e.target.value;
+        this.setState({ddl: this.state.ddl});
     }
     onChangeDdlMode1(e){
-        var ddl = cloneDeep(this.state.ddl);
-        ddl.ddlMode1 = e.target.value;
-        this.setState({ddl: ddl});
+        this.state.ddl.ddlMode1 = e.target.value;
+        this.setState({ddl: this.state.ddl});
     }
     onChangeDdlMode2(e){
-        var ddl = cloneDeep(this.state.ddl);
-        ddl.ddlMode2 = e.target.value;
-        this.setState({ddl: ddl});
+        this.state.ddl.ddlMode2 = e.target.value;
+        this.setState({ddl: this.state.ddl});
     }
     onChangeDdlIso(e){
-        var ddl = cloneDeep(this.state.ddl);
-        ddl.ddlIso = e.target.value;
-        this.setState({ddl: ddl});
+        this.state.ddl.ddlIso = e.target.value;
+        this.setState({ddl: this.state.ddl});
     }
     onChangeDdlExRollback(e){
-        var ddl = cloneDeep(this.state.ddl);
-        ddl.ddlExRollback = e.target.value;
-        this.setState({ddl: ddl});
+        this.state.ddl.ddlExRollback = e.target.value;
+        this.setState({ddl: this.state.ddl});
     }
     onChangeDdlOrder(e){
-        var ddl = cloneDeep(this.state.ddl);
-        ddl.ddlOrder = e.target.value;
-        this.setState({ddl: ddl});
+        this.state.ddl.ddlOrder = e.target.value;
+        this.setState({ddl: this.state.ddl});
     }
     onChangeDdlOrderSequence(e){
-        var ddl = cloneDeep(this.state.ddl);
-        ddl.ddlOrderSequence = e.target.value;
-        this.setState({ddl: ddl});
+        this.state.ddl.ddlOrderSequence = e.target.value;
+        this.setState({ddl: this.state.ddl});
     }
 
     // input type text
     onChangeShipperID(e){
-        var shipper = cloneDeep(this.state.shipper);
-        shipper.shipperID = e.target.value;
-        this.setState({shipper: shipper});
+        this.state.shipper.shipperID = e.target.value;
+        this.setState({shipper: this.state.shipper});
     }
     onChangeCompanyName(e){
-        var shipper = cloneDeep(this.state.shipper);
-        shipper.companyName = e.target.value;
-        this.setState({shipper: shipper});
+        this.state.shipper.companyName = e.target.value;
+        this.setState({shipper: this.state.shipper});
     }
     onChangePhone(e){
-        var shipper = cloneDeep(this.state.shipper);
-        shipper.phone = e.target.value;
-        this.setState({shipper: shipper});
+        this.state.shipper.phone = e.target.value;
+        this.setState({shipper: this.state.shipper});
     }
 
     // event handler (WebAPI)
