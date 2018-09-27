@@ -2,19 +2,8 @@ import * as React from 'react';
 
 export default class CrudSample extends React.Component {
     // constructor
-    constructor() {
-        super();
-        this.state = {
-            ddl : {
-                ddlDap: "SQL",
-                ddlMode1: "individual",
-                ddlMode2: "static",
-                ddlIso: "NT",
-                ddlExRollback: "-",
-                ddlOrder: "c1",
-                ddlOrderSequence: "A"
-            }
-        };
+    constructor(props) {
+        super(props);
 
         // 以下はRedux（prop）化
         /*
@@ -31,9 +20,20 @@ export default class CrudSample extends React.Component {
                 companyName: "",
                 phone: ""
             }
-        ],
-        loading: true
+        ]
         */
+
+        this.state = {
+            ddl : {
+                ddlDap: "SQL",
+                ddlMode1: "individual",
+                ddlMode2: "static",
+                ddlIso: "NT",
+                ddlExRollback: "-",
+                ddlOrder: "c1",
+                ddlOrderSequence: "A"
+            }
+        };
 
         this.rootUrl = 'http://localhost:8888/api/json/';
 
@@ -100,11 +100,6 @@ export default class CrudSample extends React.Component {
         this.onChangeDdlExRollback = this.onChangeDdlExRollback.bind(this);
         this.onChangeDdlOrder = this.onChangeDdlOrder.bind(this);
         this.onChangeDdlOrderSequence = this.onChangeDdlOrderSequence.bind(this);
-        
-        // input type text
-        this.onChangeShipperID = this.onChangeShipperID.bind(this);
-        this.onChangeCompanyName = this.onChangeCompanyName.bind(this);
-        this.onChangePhone = this.onChangePhone.bind(this);
     }
 
     componentWillMount() {
@@ -127,7 +122,8 @@ export default class CrudSample extends React.Component {
         };
 
         let contents = null;
-        if(this.props.loading)
+
+        if(!this.props.shippers)
         {
             contents = <p><em>...Table...</em></p>;
         }
@@ -148,7 +144,17 @@ export default class CrudSample extends React.Component {
                 <p>処理結果：{this.props.message}</p>
             </div>
             <div>
-                <button className='btn' onClick={ () => { this.props.SELECT_COUNT_ASYNC(this.state.ddl) } }>SelectCount</button>&nbsp;                
+                <button className='btn' onClick={ () => { this.props.SELECT_COUNT_ASYNC(this.state.ddl) } }>SelectCount</button>&nbsp;
+                <button className='btn' onClick={ () => { this.props.SELECT_ALL_DT_ASYNC(this.state.ddl) } }>SelectAll_DT</button>&nbsp;
+                <button className='btn' onClick={ () => { this.props.SELECT_ALL_DS_ASYNC(this.state.ddl) } }>SelectAll_DS</button>&nbsp;
+                <button className='btn' onClick={ () => { this.props.SELECT_ALL_DR_ASYNC(this.state.ddl) } }>SelectAll_DR</button>&nbsp;
+                <button className='btn' onClick={ () => { this.props.SELECT_ALL_DSQL_ASYNC(this.state.ddl) } }>SelectAll_DSQL</button>
+            </div>
+            <div>
+                <button className='btn' onClick={ () => { this.props.SELECT_ASYNC(this.state.ddl, this.props.shipper) } }>Select</button>&nbsp;
+                <button className='btn' onClick={ () => { this.props.INSERT_ASYNC(this.state.ddl, this.props.shipper) } }>Insert</button>&nbsp;
+                <button className='btn' onClick={ () => { this.props.UPDATE_ASYNC(this.state.ddl, this.props.shipper) } }>Update</button>&nbsp;
+                <button className='btn' onClick={ () => { this.props.DELETE_ASYNC(this.state.ddl, this.props.shipper) } }>Delete</button>
             </div>
         </div>;
     }
@@ -241,36 +247,28 @@ export default class CrudSample extends React.Component {
                 <tr>
                     <td>ShipperID：</td>
                     <td>
-                        <p><label><input type="text" id="txtShipperID" value={shipper.shipperID} onChange={this.onChangeShipperID}/></label></p>            
+                        <p><label><input type="text" id="txtShipperID" value={shipper.shipperID}
+                            defaultValue={shipper.shipperID} onChange={this.props.CHANGE_SHIPPER_SHIPPERID}/></label></p>            
                     </td>
                 </tr>
                 <tr>
                     <td>CompanyName：</td>
                     <td>
-                        <p><label><input type="text" id="txtCompanyName" value={shipper.companyName} onChange={this.onChangeCompanyName}/></label></p>
+                        <p><label><input type="text" id="txtCompanyName" value={shipper.companyName}
+                            defaultValue={shipper.companyName} onChange={this.props.CHANGE_SHIPPER_COMPANYNAME}/></label></p>
                     </td>
                 </tr>
                 <tr>
                     <td>Phone：</td>
                     <td>
-                        <p><label><input type="text" id="txtPhone" value={shipper.phone} onChange={this.onChangePhone}/></label></p>
+                        <p><label><input type="text" id="txtPhone" value={shipper.phone}
+                            defaultValue={shipper.phone} onChange={this.props.CHANGE_SHIPPER_PHONE}/></label></p>
                     </td>
                 </tr>
             </tbody>
         </table>;
     }
     renderTable(shippers) {
-        if(!shippers)
-        {
-            shippers = [
-                {
-                    shipperID: "a",
-                    companyName: "a",
-                    phone: "a"
-                }
-            ]
-        }
-
         return <table className='table'>
             <thead>
                 <tr>
@@ -321,19 +319,5 @@ export default class CrudSample extends React.Component {
     onChangeDdlOrderSequence(e){
         this.state.ddl.ddlOrderSequence = e.target.value;
         this.setState({ddl: this.state.ddl});
-    }
-
-    // input type text
-    onChangeShipperID(e){
-        this.state.shipper.shipperID = e.target.value;
-        this.setState({shipper: this.state.shipper});
-    }
-    onChangeCompanyName(e){
-        this.state.shipper.companyName = e.target.value;
-        this.setState({shipper: this.state.shipper});
-    }
-    onChangePhone(e){
-        this.state.shipper.phone = e.target.value;
-        this.setState({shipper: this.state.shipper});
     }
 }

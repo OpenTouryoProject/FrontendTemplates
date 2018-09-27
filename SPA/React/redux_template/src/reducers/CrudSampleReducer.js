@@ -1,46 +1,132 @@
 const initialState = {
   message : "",
-  isLoading: false
+  shipper : {
+    shipperID: "",
+    companyName: "",
+    phone: ""
+  }
 }
 
 const CrudSampleReducer = (state = initialState, action) => {
 
-  var newState = null;
-  
+  // stateを複製して
+  let newState = Object.assign({}, state);
+
+  let shipperID = null;
+  let companyName = null;
+  let phone = null;
+
+  if(newState.shipper)
+  {
+    shipperID = newState.shipper.shipperID || "";
+    companyName = newState.shipper.companyName || "";
+    phone = newState.shipper.phone || "";
+  }
+
   switch (action.type) {
+    case 'CHANGE_SHIPPER_SHIPPERID':
+      // 値をセット。
+      newState = {
+        shipper: {
+          shipperID: action.shipper.shipperID,
+          companyName: companyName,
+          phone: phone
+        },
+        shippers: newState.shippers
+      };
+
+      return newState;
     
+    case 'CHANGE_SHIPPER_COMPANYNAME':
+      // 値をセット。
+      newState = {
+        shipper: {
+          shipperID: shipperID,
+          companyName: action.shipper.companyName,
+          phone: phone
+        },
+        shippers: newState.shippers
+      };
+
+      return newState;
+
+    case 'CHANGE_SHIPPER_PHONE':
+      // 値をセット。
+      newState = {
+        shipper: {
+          shipperID: shipperID,
+          companyName: companyName,
+          phone: action.shipper.phone
+        },
+        shippers: newState.shippers
+      };
+
+      return newState;
+
+      //////////////////////////////////////////////////
+
     case 'PRE_REQUEST':
-      // stateを複製して
-      newState = Object.assign({}, state);
-      // isLoadingをtrueにする
+      // 値をセット。
       newState = {
-        isLoading: true,
-        message : ""
+        message : "",
+        shipper: {
+          shipperID: shipperID,
+          companyName: companyName,
+          phone: phone
+        },
+        shippers: newState.shippers
       };
 
       return newState;
-      
+
     case 'REQUEST_FAILURE':
-      // stateを複製して
-      newState = Object.assign({}, state);
-      // isLoadingをfalseにして、値をセット。
+      // 値をセット。
       newState = {
-        isLoading: false,
-        message: action.message
+        message: action.message,
+        shippers: newState.shippers
       };
 
       return newState;
 
-    case 'SELECT_COUNT_SUCCESS':
-    
-      console.log("REQUEST_SUCCESS: " + JSON.stringify(action));
-
-      // stateを複製して
-      newState = Object.assign({}, state);
-      // isLoadingをfalseにして、値をセット。
+    case 'REQUEST_SUCCESS':
+      // 値をセット。
       newState = {
-        isLoading: false,
-        message: action.message
+        message: action.message,
+        shipper: {
+          shipperID: shipperID,
+          companyName: companyName,
+          phone: phone
+        },
+        shippers: newState.shippers
+      };
+
+      return newState;
+
+      //////////////////////////////////////////////////
+
+    case 'SELECT_ALL_SUCCESS':
+      // 値をセット。
+      newState = {
+        shipper: {
+          shipperID: shipperID,
+          companyName: companyName,
+          phone: phone
+        },
+        shippers: action.shippers
+      };
+
+      return newState;
+
+    case 'SELECT_SUCCESS':
+      // 値をセット。
+      newState = {
+        shipper: 
+        {
+          shipperID: action.shipper.ShipperID,
+          companyName: action.shipper.CompanyName,
+          phone: action.shipper.Phone
+        },
+        shippers: newState.shippers
       };
 
       return newState;
