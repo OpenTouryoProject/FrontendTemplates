@@ -1,4 +1,4 @@
-﻿var rootUrl = 'http://localhost:8888/JsonController/';
+﻿var rootUrl = 'http://localhost:8888/api/json/';
 
 function Sample1ViewModel() {
     // shippers テーブルのレコードリスト (JSON 形式)
@@ -103,7 +103,7 @@ function Sample1ViewModel() {
             url: rootUrl + 'SelectCount',
             crossDomain: true,
             headers: {
-                'Authorization': 'Bearer ' + token
+                Authorization: 'Bearer ' + token
             },
             data: param,
             dataType: 'json',
@@ -111,15 +111,15 @@ function Sample1ViewModel() {
                 withCredentials: true
             },
             success: function (data, dataType) {
-                if (data.Message != undefined) {
+                if (data.Message !== undefined) {
                     // 正常終了
                     self.Result(data.Message);
                 }
-                else if (data.ErrorMSG != undefined) {
+                else if (data.ErrorMSG !== undefined) {
                     // 業務例外
                     self.ErrorMessage(JSON.stringify(data.ErrorMSG));
                 }
-                else if (data.ExceptionMSG != undefined) {
+                else if (data.ExceptionMSG !== undefined) {
                     // その他例外
                     self.ErrorMessage(JSON.stringify(data.ExceptionMSG));
                 }
@@ -152,7 +152,7 @@ function Sample1ViewModel() {
             url: rootUrl + 'SelectAll_DT',
             crossDomain: true,
             headers: {
-                'Authorization': 'Bearer ' + token
+                Authorization: 'Bearer ' + token
             },
             data: param,
             dataType: 'json',
@@ -160,16 +160,16 @@ function Sample1ViewModel() {
                 withCredentials: true
             },
             success: function (data, dataType) {
-                if (data.Message != undefined) {
+                if (data.Message !== undefined) {
                     // 正常終了
                     self.ClearList();
                     self.dataLists(data.Result);
                 }
-                else if (data.ErrorMSG != undefined) {
+                else if (data.ErrorMSG !== undefined) {
                     // 業務例外
                     self.ErrorMessage(JSON.stringify(data.ErrorMSG));
                 }
-                else if (data.ExceptionMSG != undefined) {
+                else if (data.ExceptionMSG !== undefined) {
                     // その他例外
                     self.ErrorMessage(JSON.stringify(data.ExceptionMSG));
                 }
@@ -201,7 +201,7 @@ function Sample1ViewModel() {
             url: rootUrl + 'SelectAll_DS',
             crossDomain: true,
             headers: {
-                'Authorization': 'Bearer ' + token
+                Authorization: 'Bearer ' + token
             },
             data: param,
             dataType: 'json',
@@ -209,16 +209,16 @@ function Sample1ViewModel() {
                 withCredentials: true
             },
             success: function (data, dataType) {
-                if (data.Message != undefined) {
+                if (data.Message !== undefined) {
                     // 正常終了
                     self.ClearList();
                     self.dataLists(data.Result);
                 }
-                else if (data.ErrorMSG != undefined) {
+                else if (data.ErrorMSG !== undefined) {
                     // 業務例外
                     self.ErrorMessage(JSON.stringify(data.ErrorMSG));
                 }
-                else if (data.ExceptionMSG != undefined) {
+                else if (data.ExceptionMSG !== undefined) {
                     // その他例外
                     self.ErrorMessage(JSON.stringify(data.ExceptionMSG));
                 }
@@ -250,7 +250,7 @@ function Sample1ViewModel() {
             url: rootUrl + 'SelectAll_DR',
             crossDomain: true,
             headers: {
-                'Authorization': 'Bearer ' + token
+                Authorization: 'Bearer ' + token
             },
             data: param,
             dataType: 'json',
@@ -258,16 +258,16 @@ function Sample1ViewModel() {
                 withCredentials: true
             },
             success: function (data, dataType) {
-                if (data.Message != undefined) {
+                if (data.Message !== undefined) {
                     // 正常終了
                     self.ClearList();
                     self.dataLists(data.Result);
                 }
-                else if (data.ErrorMSG != undefined) {
+                else if (data.ErrorMSG !== undefined) {
                     // 業務例外
                     self.ErrorMessage(JSON.stringify(data.ErrorMSG));
                 }
-                else if (data.ExceptionMSG != undefined) {
+                else if (data.ExceptionMSG !== undefined) {
                     // その他例外
                     self.ErrorMessage(JSON.stringify(data.ExceptionMSG));
                 }
@@ -301,7 +301,7 @@ function Sample1ViewModel() {
             url: rootUrl + 'SelectAll_DSQL',
             crossDomain: true,
             headers: {
-                'Authorization': 'Bearer ' + token
+                Authorization: 'Bearer ' + token
             },
             data: param,
             dataType: 'json',
@@ -309,16 +309,16 @@ function Sample1ViewModel() {
                 withCredentials: true
             },
             success: function (data, dataType) {
-                if (data.Message != undefined) {
+                if (data.Message !== undefined) {
                     // 正常終了
                     self.ClearList();
                     self.dataLists(data.Result);
                 }
-                else if (data.ErrorMSG != undefined) {
+                else if (data.ErrorMSG !== undefined) {
                     // 業務例外
                     self.ErrorMessage(JSON.stringify(data.ErrorMSG));
                 }
-                else if (data.ExceptionMSG != undefined) {
+                else if (data.ExceptionMSG !== undefined) {
                     // その他例外
                     self.ErrorMessage(JSON.stringify(data.ExceptionMSG));
                 }
@@ -345,7 +345,7 @@ function Sample1ViewModel() {
             Shipper: {
                 ShipperID: this.ShipperID(),
                 CompanyName: "",
-                Phone: "",
+                Phone: ""
             }
         };
 
@@ -355,7 +355,7 @@ function Sample1ViewModel() {
             url: rootUrl + 'Select',
             crossDomain: true,
             headers: {
-                'Authorization': 'Bearer ' + token
+                Authorization: 'Bearer ' + token
             },
             data: JSON.stringify(param),
             dataType: 'json',
@@ -364,17 +364,17 @@ function Sample1ViewModel() {
                 withCredentials: true
             },
             success: function (data, dataType) {
-                if (data.Message != undefined) {
+                if (data.Message !== undefined) {
                     // 正常終了
                     self.ShipperID(data.Result.ShipperID);
                     self.CompanyName(data.Result.CompanyName);
                     self.Phone(data.Result.Phone);
                 }
-                else if (data.ErrorMSG != undefined) {
+                else if (data.ErrorMSG !== undefined) {
                     // 業務例外
                     self.ErrorMessage(JSON.stringify(data.ErrorMSG));
                 }
-                else if (data.ExceptionMSG != undefined) {
+                else if (data.ExceptionMSG !== undefined) {
                     // その他例外
                     self.ErrorMessage(JSON.stringify(data.ExceptionMSG));
                 }
@@ -411,7 +411,7 @@ function Sample1ViewModel() {
             url: rootUrl + 'Insert',
             crossDomain: true,
             headers: {
-                'Authorization': 'Bearer ' + token
+                Authorization: 'Bearer ' + token
             },
             data: JSON.stringify(param),
             dataType: 'json',
@@ -420,15 +420,15 @@ function Sample1ViewModel() {
                 withCredentials: true
             },
             success: function (data, dataType) {
-                if (data.Message != undefined) {
+                if (data.Message !== undefined) {
                     // 正常終了
                     self.Result(data.Message);
                 }
-                else if (data.ErrorMSG != undefined) {
+                else if (data.ErrorMSG !== undefined) {
                     // 業務例外
                     self.ErrorMessage(JSON.stringify(data.ErrorMSG));
                 }
-                else if (data.ExceptionMSG != undefined) {
+                else if (data.ExceptionMSG !== undefined) {
                     // その他例外
                     self.ErrorMessage(JSON.stringify(data.ExceptionMSG));
                 }
@@ -464,7 +464,7 @@ function Sample1ViewModel() {
             url: rootUrl + 'Update',
             crossDomain: true,
             headers: {
-                'Authorization': 'Bearer ' + token
+                Authorization: 'Bearer ' + token
             },
             data: JSON.stringify(param),
             dataType: 'json',
@@ -473,15 +473,15 @@ function Sample1ViewModel() {
                 withCredentials: true
             },
             success: function (data, dataType) {
-                if (data.Message != undefined) {
+                if (data.Message !== undefined) {
                     // 正常終了
                     self.Result(data.Message);
                 }
-                else if (data.ErrorMSG != undefined) {
+                else if (data.ErrorMSG !== undefined) {
                     // 業務例外
                     self.ErrorMessage(JSON.stringify(data.ErrorMSG));
                 }
-                else if (data.ExceptionMSG != undefined) {
+                else if (data.ExceptionMSG !== undefined) {
                     // その他例外
                     self.ErrorMessage(JSON.stringify(data.ExceptionMSG));
                 }
@@ -508,7 +508,7 @@ function Sample1ViewModel() {
             Shipper: {
                 ShipperID: this.ShipperID(),
                 CompanyName: "",
-                Phone: "",
+                Phone: ""
             }
         };
 
@@ -518,7 +518,7 @@ function Sample1ViewModel() {
             url: rootUrl + 'Delete',
             crossDomain: true,
             headers: {
-                'Authorization': 'Bearer ' + token
+                Authorization: 'Bearer ' + token
             },
             data: JSON.stringify(param),
             dataType: 'json',
@@ -527,15 +527,15 @@ function Sample1ViewModel() {
                 withCredentials: true
             },
             success: function (data, dataType) {
-                if (data.Message != undefined) {
+                if (data.Message !== undefined) {
                     // 正常終了
                     self.Result(data.Message);
                 }
-                else if (data.ErrorMSG != undefined) {
+                else if (data.ErrorMSG !== undefined) {
                     // 業務例外
                     self.ErrorMessage(JSON.stringify(data.ErrorMSG));
                 }
-                else if (data.ExceptionMSG != undefined) {
+                else if (data.ExceptionMSG !== undefined) {
                     // その他例外
                     self.ErrorMessage(JSON.stringify(data.ExceptionMSG));
                 }

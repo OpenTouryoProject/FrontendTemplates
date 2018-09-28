@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -16,7 +17,7 @@ namespace UWP_Sample.Xaml
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        public string rootUrl = "http://localhost:8888/JsonController/";
+        public string rootUrl = "http://localhost:8888/api/json/";
 
         /// <summary>constructor</summary>
         public MainPage()
@@ -61,6 +62,7 @@ namespace UWP_Sample.Xaml
                 // Request Header を定義する
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new HttpMediaTypeWithQualityHeaderValue("application/json"));
+                //client.DefaultRequestHeaders.Authorization = new HttpCredentialsHeaderValue("Bearer", "xxxxxxxxxx"); // テスト用
 
                 // Web API に送信するデータを構築する
                 HttpFormUrlEncodedContent content = new HttpFormUrlEncodedContent(new Dictionary<string, string>

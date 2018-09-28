@@ -4,208 +4,71 @@
         <name>OpenTouryo.Business</name>
     </assembly>
     <members>
-        <member name="T:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue">
-            <summary>
-            Paramter Value class for Asynchronous Processing Service
-            </summary>
-        </member>
-        <member name="T:Touryo.Infrastructure.Business.Common.MyParameterValue">
-            <summary>引数親クラス２</summary>
+        <member name="T:Touryo.Infrastructure.Business.Business.MyBaseLogic">
+            <summary>業務コード親クラス２（サーバ用）（テンプレート）</summary>
             <remarks>
-            シリアライズ可能にする（WS対応）自由に（拡張して）利用できる。
+            （オーバーライドして）自由に利用できる。
+            ※ 下位互換のために残してあります。
             </remarks>
         </member>
-        <member name="F:Touryo.Infrastructure.Business.Common.MyParameterValue._user">
-            <summary>ユーザ情報</summary>
+        <member name="F:Touryo.Infrastructure.Business.Business.MyBaseLogic.perfRec">
+            <summary>性能測定</summary>
         </member>
-        <member name="M:Touryo.Infrastructure.Business.Common.MyParameterValue.#ctor(System.String,System.String,System.String,Touryo.Infrastructure.Business.Util.MyUserInfo)">
-            <summary>コンストラクタ</summary>
-            <param name="screenId">スクリーンID</param>
-            <param name="controlId">コントロールID</param>
-            <param name="actionType">アクションタイプ</param>
-            <param name="user">ユーザ情報</param>
-            <remarks>
-            コンストラクタは継承されないので、派生先で呼び出す必要がある。
-            ※ コンストラクタの実行順は、基本クラス→派生クラスの順
-            ※ VB.NET では、MyBase.New() を派生クラスのコンストラクタから呼ぶ。
-            自由に利用できる（互換性の維持）。
-            </remarks>
+        <member name="M:Touryo.Infrastructure.Business.Business.MyBaseLogic.UOC_ConnectionOpen(Touryo.Infrastructure.Framework.Common.BaseParameterValue,Touryo.Infrastructure.Public.Db.DbEnum.IsolationLevelEnum)">
+            <summary>データアクセス制御クラス（ＤＡＭ）の生成し、コネクションを確立、トランザクションを開始する処理を実装</summary>
+            <param name="parameterValue">引数クラス</param>
+            <param name="iso">分離レベル（ＤＢＭＳ毎の分離レベルの違いを理解して設定すること）</param>
+            <remarks>業務コード親クラス１から利用される派生の末端</remarks>
         </member>
-        <member name="M:Touryo.Infrastructure.Business.Common.MyParameterValue.#ctor(System.String,System.String,System.String,System.String,Touryo.Infrastructure.Business.Util.MyUserInfo)">
-            <summary>コンストラクタ</summary>
-            <param name="screenId">スクリーンID</param>
-            <param name="controlId">コントロールID</param>
-            <param name="methodName">メソッド名</param>
-            <param name="actionType">アクションタイプ</param>
-            <param name="user">ユーザ情報</param>
-            <remarks>
-            コンストラクタは継承されないので、派生先で呼び出す必要がある。
-            ※ コンストラクタの実行順は、基本クラス→派生クラスの順
-            ※ VB.NET では、MyBase.New() を派生クラスのコンストラクタから呼ぶ。
-            自由に利用できる。
-            </remarks>
-        </member>
-        <member name="P:Touryo.Infrastructure.Business.Common.MyParameterValue.User">
-            <summary>ユーザ情報（読み取り専用）</summary>
-            <remarks>自由に利用できる。</remarks>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue.Obj">
-            <summary>汎用エリア</summary>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue.TaskId">
-            <summary>TaskId</summary>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue.UserId">
-            <summary>UserId</summary>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue.ProcessName">
-            <summary>ProcessName</summary>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue.Data">
-            <summary>Data</summary>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue.RegistrationDateTime">
-            <summary>RegistrationDateTime</summary>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue.ExecutionStartDateTime">
-            <summary>ExecutionStartDateTime</summary>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue.NumberOfRetries">
-            <summary>NumberOfRetries</summary>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue.ProgressRate">
-            <summary>ProgressRate</summary>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue.StatusId">
-            <summary>Status</summary>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue.CompletionDateTime">
-            <summary>CompletionDateTime</summary>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue.CommandId">
-            <summary>CommandId</summary>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue.ReservedArea">
-            <summary>ReservedArea</summary>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue.ExceptionInfo">
-            <summary>ExceptionInfo</summary>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue.#ctor(System.String,System.String,System.String,System.String,Touryo.Infrastructure.Business.Util.MyUserInfo)">
-            <summary>コンストラクタ</summary>
-        </member>
-        <member name="T:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue.AsyncStatus">
+        <member name="M:Touryo.Infrastructure.Business.Business.MyBaseLogic.UOC_PreAction(Touryo.Infrastructure.Framework.Common.BaseParameterValue)">
             <summary>
-            AsyncStatus Enum for storing all status
+            Ｂ層の開始処理を実装
             </summary>
+            <param name="parameterValue">引数クラス</param>
+            <remarks>業務コード親クラス１から利用される派生の末端</remarks>
         </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue.AsyncStatus.Register">
-            <summary>Register</summary>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue.AsyncStatus.Processing">
-            <summary>Processing</summary>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue.AsyncStatus.End">
-            <summary>End</summary>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue.AsyncStatus.AbnormalEnd">
-            <summary>AbnormalEnd</summary>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue.AsyncStatus.Abort">
-            <summary>Abort</summary>
-        </member>
-        <member name="T:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue.AsyncCommand">
+        <member name="M:Touryo.Infrastructure.Business.Business.MyBaseLogic.UOC_AfterAction(Touryo.Infrastructure.Framework.Common.BaseParameterValue,Touryo.Infrastructure.Framework.Common.BaseReturnValue)">
             <summary>
-            AsyncCommand Enum for storing command values
+            Ｂ層の終了処理を実装
             </summary>
+            <param name="parameterValue">引数クラス</param>
+            <param name="returnValue">戻り値クラス</param>
+            <remarks>業務コード親クラス１から利用される派生の末端</remarks>
         </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue.AsyncCommand.Stop">
-            <summary>Stop</summary>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue.AsyncCommand.Abort">
-            <summary>Abort</summary>
-        </member>
-        <member name="T:Touryo.Infrastructure.Business.AsyncProcessingService.StringValueAttribute">
+        <member name="M:Touryo.Infrastructure.Business.Business.MyBaseLogic.UOC_AfterTransaction(Touryo.Infrastructure.Framework.Common.BaseParameterValue,Touryo.Infrastructure.Framework.Common.BaseReturnValue)">
             <summary>
-             To get the string value
+            Ｂ層のトランザクションのコミット後の終了処理を実装
             </summary>
+            <param name="parameterValue">引数クラス</param>
+            <param name="returnValue">戻り値クラス</param>
+            <remarks>業務コード親クラス１から利用される派生の末端</remarks>
         </member>
-        <member name="M:Touryo.Infrastructure.Business.AsyncProcessingService.StringValueAttribute.#ctor(System.String)">
-            <summary>StringValueAttribute</summary>
-            <param name="value">value</param>
-        </member>
-        <member name="P:Touryo.Infrastructure.Business.AsyncProcessingService.StringValueAttribute.Value">
-            <summary>Value</summary>
-        </member>
-        <member name="T:Touryo.Infrastructure.Business.AsyncProcessingService.StringEnum">
+        <member name="M:Touryo.Infrastructure.Business.Business.MyBaseLogic.UOC_ABEND(Touryo.Infrastructure.Framework.Common.BaseParameterValue,Touryo.Infrastructure.Framework.Common.BaseReturnValue,Touryo.Infrastructure.Framework.Exceptions.BusinessApplicationException)">
             <summary>
-             Class that holds the Enum values string
+            Ｂ層の業務例外による異常終了の後処理を実装するUOCメソッド。
             </summary>
+            <param name="parameterValue">引数クラス</param>
+            <param name="returnValue">戻り値クラス</param>
+            <param name="baEx">BusinessApplicationException</param>
+            <remarks>業務コード親クラス１から利用される派生の末端</remarks>
         </member>
-        <member name="M:Touryo.Infrastructure.Business.AsyncProcessingService.StringEnum.GetStringValue(System.Enum)">
+        <member name="M:Touryo.Infrastructure.Business.Business.MyBaseLogic.UOC_ABEND(Touryo.Infrastructure.Framework.Common.BaseParameterValue,Touryo.Infrastructure.Framework.Common.BaseReturnValue,Touryo.Infrastructure.Framework.Exceptions.BusinessSystemException)">
             <summary>
-             To get the string value from Enum value
+            Ｂ層のシステム例外による異常終了の後処理を実装するUOCメソッド。
             </summary>
-            <param name="value">Enum value</param>
-            <returns>String value of Enum</returns>
+            <param name="parameterValue">引数クラス</param>
+            <param name="returnValue">戻り値クラス</param>
+            <param name="bsEx">BusinessSystemException</param>
+            <remarks>業務コード親クラス１から利用される派生の末端</remarks>
         </member>
-        <member name="T:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceReturnValue">
+        <member name="M:Touryo.Infrastructure.Business.Business.MyBaseLogic.UOC_ABEND(Touryo.Infrastructure.Framework.Common.BaseParameterValue,Touryo.Infrastructure.Framework.Common.BaseReturnValue@,System.Exception)">
             <summary>
-            Paramter Return Value class for Asynchronous Processing Service
+            Ｂ層の一般的な例外による異常終了の後処理を実装するUOCメソッド。
             </summary>
-        </member>
-        <member name="T:Touryo.Infrastructure.Business.Common.MyReturnValue">
-            <summary>戻り値親クラス２</summary>
-            <remarks>
-            シリアライズ可能にする（WS対応）自由に（拡張して）利用できる。
-            </remarks>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceReturnValue.Obj">
-            <summary>汎用エリア</summary>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceReturnValue.TaskId">
-            <summary>TaskId</summary>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceReturnValue.UserId">
-            <summary>UserId</summary>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceReturnValue.ProcessName">
-            <summary>ProcessName</summary>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceReturnValue.Data">
-            <summary>Data</summary>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceReturnValue.RegistrationDateTime">
-            <summary>RegistrationDateTime</summary>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceReturnValue.ExecutionStartDateTime">
-            <summary> ExecutionStartDateTime;</summary>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceReturnValue.NumberOfRetries">
-            <summary> NumberOfRetries;</summary>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceReturnValue.ProgressRate">
-            <summary>ProgressRate</summary>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceReturnValue.StatusId">
-            <summary> StatusId;</summary>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceReturnValue.CompletionDateTime">
-            <summary>CompletionDateTime</summary>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceReturnValue.CommandId">
-            <summary> CommandId;</summary>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceReturnValue.ReservedArea">
-            <summary>ReservedArea</summary>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceReturnValue.ExceptionInfo">
-            <summary>ExceptionInfo</summary>
-        </member>
-        <member name="T:Touryo.Infrastructure.Business.AsyncProcessingService.LayerB">
-            <summary>
-            LayerB class for AsyncProcessing Service
-            </summary>
+            <param name="parameterValue">引数クラス</param>
+            <param name="returnValue">戻り値クラス</param>
+            <param name="ex">Exception</param>
+            <remarks>業務コード親クラス１から利用される派生の末端</remarks>
         </member>
         <member name="T:Touryo.Infrastructure.Business.Business.MyFcBaseLogic">
             <summary>自動振り分け機能付き業務コード親クラス２（サーバ用）（テンプレート）</summary>
@@ -267,344 +130,6 @@
             <remarks>業務コード親クラス１から利用される派生の末端</remarks>
         </member>
         <member name="M:Touryo.Infrastructure.Business.Business.MyFcBaseLogic.UOC_ABEND(Touryo.Infrastructure.Framework.Common.BaseParameterValue,Touryo.Infrastructure.Framework.Common.BaseReturnValue@,System.Exception)">
-            <summary>
-            Ｂ層の一般的な例外による異常終了の後処理を実装するUOCメソッド。
-            </summary>
-            <param name="parameterValue">引数クラス</param>
-            <param name="returnValue">戻り値クラス</param>
-            <param name="ex">Exception</param>
-            <remarks>業務コード親クラス１から利用される派生の末端</remarks>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.AsyncProcessingService.LayerB.UOC_InsertTask(Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue)">
-            <summary>
-            Inserts Async Parameter values to Database through LayerD 
-            </summary>
-            <param name="asyncParameterValue"></param>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.AsyncProcessingService.LayerB.UOC_UpdateTaskStart(Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue)">
-            <summary>
-             Updates information in the database that the asynchronous task is started
-            </summary>
-            <param name="asyncParameterValue">Asynchronous Parameter Values</param>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.AsyncProcessingService.LayerB.UOC_UpdateTaskRetry(Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue)">
-            <summary>
-             Updates information in the database that the asynchronous task is failed and can be retried later
-            </summary>
-            <param name="asyncParameterValue">Asynchronous Parameter Values</param>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.AsyncProcessingService.LayerB.UOC_UpdateTaskFail(Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue)">
-            <summary>
-             Updates information in the database that the asynchronous task is failed and abort this task [status=Abort] 
-            </summary>
-            <param name="asyncParameterValue">Asynchronous Parameter Values</param>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.AsyncProcessingService.LayerB.UOC_UpdateTaskSuccess(Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue)">
-            <summary>
-             Updates information in the database that the asynchronous task is completed
-            </summary>
-            <param name="asyncParameterValue">Asynchronous Parameter Values</param>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.AsyncProcessingService.LayerB.UOC_UpdateTaskProgress(Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue)">
-            <summary>
-             Updates progress rate of the asynchronous task in the database.
-            </summary>
-            <param name="asyncParameterValue">Asynchronous Parameter Values</param>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.AsyncProcessingService.LayerB.UOC_UpdateTaskCommand(Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue)">
-            <summary>
-             Updates command value information of a selected asynchronous task
-            </summary>
-            <param name="asyncParameterValue">Asynchronous Parameter Values</param>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.AsyncProcessingService.LayerB.UOC_StopAllTask(Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue)">
-            <summary>
-             Set stop command for all running asynchronous task
-            </summary>
-            <param name="asyncParameterValue">Asynchronous Parameter Values</param>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.AsyncProcessingService.LayerB.UOC_SelectCommand(Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue)">
-            <summary>
-            Selects user command from Database through LayerD 
-            </summary>
-            <param name="asyncParameterValue"></param>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.AsyncProcessingService.LayerB.UOC_SelectTask(Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue)">
-            <summary>
-            Selects Asynchronous task from LayerD 
-            </summary>
-            <param name="asyncParameterValue">Async Parameter Value</param>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.AsyncProcessingService.LayerB.UOC_TestConnection(Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue)">
-            <summary>
-            Tests the connection with the specified database
-            </summary>
-            <param name="asyncParameterValue">Async Parameter Value</param>
-        </member>
-        <member name="T:Touryo.Infrastructure.Business.AsyncProcessingService.LayerD">
-            <summary>
-            LayerD class for AsyncProcessing Service
-            </summary>
-        </member>
-        <member name="T:Touryo.Infrastructure.Business.Dao.MyBaseDao">
-            <summary>データアクセス親クラス２（テンプレート）</summary>
-            <remarks>（オーバーライドして）自由に利用できる。</remarks>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.Dao.MyBaseDao.UseEmbeddedResource">
-            <summary>埋め込まれたリソースを使用する</summary>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.Dao.MyBaseDao.SetSqlByFile2(System.String)">
-            <summary>SetSqlByFileの強化版メソッド</summary>
-            <param name="sQLFileName">ファイル名</param>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.Dao.MyBaseDao.perfRec">
-            <summary>
-            性能測定
-            </summary>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.Dao.MyBaseDao.#ctor(Touryo.Infrastructure.Public.Db.BaseDam)">
-            <summary>
-            コンストラクタ
-            </summary>
-            <remarks>
-            コンストラクタは継承されないので、派生先で呼び出す必要がある。
-            コンストラクタの実行順は、基本クラス→派生クラスの順
-            ※ VB.NET では、MyBase.New() を派生クラスのコンストラクタから呼ぶ。
-            自由に利用できる。
-            </remarks>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.Dao.MyBaseDao.UOC_PreQuery">
-            <summary>SQL実行開始処理を実装する共通UOCメソッド</summary>
-            <remarks>業務コード親クラス１から利用される派生の末端</remarks>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.Dao.MyBaseDao.UOC_AfterQuery(System.String)">
-            <summary>SQL実行終了処理を実装する共通UOCメソッド（正常時）</summary>
-            <param name="sql">実行したSQLの情報</param>
-            <remarks>データ アクセス親クラス１から利用される派生の末端</remarks>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.Dao.MyBaseDao.UOC_AfterQuery(System.String,System.Exception)">
-            <summary>SQL実行終了処理を実装する共通UOCメソッド（異常時）</summary>
-            <param name="sql">実行したSQLの情報</param>
-            <param name="ex">エラー情報</param>
-            <remarks>データ アクセス親クラス１から利用される派生の末端</remarks>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.AsyncProcessingService.LayerD.#ctor(Touryo.Infrastructure.Public.Db.BaseDam)">
-            <summary>AsyncProcessingService用B層</summary>
-            <param name="dam">dam</param>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.AsyncProcessingService.LayerD.SetSqlByFile3(System.String)">
-            <summary>
-             Get SQL query from the embedded resource assembly
-            </summary>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.AsyncProcessingService.LayerD.InsertTask(Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue,Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceReturnValue)">
-            <summary>
-            Inserts async parameter values to database
-            </summary>
-            <param name="asyncParameterValue"></param>
-            <param name="asyncReturnValue"></param>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.AsyncProcessingService.LayerD.UpdateTaskStart(Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue,Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceReturnValue)">
-            <summary>
-             Updates information in the database that the asynchronous task is started
-            </summary>
-            <param name="asyncParameterValue">Asynchronous Parameter Values</param>
-            <param name="asyncReturnValue">Asynchronous Return Values</param>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.AsyncProcessingService.LayerD.UpdateTaskRetry(Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue,Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceReturnValue)">
-            <summary>
-             Updates information in the database that the asynchronous task is failed and can be retried later
-            </summary>
-            <param name="asyncParameterValue">Asynchronous Parameter Values</param>
-            <param name="asyncReturnValue">Asynchronous Return Values</param>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.AsyncProcessingService.LayerD.UpdateTaskFail(Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue,Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceReturnValue)">
-            <summary>
-             Updates information in the database that the asynchronous task is failed and abort this task [status=Abort]
-            </summary>
-            <param name="asyncParameterValue">Asynchronous Parameter Values</param>
-            <param name="asyncReturnValue">Asynchronous Return Values</param>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.AsyncProcessingService.LayerD.UpdateTaskSuccess(Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue,Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceReturnValue)">
-            <summary>
-             Updates information in the database that the asynchronous task is completed
-            </summary>
-            <param name="asyncParameterValue">Asynchronous Parameter Values</param>
-            <param name="asyncReturnValue">Asynchronous Return Values</param>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.AsyncProcessingService.LayerD.UpdateTaskProgress(Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue,Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceReturnValue)">
-            <summary>
-             Updates progress rate of the asynchronous task in the database.
-            </summary>
-            <param name="asyncParameterValue">Asynchronous Parameter Values</param>
-            <param name="asyncReturnValue">Asynchronous Return Values</param>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.AsyncProcessingService.LayerD.UpdateTaskCommand(Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue,Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceReturnValue)">
-            <summary>
-             Updates command value information of a selected asynchronous task
-            </summary>
-            <param name="asyncParameterValue">Asynchronous Parameter Values</param>
-            <param name="asyncReturnValue">Asynchronous Return Values</param>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.AsyncProcessingService.LayerD.StopAllTask(Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue,Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceReturnValue)">
-            <summary>
-             Set stop command for all running asynchronous task.
-            </summary>
-            <param name="asyncParameterValue">Asynchronous Parameter Values</param>
-            <param name="asyncReturnValue">Asynchronous Return Values</param>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.AsyncProcessingService.LayerD.SelectCommand(Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue,Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceReturnValue)">
-            <summary>
-             Selects user command from database
-            </summary>
-            <param name="asyncParameterValue">Asynchronous Parameter Values</param>
-            <param name="asyncReturnValue">Asynchronous Return Values</param>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.AsyncProcessingService.LayerD.SelectTask(Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceParameterValue,Touryo.Infrastructure.Business.AsyncProcessingService.AsyncProcessingServiceReturnValue)">
-            <summary>
-             To get Asynchronous Task from the database
-            </summary>
-            <param name="asyncParameterValue"></param>
-            <param name="asyncReturnValue"></param>
-        </member>
-        <member name="T:Touryo.Infrastructure.Business.Business.MyApsBaseLogic">
-            <summary>自動振り分け機能付き業務コード親クラス２（サーバ用）（テンプレート）</summary>
-            <remarks>（オーバーライドして）自由に利用できる。</remarks>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.Business.MyApsBaseLogic.perfRec">
-            <summary>性能測定</summary>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.Business.MyApsBaseLogic._damKeyforABT">
-            <summary>Dam key value for asynchronous　Business task</summary>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.Business.MyApsBaseLogic._damKeyforAMT">
-            <summary>Dam key value for asynchronous management task</summary>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.Business.MyApsBaseLogic.UOC_DoAction(Touryo.Infrastructure.Framework.Common.BaseParameterValue,Touryo.Infrastructure.Framework.Common.BaseReturnValue@)">
-            <summary>自動振り分け処理</summary>
-            <param name="parameterValue">引数クラス</param>
-            <param name="returnValue">戻り値クラス</param>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.Business.MyApsBaseLogic.UOC_ConnectionOpen(Touryo.Infrastructure.Framework.Common.BaseParameterValue,Touryo.Infrastructure.Public.Db.DbEnum.IsolationLevelEnum)">
-            <summary>データアクセス制御クラス（ＤＡＭ）の生成し、コネクションを確立、トランザクションを開始する処理を実装</summary>
-            <param name="parameterValue">引数クラス</param>
-            <param name="iso">分離レベル（ＤＢＭＳ毎の分離レベルの違いを理解して設定すること）</param>
-            <remarks>業務コード親クラス１から利用される派生の末端</remarks>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.Business.MyApsBaseLogic.UOC_PreAction(Touryo.Infrastructure.Framework.Common.BaseParameterValue)">
-            <summary>
-            Ｂ層の開始処理を実装
-            </summary>
-            <param name="parameterValue">引数クラス</param>
-            <remarks>業務コード親クラス１から利用される派生の末端</remarks>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.Business.MyApsBaseLogic.UOC_AfterAction(Touryo.Infrastructure.Framework.Common.BaseParameterValue,Touryo.Infrastructure.Framework.Common.BaseReturnValue)">
-            <summary>
-            Ｂ層の終了処理を実装
-            </summary>
-            <param name="parameterValue">引数クラス</param>
-            <param name="returnValue">戻り値クラス</param>
-            <remarks>業務コード親クラス１から利用される派生の末端</remarks>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.Business.MyApsBaseLogic.UOC_AfterTransaction(Touryo.Infrastructure.Framework.Common.BaseParameterValue,Touryo.Infrastructure.Framework.Common.BaseReturnValue)">
-            <summary>
-            Ｂ層のトランザクションのコミット後の終了処理を実装
-            </summary>
-            <param name="parameterValue">引数クラス</param>
-            <param name="returnValue">戻り値クラス</param>
-            <remarks>業務コード親クラス１から利用される派生の末端</remarks>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.Business.MyApsBaseLogic.UOC_ABEND(Touryo.Infrastructure.Framework.Common.BaseParameterValue,Touryo.Infrastructure.Framework.Common.BaseReturnValue,Touryo.Infrastructure.Framework.Exceptions.BusinessApplicationException)">
-            <summary>
-            Ｂ層の業務例外による異常終了の後処理を実装するUOCメソッド。
-            </summary>
-            <param name="parameterValue">引数クラス</param>
-            <param name="returnValue">戻り値クラス</param>
-            <param name="baEx">BusinessApplicationException</param>
-            <remarks>業務コード親クラス１から利用される派生の末端</remarks>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.Business.MyApsBaseLogic.UOC_ABEND(Touryo.Infrastructure.Framework.Common.BaseParameterValue,Touryo.Infrastructure.Framework.Common.BaseReturnValue,Touryo.Infrastructure.Framework.Exceptions.BusinessSystemException)">
-            <summary>
-            Ｂ層のシステム例外による異常終了の後処理を実装するUOCメソッド。
-            </summary>
-            <param name="parameterValue">引数クラス</param>
-            <param name="returnValue">戻り値クラス</param>
-            <param name="bsEx">BusinessSystemException</param>
-            <remarks>業務コード親クラス１から利用される派生の末端</remarks>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.Business.MyApsBaseLogic.UOC_ABEND(Touryo.Infrastructure.Framework.Common.BaseParameterValue,Touryo.Infrastructure.Framework.Common.BaseReturnValue@,System.Exception)">
-            <summary>
-            Ｂ層の一般的な例外による異常終了の後処理を実装するUOCメソッド。
-            </summary>
-            <param name="parameterValue">引数クラス</param>
-            <param name="returnValue">戻り値クラス</param>
-            <param name="ex">Exception</param>
-            <remarks>業務コード親クラス１から利用される派生の末端</remarks>
-        </member>
-        <member name="P:Touryo.Infrastructure.Business.Business.MyApsBaseLogic.DamKeyforABT">
-            <summary>Get dam key property to access asynchronous　Business task</summary>
-        </member>
-        <member name="P:Touryo.Infrastructure.Business.Business.MyApsBaseLogic.DamKeyforAMT">
-            <summary>Get dam key property to access asynchronous management task</summary>
-        </member>
-        <member name="T:Touryo.Infrastructure.Business.Business.MyBaseLogic">
-            <summary>業務コード親クラス２（サーバ用）（テンプレート）</summary>
-            <remarks>
-            （オーバーライドして）自由に利用できる。
-            ※ 下位互換のために残してあります。
-            </remarks>
-        </member>
-        <member name="F:Touryo.Infrastructure.Business.Business.MyBaseLogic.perfRec">
-            <summary>性能測定</summary>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.Business.MyBaseLogic.UOC_ConnectionOpen(Touryo.Infrastructure.Framework.Common.BaseParameterValue,Touryo.Infrastructure.Public.Db.DbEnum.IsolationLevelEnum)">
-            <summary>データアクセス制御クラス（ＤＡＭ）の生成し、コネクションを確立、トランザクションを開始する処理を実装</summary>
-            <param name="parameterValue">引数クラス</param>
-            <param name="iso">分離レベル（ＤＢＭＳ毎の分離レベルの違いを理解して設定すること）</param>
-            <remarks>業務コード親クラス１から利用される派生の末端</remarks>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.Business.MyBaseLogic.UOC_PreAction(Touryo.Infrastructure.Framework.Common.BaseParameterValue)">
-            <summary>
-            Ｂ層の開始処理を実装
-            </summary>
-            <param name="parameterValue">引数クラス</param>
-            <remarks>業務コード親クラス１から利用される派生の末端</remarks>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.Business.MyBaseLogic.UOC_AfterAction(Touryo.Infrastructure.Framework.Common.BaseParameterValue,Touryo.Infrastructure.Framework.Common.BaseReturnValue)">
-            <summary>
-            Ｂ層の終了処理を実装
-            </summary>
-            <param name="parameterValue">引数クラス</param>
-            <param name="returnValue">戻り値クラス</param>
-            <remarks>業務コード親クラス１から利用される派生の末端</remarks>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.Business.MyBaseLogic.UOC_AfterTransaction(Touryo.Infrastructure.Framework.Common.BaseParameterValue,Touryo.Infrastructure.Framework.Common.BaseReturnValue)">
-            <summary>
-            Ｂ層のトランザクションのコミット後の終了処理を実装
-            </summary>
-            <param name="parameterValue">引数クラス</param>
-            <param name="returnValue">戻り値クラス</param>
-            <remarks>業務コード親クラス１から利用される派生の末端</remarks>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.Business.MyBaseLogic.UOC_ABEND(Touryo.Infrastructure.Framework.Common.BaseParameterValue,Touryo.Infrastructure.Framework.Common.BaseReturnValue,Touryo.Infrastructure.Framework.Exceptions.BusinessApplicationException)">
-            <summary>
-            Ｂ層の業務例外による異常終了の後処理を実装するUOCメソッド。
-            </summary>
-            <param name="parameterValue">引数クラス</param>
-            <param name="returnValue">戻り値クラス</param>
-            <param name="baEx">BusinessApplicationException</param>
-            <remarks>業務コード親クラス１から利用される派生の末端</remarks>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.Business.MyBaseLogic.UOC_ABEND(Touryo.Infrastructure.Framework.Common.BaseParameterValue,Touryo.Infrastructure.Framework.Common.BaseReturnValue,Touryo.Infrastructure.Framework.Exceptions.BusinessSystemException)">
-            <summary>
-            Ｂ層のシステム例外による異常終了の後処理を実装するUOCメソッド。
-            </summary>
-            <param name="parameterValue">引数クラス</param>
-            <param name="returnValue">戻り値クラス</param>
-            <param name="bsEx">BusinessSystemException</param>
-            <remarks>業務コード親クラス１から利用される派生の末端</remarks>
-        </member>
-        <member name="M:Touryo.Infrastructure.Business.Business.MyBaseLogic.UOC_ABEND(Touryo.Infrastructure.Framework.Common.BaseParameterValue,Touryo.Infrastructure.Framework.Common.BaseReturnValue@,System.Exception)">
             <summary>
             Ｂ層の一般的な例外による異常終了の後処理を実装するUOCメソッド。
             </summary>
@@ -738,6 +263,46 @@
             シリアライズ可能にする（WS対応）自由に（拡張して）利用できる。
             </remarks>
         </member>
+        <member name="T:Touryo.Infrastructure.Business.Common.MyParameterValue">
+            <summary>引数親クラス２</summary>
+            <remarks>
+            シリアライズ可能にする（WS対応）自由に（拡張して）利用できる。
+            </remarks>
+        </member>
+        <member name="F:Touryo.Infrastructure.Business.Common.MyParameterValue._user">
+            <summary>ユーザ情報</summary>
+        </member>
+        <member name="M:Touryo.Infrastructure.Business.Common.MyParameterValue.#ctor(System.String,System.String,System.String,Touryo.Infrastructure.Business.Util.MyUserInfo)">
+            <summary>コンストラクタ</summary>
+            <param name="screenId">スクリーンID</param>
+            <param name="controlId">コントロールID</param>
+            <param name="actionType">アクションタイプ</param>
+            <param name="user">ユーザ情報</param>
+            <remarks>
+            コンストラクタは継承されないので、派生先で呼び出す必要がある。
+            ※ コンストラクタの実行順は、基本クラス→派生クラスの順
+            ※ VB.NET では、MyBase.New() を派生クラスのコンストラクタから呼ぶ。
+            自由に利用できる（互換性の維持）。
+            </remarks>
+        </member>
+        <member name="M:Touryo.Infrastructure.Business.Common.MyParameterValue.#ctor(System.String,System.String,System.String,System.String,Touryo.Infrastructure.Business.Util.MyUserInfo)">
+            <summary>コンストラクタ</summary>
+            <param name="screenId">スクリーンID</param>
+            <param name="controlId">コントロールID</param>
+            <param name="methodName">メソッド名</param>
+            <param name="actionType">アクションタイプ</param>
+            <param name="user">ユーザ情報</param>
+            <remarks>
+            コンストラクタは継承されないので、派生先で呼び出す必要がある。
+            ※ コンストラクタの実行順は、基本クラス→派生クラスの順
+            ※ VB.NET では、MyBase.New() を派生クラスのコンストラクタから呼ぶ。
+            自由に利用できる。
+            </remarks>
+        </member>
+        <member name="P:Touryo.Infrastructure.Business.Common.MyParameterValue.User">
+            <summary>ユーザ情報（読み取り専用）</summary>
+            <remarks>自由に利用できる。</remarks>
+        </member>
         <member name="F:Touryo.Infrastructure.Business.Common.MuParameterValue.Value">
             <summary>文字列</summary>
         </member>
@@ -753,6 +318,12 @@
         </member>
         <member name="T:Touryo.Infrastructure.Business.Common.MuReturnValue">
             <summary>汎用戻り値クラス</summary>
+            <remarks>
+            シリアライズ可能にする（WS対応）自由に（拡張して）利用できる。
+            </remarks>
+        </member>
+        <member name="T:Touryo.Infrastructure.Business.Common.MyReturnValue">
+            <summary>戻り値親クラス２</summary>
             <remarks>
             シリアライズ可能にする（WS対応）自由に（拡張して）利用できる。
             </remarks>
@@ -1242,6 +813,56 @@
             <summary>共通Daoクラス</summary>
             <remarks>自由に（拡張して）利用できる。</remarks>
         </member>
+        <member name="T:Touryo.Infrastructure.Business.Dao.MyBaseDao">
+            <summary>データアクセス親クラス２（テンプレート）</summary>
+            <remarks>（オーバーライドして）自由に利用できる。</remarks>
+        </member>
+        <member name="F:Touryo.Infrastructure.Business.Dao.MyBaseDao.UseEmbeddedResource">
+            <summary>埋め込まれたリソースを使用する</summary>
+        </member>
+        <member name="M:Touryo.Infrastructure.Business.Dao.MyBaseDao.SetSqlByFile2(System.String)">
+            <summary>SetSqlByFileの強化版メソッド</summary>
+            <param name="sQLFileName">ファイル名</param>
+        </member>
+        <member name="M:Touryo.Infrastructure.Business.Dao.MyBaseDao.SetSqlByFile2(System.String,System.Nullable{System.Data.CommandType})">
+            <summary>SetSqlByFileの強化版メソッド</summary>
+            <param name="sQLFileName">ファイル名</param>
+            <param name="cmdType">CommandType</param>
+        </member>
+        <member name="F:Touryo.Infrastructure.Business.Dao.MyBaseDao.perfRec">
+            <summary>
+            性能測定
+            </summary>
+        </member>
+        <member name="M:Touryo.Infrastructure.Business.Dao.MyBaseDao.#ctor(Touryo.Infrastructure.Public.Db.BaseDam)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <remarks>
+            コンストラクタは継承されないので、派生先で呼び出す必要がある。
+            コンストラクタの実行順は、基本クラス→派生クラスの順
+            ※ VB.NET では、MyBase.New() を派生クラスのコンストラクタから呼ぶ。
+            自由に利用できる。
+            </remarks>
+        </member>
+        <member name="M:Touryo.Infrastructure.Business.Dao.MyBaseDao.UOC_PreQuery">
+            <summary>SQL実行開始処理を実装する共通UOCメソッド</summary>
+            <remarks>業務コード親クラス１から利用される派生の末端</remarks>
+        </member>
+        <member name="M:Touryo.Infrastructure.Business.Dao.MyBaseDao.UOC_AfterQuery(System.String)">
+            <summary>SQL実行終了処理を実装する共通UOCメソッド（正常時）</summary>
+            <param name="sql">実行したSQLの情報</param>
+            <remarks>データ アクセス親クラス１から利用される派生の末端</remarks>
+        </member>
+        <member name="M:Touryo.Infrastructure.Business.Dao.MyBaseDao.UOC_AfterQuery(System.String,System.Exception)">
+            <summary>SQL実行終了処理を実装する共通UOCメソッド（異常時）</summary>
+            <param name="sql">実行したSQLの情報</param>
+            <param name="ex">エラー情報</param>
+            <remarks>データ アクセス親クラス１から利用される派生の末端</remarks>
+        </member>
+        <member name="F:Touryo.Infrastructure.Business.Dao.CmnDao._cmdType">
+            <summary>CommandType</summary>
+        </member>
         <member name="F:Touryo.Infrastructure.Business.Dao.CmnDao.DicUserParameter">
             <summary>ユーザ パラメタ（文字列置換）用ディクショナリ</summary>
         </member>
@@ -1319,6 +940,10 @@
             <summary>CommandTimeout</summary>
         </member>
         <member name="M:Touryo.Infrastructure.Business.Dao.CmnDao.#ctor(Touryo.Infrastructure.Public.Db.BaseDam)">
+            <summary>コンストラクタ</summary>
+            <remarks>自由に利用できる。</remarks>
+        </member>
+        <member name="M:Touryo.Infrastructure.Business.Dao.CmnDao.#ctor(Touryo.Infrastructure.Public.Db.BaseDam,System.Data.CommandType)">
             <summary>コンストラクタ</summary>
             <remarks>自由に利用できる。</remarks>
         </member>
@@ -1802,7 +1427,7 @@
         </member>
         <member name="M:Touryo.Infrastructure.Business.Presentation.MyBaseMVController.OnException(System.Web.Mvc.ExceptionContext)">
             <summary>アクションでハンドルされない例外が発生したときに呼び出されます。</summary>
-            <param name="filterContext">
+            <param name="exceptionContext">
             型: System.Web.Mvc.ResultExecutingContext
             現在の要求およびアクション結果に関する情報。
             </param>
@@ -1812,11 +1437,11 @@
         </member>
         <member name="M:Touryo.Infrastructure.Business.Presentation.MyBaseMVController.OutputErrorLog(System.Web.Mvc.ExceptionContext)">
             <summary>エラーログの出力</summary>
-            <param name="filterContext">ExceptionContext</param>
+            <param name="exceptionContext">ExceptionContext</param>
         </member>
         <member name="M:Touryo.Infrastructure.Business.Presentation.MyBaseMVController.TransferErrorScreen(System.Web.Mvc.ExceptionContext)">
             <summary>例外発生時に、エラー画面に画面遷移</summary>
-            <param name="filterContext">ExceptionContext</param>
+            <param name="exceptionContext">ExceptionContext</param>
         </member>
         <member name="M:Touryo.Infrastructure.Business.Presentation.MyBaseMVController.GetExceptionMessageID(System.Exception)">
             <summary>ExceptionのMessageIDを返す。</summary>

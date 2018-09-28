@@ -1,4 +1,4 @@
-﻿var rootUrl = 'http://localhost:8888/JsonController/';
+﻿var rootUrl = 'http://localhost:8888/api/json/';
 
 function Sample1ViewModel() {
     // shippers テーブルのレコードリスト (JSON 形式)
@@ -89,7 +89,7 @@ function Sample1ViewModel() {
         // エラーメッセージをクリアする
         this.ErrorMessage("");
 
-        // パラメタを JSON 形式で纏める
+        // パラメタを纏める
         var param = {
             ddlDap: this.ddlDap(),
             ddlMode1: this.ddlMode1(),
@@ -101,18 +101,18 @@ function Sample1ViewModel() {
         $.ajax({
             type: 'POST',
             url: rootUrl + 'SelectCount',
-            data: param,
-            dataType: 'json',
+            data: param, // application/x-www-form-urlencoded
+            dataType: 'json', // レスポンスの形式
             success: function (data, dataType) {
-                if (data.Message != undefined) {
+                if (data.Message !== undefined) {
                     // 正常終了
                     self.Result(data.Message);
                 }
-                else if (data.ErrorMSG != undefined) {
+                else if (data.ErrorMSG !== undefined) {
                     // 業務例外
                     self.ErrorMessage(JSON.stringify(data.ErrorMSG));
                 }
-                else if (data.ExceptionMSG != undefined) {
+                else if (data.ExceptionMSG !== undefined) {
                     // その他例外
                     self.ErrorMessage(JSON.stringify(data.ExceptionMSG));
                 }
@@ -131,7 +131,7 @@ function Sample1ViewModel() {
         // エラーメッセージをクリアする
         this.ErrorMessage("");
 
-        // パラメタを JSON 形式で纏める
+        // パラメタを纏める
         var param = {
             ddlDap: this.ddlDap(),
             ddlMode1: this.ddlMode1(),
@@ -143,19 +143,19 @@ function Sample1ViewModel() {
         $.ajax({
             type: 'POST',
             url: rootUrl + 'SelectAll_DT',
-            data: param,
-            dataType: 'json',
+            data: param, // application/x-www-form-urlencoded
+            dataType: 'json', // レスポンスの形式
             success: function (data, dataType) {
-                if (data.Message != undefined) {
+                if (data.Message !== undefined) {
                     // 正常終了
                     self.ClearList();
                     self.dataLists(data.Result);
                 }
-                else if (data.ErrorMSG != undefined) {
+                else if (data.ErrorMSG !== undefined) {
                     // 業務例外
                     self.ErrorMessage(JSON.stringify(data.ErrorMSG));
                 }
-                else if (data.ExceptionMSG != undefined) {
+                else if (data.ExceptionMSG !== undefined) {
                     // その他例外
                     self.ErrorMessage(JSON.stringify(data.ExceptionMSG));
                 }
@@ -173,7 +173,7 @@ function Sample1ViewModel() {
         // エラーメッセージをクリアする
         this.ErrorMessage("");
 
-        // パラメタを JSON 形式で纏める
+        // パラメタを纏める
         var param = {
             ddlDap: this.ddlDap(),
             ddlMode1: this.ddlMode1(),
@@ -185,19 +185,19 @@ function Sample1ViewModel() {
         $.ajax({
             type: 'POST',
             url: rootUrl + 'SelectAll_DS',
-            data: param,
-            dataType: 'json',
+            data: param, // application/x-www-form-urlencoded
+            dataType: 'json', // レスポンスの形式
             success: function (data, dataType) {
-                if (data.Message != undefined) {
+                if (data.Message !== undefined) {
                     // 正常終了
                     self.ClearList();
                     self.dataLists(data.Result);
                 }
-                else if (data.ErrorMSG != undefined) {
+                else if (data.ErrorMSG !== undefined) {
                     // 業務例外
                     self.ErrorMessage(JSON.stringify(data.ErrorMSG));
                 }
-                else if (data.ExceptionMSG != undefined) {
+                else if (data.ExceptionMSG !== undefined) {
                     // その他例外
                     self.ErrorMessage(JSON.stringify(data.ExceptionMSG));
                 }
@@ -215,7 +215,7 @@ function Sample1ViewModel() {
         // エラーメッセージをクリアする
         this.ErrorMessage("");
 
-        // パラメタを JSON 形式で纏める
+        // パラメタを纏める
         var param = {
             ddlDap: this.ddlDap(),
             ddlMode1: this.ddlMode1(),
@@ -227,19 +227,19 @@ function Sample1ViewModel() {
         $.ajax({
             type: 'POST',
             url: rootUrl + 'SelectAll_DR',
-            data: param,
-            dataType: 'json',
+            data: param, // application/x-www-form-urlencoded
+            dataType: 'json', // レスポンスの形式
             success: function (data, dataType) {
-                if (data.Message != undefined) {
+                if (data.Message !== undefined) {
                     // 正常終了
                     self.ClearList();
                     self.dataLists(data.Result);
                 }
-                else if (data.ErrorMSG != undefined) {
+                else if (data.ErrorMSG !== undefined) {
                     // 業務例外
                     self.ErrorMessage(JSON.stringify(data.ErrorMSG));
                 }
-                else if (data.ExceptionMSG != undefined) {
+                else if (data.ExceptionMSG !== undefined) {
                     // その他例外
                     self.ErrorMessage(JSON.stringify(data.ExceptionMSG));
                 }
@@ -257,7 +257,7 @@ function Sample1ViewModel() {
         // エラーメッセージをクリアする
         this.ErrorMessage("");
 
-        // パラメタを JSON 形式で纏める
+        // パラメタを纏める
         var param = {
             ddlDap: this.ddlDap(),
             ddlMode1: this.ddlMode1(),
@@ -271,19 +271,19 @@ function Sample1ViewModel() {
         $.ajax({
             type: 'POST',
             url: rootUrl + 'SelectAll_DSQL',
-            data: param,
-            dataType: 'json',
+            data: param, // application/x-www-form-urlencoded
+            dataType: 'json', // レスポンスの形式
             success: function (data, dataType) {
-                if (data.Message != undefined) {
+                if (data.Message !== undefined) {
                     // 正常終了
                     self.ClearList();
                     self.dataLists(data.Result);
                 }
-                else if (data.ErrorMSG != undefined) {
+                else if (data.ErrorMSG !== undefined) {
                     // 業務例外
                     self.ErrorMessage(JSON.stringify(data.ErrorMSG));
                 }
-                else if (data.ExceptionMSG != undefined) {
+                else if (data.ExceptionMSG !== undefined) {
                     // その他例外
                     self.ErrorMessage(JSON.stringify(data.ExceptionMSG));
                 }
@@ -301,7 +301,7 @@ function Sample1ViewModel() {
         // エラーメッセージをクリアする
         this.ErrorMessage("");
 
-        // パラメタを JSON 形式で纏める
+        // パラメタを纏める
         var param = {
             ddlDap: this.ddlDap(),
             ddlMode1: this.ddlMode1(),
@@ -310,7 +310,7 @@ function Sample1ViewModel() {
             Shipper: {
                 ShipperID: this.ShipperID(),
                 CompanyName: "",
-                Phone: "",
+                Phone: ""
             }
         };
 
@@ -318,21 +318,21 @@ function Sample1ViewModel() {
         $.ajax({
             type: 'POST',
             url: rootUrl + 'Select',
-            data: JSON.stringify(param),
-            dataType: 'json',
+            data: JSON.stringify(param), // JSON 形式で送る。
+            dataType: 'json', // レスポンスの形式
             contentType: 'application/json',
             success: function (data, dataType) {
-                if (data.Message != undefined) {
+                if (data.Message !== undefined) {
                     // 正常終了
                     self.ShipperID(data.Result.ShipperID);
                     self.CompanyName(data.Result.CompanyName);
                     self.Phone(data.Result.Phone);
                 }
-                else if (data.ErrorMSG != undefined) {
+                else if (data.ErrorMSG !== undefined) {
                     // 業務例外
                     self.ErrorMessage(JSON.stringify(data.ErrorMSG));
                 }
-                else if (data.ExceptionMSG != undefined) {
+                else if (data.ExceptionMSG !== undefined) {
                     // その他例外
                     self.ErrorMessage(JSON.stringify(data.ExceptionMSG));
                 }
@@ -350,7 +350,7 @@ function Sample1ViewModel() {
         // エラーメッセージをクリアする
         this.ErrorMessage("");
 
-        // パラメタを JSON 形式で纏める
+        // パラメタを纏める
         var param = {
             ddlDap: this.ddlDap(),
             ddlMode1: this.ddlMode1(),
@@ -367,19 +367,19 @@ function Sample1ViewModel() {
         $.ajax({
             type: 'POST',
             url: rootUrl + 'Insert',
-            data: JSON.stringify(param),
-            dataType: 'json',
+            data: JSON.stringify(param), // JSON 形式で送る。
+            dataType: 'json', // レスポンスの形式
             contentType: 'application/json',
             success: function (data, dataType) {
-                if (data.Message != undefined) {
+                if (data.Message !== undefined) {
                     // 正常終了
                     self.Result(data.Message);
                 }
-                else if (data.ErrorMSG != undefined) {
+                else if (data.ErrorMSG !== undefined) {
                     // 業務例外
                     self.ErrorMessage(JSON.stringify(data.ErrorMSG));
                 }
-                else if (data.ExceptionMSG != undefined) {
+                else if (data.ExceptionMSG !== undefined) {
                     // その他例外
                     self.ErrorMessage(JSON.stringify(data.ExceptionMSG));
                 }
@@ -397,6 +397,7 @@ function Sample1ViewModel() {
         // エラーメッセージをクリアする
         this.ErrorMessage("");
 
+        // パラメタを纏める
         var param = {
             ddlDap: this.ddlDap(),
             ddlMode1: this.ddlMode1(),
@@ -413,19 +414,19 @@ function Sample1ViewModel() {
         $.ajax({
             type: 'POST',
             url: rootUrl + 'Update',
-            data: JSON.stringify(param),
-            dataType: 'json',
+            data: JSON.stringify(param), // JSON 形式で送る。
+            dataType: 'json', // レスポンスの形式
             contentType: 'application/json',
             success: function (data, dataType) {
-                if (data.Message != undefined) {
+                if (data.Message !== undefined) {
                     // 正常終了
                     self.Result(data.Message);
                 }
-                else if (data.ErrorMSG != undefined) {
+                else if (data.ErrorMSG !== undefined) {
                     // 業務例外
                     self.ErrorMessage(JSON.stringify(data.ErrorMSG));
                 }
-                else if (data.ExceptionMSG != undefined) {
+                else if (data.ExceptionMSG !== undefined) {
                     // その他例外
                     self.ErrorMessage(JSON.stringify(data.ExceptionMSG));
                 }
@@ -443,7 +444,7 @@ function Sample1ViewModel() {
         // エラーメッセージをクリアする
         this.ErrorMessage("");
 
-        // パラメタを JSON 形式で纏める
+        // パラメタを纏める
         var param = {
             ddlDap: this.ddlDap(),
             ddlMode1: this.ddlMode1(),
@@ -452,7 +453,7 @@ function Sample1ViewModel() {
             Shipper: {
                 ShipperID: this.ShipperID(),
                 CompanyName: "",
-                Phone: "",
+                Phone: ""
             }
         };
 
@@ -460,19 +461,19 @@ function Sample1ViewModel() {
         $.ajax({
             type: 'POST',
             url: rootUrl + 'Delete',
-            data: JSON.stringify(param),
-            dataType: 'json',
+            data: JSON.stringify(param), // JSON 形式で送る。
+            dataType: 'json', // レスポンスの形式
             contentType: 'application/json',
             success: function (data, dataType) {
-                if (data.Message != undefined) {
+                if (data.Message !== undefined) {
                     // 正常終了
                     self.Result(data.Message);
                 }
-                else if (data.ErrorMSG != undefined) {
+                else if (data.ErrorMSG !== undefined) {
                     // 業務例外
                     self.ErrorMessage(JSON.stringify(data.ErrorMSG));
                 }
-                else if (data.ExceptionMSG != undefined) {
+                else if (data.ExceptionMSG !== undefined) {
                     // その他例外
                     self.ErrorMessage(JSON.stringify(data.ExceptionMSG));
                 }

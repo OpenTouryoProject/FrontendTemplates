@@ -73,7 +73,7 @@ namespace SPA_Sample.Controllers
         {
             // 外部ログイン
             return Redirect(string.Format(
-                "http://localhost:63359/MultiPurposeAuthSite/Account/OAuthAuthorize"
+                "http://localhost:63359/MultiPurposeAuthSite/Account/OAuth2Authorize"
                 + "?client_id=" + OAuth2AndOIDCParams.ClientID
                 + "&response_type=token" 
                 + "&scope=profile%20email%20phone%20address%20roles"

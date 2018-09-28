@@ -1,4 +1,4 @@
-﻿var rootUrl = 'http://localhost:8888/JsonController/';
+﻿var rootUrl = 'http://localhost:8888/api/json/';
 
 angular.module('myapp', []).controller('Sample2ViewModel', ['$scope', function ($scope) {
 
@@ -88,7 +88,7 @@ angular.module('myapp', []).controller('Sample2ViewModel', ['$scope', function (
         // エラーメッセージをクリアする
         $scope.ErrorMessage = "";
 
-        // パラメタを JSON 形式で纏める
+        // パラメタを纏める
         var param = {
             ddlDap: $scope.ddlDap,
             ddlMode1: $scope.ddlMode1,
@@ -100,22 +100,22 @@ angular.module('myapp', []).controller('Sample2ViewModel', ['$scope', function (
         $.ajax({
             type: 'POST',
             url: rootUrl + 'SelectCount',
-            data: param,
-            dataType: 'json',
+            data: param, // application/x-www-form-urlencoded
+            dataType: 'json', // レスポンスの形式
             success: function (data, dataType) {
-                if (data.Message != undefined) {
+                if (data.Message !== undefined) {
                     // 正常終了
                     $scope.$apply(function () {
                         $scope.Result = data.Message;
                     });
                 }
-                else if (data.ErrorMSG != undefined) {
+                else if (data.ErrorMSG !== undefined) {
                     // 業務例外
                     $scope.$apply(function () {
                         $scope.ErrorMessage = JSON.stringify(data.ErrorMSG);
                     });
                 }
-                else if (data.ExceptionMSG != undefined) {
+                else if (data.ExceptionMSG !== undefined) {
                     // その他例外
                     $scope.$apply(function () {
                         $scope.ErrorMessage = JSON.stringify(data.ExceptionMSG);
@@ -136,7 +136,7 @@ angular.module('myapp', []).controller('Sample2ViewModel', ['$scope', function (
         // エラーメッセージをクリアする
         $scope.ErrorMessage = "";
 
-        // パラメタを JSON 形式で纏める
+        // パラメタを纏める
         var param = {
             ddlDap: $scope.ddlDap,
             ddlMode1: $scope.ddlMode1,
@@ -148,23 +148,23 @@ angular.module('myapp', []).controller('Sample2ViewModel', ['$scope', function (
         $.ajax({
             type: 'POST',
             url: rootUrl + 'SelectAll_DT',
-            data: param,
-            dataType: 'json',
+            data: param, // application/x-www-form-urlencoded
+            dataType: 'json', // レスポンスの形式
             success: function (data, dataType) {
-                if (data.Message != undefined) {
+                if (data.Message !== undefined) {
                     // 正常終了
                     $scope.$apply(function () {
                         $scope.ClearList();
                         $scope.dataLists = data.Result;
                     });
                 }
-                else if (data.ErrorMSG != undefined) {
+                else if (data.ErrorMSG !== undefined) {
                     // 業務例外
                     $scope.$apply(function () {
                         $scope.ErrorMessage = JSON.stringify(data.ErrorMSG);
                     });
                 }
-                else if (data.ExceptionMSG != undefined) {
+                else if (data.ExceptionMSG !== undefined) {
                     // その他例外
                     $scope.$apply(function () {
                         $scope.ErrorMessage = JSON.stringify(data.ExceptionMSG);
@@ -184,7 +184,7 @@ angular.module('myapp', []).controller('Sample2ViewModel', ['$scope', function (
         // エラーメッセージをクリアする
         $scope.ErrorMessage = "";
 
-        // パラメタを JSON 形式で纏める
+        // パラメタを纏める
         var param = {
             ddlDap: $scope.ddlDap,
             ddlMode1: $scope.ddlMode1,
@@ -196,23 +196,23 @@ angular.module('myapp', []).controller('Sample2ViewModel', ['$scope', function (
         $.ajax({
             type: 'POST',
             url: rootUrl + 'SelectAll_DS',
-            data: param,
-            dataType: 'json',
+            data: param, // application/x-www-form-urlencoded
+            dataType: 'json', // レスポンスの形式
             success: function (data, dataType) {
-                if (data.Message != undefined) {
+                if (data.Message !== undefined) {
                     // 正常終了
                     $scope.$apply(function () {
                         $scope.ClearList();
                         $scope.dataLists = data.Result;
                     });
                 }
-                else if (data.ErrorMSG != undefined) {
+                else if (data.ErrorMSG !== undefined) {
                     // 業務例外
                     $scope.$apply(function () {
                         $scope.ErrorMessage = JSON.stringify(data.ErrorMSG);
                     });
                 }
-                else if (data.ExceptionMSG != undefined) {
+                else if (data.ExceptionMSG !== undefined) {
                     // その他例外
                     $scope.$apply(function () {
                         $scope.ErrorMessage = JSON.stringify(data.ExceptionMSG);
@@ -232,7 +232,7 @@ angular.module('myapp', []).controller('Sample2ViewModel', ['$scope', function (
         // エラーメッセージをクリアする
         $scope.ErrorMessage = "";
 
-        // パラメタを JSON 形式で纏める
+        // パラメタを纏める
         var param = {
             ddlDap: $scope.ddlDap,
             ddlMode1: $scope.ddlMode1,
@@ -244,23 +244,23 @@ angular.module('myapp', []).controller('Sample2ViewModel', ['$scope', function (
         $.ajax({
             type: 'POST',
             url: rootUrl + 'SelectAll_DR',
-            data: param,
-            dataType: 'json',
+            data: param, // application/x-www-form-urlencoded
+            dataType: 'json', // レスポンスの形式
             success: function (data, dataType) {
-                if (data.Message != undefined) {
+                if (data.Message !== undefined) {
                     // 正常終了
                     $scope.$apply(function () {
                         $scope.ClearList();
                         $scope.dataLists = data.Result;
                     });
                 }
-                else if (data.ErrorMSG != undefined) {
+                else if (data.ErrorMSG !== undefined) {
                     // 業務例外
                     $scope.$apply(function () {
                         $scope.ErrorMessage = JSON.stringify(data.ErrorMSG);
                     });
                 }
-                else if (data.ExceptionMSG != undefined) {
+                else if (data.ExceptionMSG !== undefined) {
                     // その他例外
                     $scope.$apply(function () {
                         $scope.ErrorMessage = JSON.stringify(data.ExceptionMSG);
@@ -280,7 +280,7 @@ angular.module('myapp', []).controller('Sample2ViewModel', ['$scope', function (
         // エラーメッセージをクリアする
         $scope.ErrorMessage = "";
 
-        // パラメタを JSON 形式で纏める
+        // パラメタを纏める
         var param = {
             ddlDap: $scope.ddlDap,
             ddlMode1: $scope.ddlMode1,
@@ -294,23 +294,23 @@ angular.module('myapp', []).controller('Sample2ViewModel', ['$scope', function (
         $.ajax({
             type: 'POST',
             url: rootUrl + 'SelectAll_DSQL',
-            data: param,
-            dataType: 'json',
+            data: param, // application/x-www-form-urlencoded
+            dataType: 'json', // レスポンスの形式
             success: function (data, dataType) {
-                if (data.Message != undefined) {
+                if (data.Message !== undefined) {
                     // 正常終了
                     $scope.$apply(function () {
                         $scope.ClearList();
                         $scope.dataLists = data.Result;
                     });
                 }
-                else if (data.ErrorMSG != undefined) {
+                else if (data.ErrorMSG !== undefined) {
                     // 業務例外
                     $scope.$apply(function () {
                         $scope.ErrorMessage = JSON.stringify(data.ErrorMSG);
                     });
                 }
-                else if (data.ExceptionMSG != undefined) {
+                else if (data.ExceptionMSG !== undefined) {
                     // その他例外
                     $scope.$apply(function () {
                         $scope.ErrorMessage = JSON.stringify(data.ExceptionMSG);
@@ -330,7 +330,7 @@ angular.module('myapp', []).controller('Sample2ViewModel', ['$scope', function (
         // エラーメッセージをクリアする
         $scope.ErrorMessage = "";
 
-        // パラメタを JSON 形式で纏める
+        // パラメタを纏める
         var param = {
             ddlDap: $scope.ddlDap,
             ddlMode1: $scope.ddlMode1,
@@ -339,7 +339,7 @@ angular.module('myapp', []).controller('Sample2ViewModel', ['$scope', function (
             Shipper: {
                 ShipperID: $scope.ShipperID,
                 CompanyName: "",
-                Phone: "",
+                Phone: ""
             }
         };
 
@@ -347,11 +347,11 @@ angular.module('myapp', []).controller('Sample2ViewModel', ['$scope', function (
         $.ajax({
             type: 'POST',
             url: rootUrl + 'Select',
-            data: JSON.stringify(param),
-            dataType: 'json',
+            data: JSON.stringify(param), // JSON 形式で送る。
+            dataType: 'json', // レスポンスの形式
             contentType: 'application/json',
             success: function (data, dataType) {
-                if (data.Message != undefined) {
+                if (data.Message !== undefined) {
                     // 正常終了
                     $scope.$apply(function () {
                         $scope.ShipperID = data.Result.ShipperID;
@@ -359,13 +359,13 @@ angular.module('myapp', []).controller('Sample2ViewModel', ['$scope', function (
                         $scope.Phone = data.Result.Phone;
                     });
                 }
-                else if (data.ErrorMSG != undefined) {
+                else if (data.ErrorMSG !== undefined) {
                     // 業務例外
                     $scope.$apply(function () {
                         $scope.ErrorMessage = JSON.stringify(data.ErrorMSG);
                     });
                 }
-                else if (data.ExceptionMSG != undefined) {
+                else if (data.ExceptionMSG !== undefined) {
                     // その他例外
                     $scope.$apply(function () {
                         $scope.ErrorMessage = JSON.stringify(data.ExceptionMSG);
@@ -385,7 +385,7 @@ angular.module('myapp', []).controller('Sample2ViewModel', ['$scope', function (
         // エラーメッセージをクリアする
         $scope.ErrorMessage = "";
 
-        // パラメタを JSON 形式で纏める
+        // パラメタを纏める
         var param = {
             ddlDap: $scope.ddlDap,
             ddlMode1: $scope.ddlMode1,
@@ -402,23 +402,23 @@ angular.module('myapp', []).controller('Sample2ViewModel', ['$scope', function (
         $.ajax({
             type: 'POST',
             url: rootUrl + 'Insert',
-            data: JSON.stringify(param),
-            dataType: 'json',
+            data: JSON.stringify(param), // JSON 形式で送る。
+            dataType: 'json', // レスポンスの形式
             contentType: 'application/json',
             success: function (data, dataType) {
-                if (data.Message != undefined) {
+                if (data.Message !== undefined) {
                     // 正常終了
                     $scope.$apply(function () {
                         $scope.Result = data.Message;
                     });
                 }
-                else if (data.ErrorMSG != undefined) {
+                else if (data.ErrorMSG !== undefined) {
                     // 業務例外
                     $scope.$apply(function () {
                         $scope.ErrorMessage = JSON.stringify(data.ErrorMSG);
                     });
                 }
-                else if (data.ExceptionMSG != undefined) {
+                else if (data.ExceptionMSG !== undefined) {
                     // その他例外
                     $scope.$apply(function () {
                         $scope.ErrorMessage = JSON.stringify(data.ExceptionMSG);
@@ -438,6 +438,7 @@ angular.module('myapp', []).controller('Sample2ViewModel', ['$scope', function (
         // エラーメッセージをクリアする
         $scope.ErrorMessage = "";
 
+        // パラメタを纏める
         var param = {
             ddlDap: $scope.ddlDap,
             ddlMode1: $scope.ddlMode1,
@@ -454,23 +455,23 @@ angular.module('myapp', []).controller('Sample2ViewModel', ['$scope', function (
         $.ajax({
             type: 'POST',
             url: rootUrl + 'Update',
-            data: JSON.stringify(param),
-            dataType: 'json',
+            data: JSON.stringify(param), // JSON 形式で送る。
+            dataType: 'json', // レスポンスの形式
             contentType: 'application/json',
             success: function (data, dataType) {
-                if (data.Message != undefined) {
+                if (data.Message !== undefined) {
                     // 正常終了
                     $scope.$apply(function () {
                         $scope.Result = data.Message;
                     });
                 }
-                else if (data.ErrorMSG != undefined) {
+                else if (data.ErrorMSG !== undefined) {
                     // 業務例外
                     $scope.$apply(function () {
                         $scope.ErrorMessage = JSON.stringify(data.ErrorMSG);
                     });
                 }
-                else if (data.ExceptionMSG != undefined) {
+                else if (data.ExceptionMSG !== undefined) {
                     // その他例外
                     $scope.$apply(function () {
                         $scope.ErrorMessage = JSON.stringify(data.ExceptionMSG);
@@ -490,7 +491,7 @@ angular.module('myapp', []).controller('Sample2ViewModel', ['$scope', function (
         // エラーメッセージをクリアする
         $scope.ErrorMessage = "";
 
-        // パラメタを JSON 形式で纏める
+        // パラメタを纏める
         var param = {
             ddlDap: $scope.ddlDap,
             ddlMode1: $scope.ddlMode1,
@@ -499,7 +500,7 @@ angular.module('myapp', []).controller('Sample2ViewModel', ['$scope', function (
             Shipper: {
                 ShipperID: $scope.ShipperID,
                 CompanyName: "",
-                Phone: "",
+                Phone: ""
             }
         };
 
@@ -507,23 +508,23 @@ angular.module('myapp', []).controller('Sample2ViewModel', ['$scope', function (
         $.ajax({
             type: 'POST',
             url: rootUrl + 'Delete',
-            data: JSON.stringify(param),
-            dataType: 'json',
+            data: JSON.stringify(param), // JSON 形式で送る。
+            dataType: 'json', // レスポンスの形式
             contentType: 'application/json',
             success: function (data, dataType) {
-                if (data.Message != undefined) {
+                if (data.Message !== undefined) {
                     // 正常終了
                     $scope.$apply(function () {
                         $scope.Result = data.Message;
                     });
                 }
-                else if (data.ErrorMSG != undefined) {
+                else if (data.ErrorMSG !== undefined) {
                     // 業務例外
                     $scope.$apply(function () {
                         $scope.ErrorMessage = JSON.stringify(data.ErrorMSG);
                     });
                 }
-                else if (data.ExceptionMSG != undefined) {
+                else if (data.ExceptionMSG !== undefined) {
                     // その他例外
                     $scope.$apply(function () {
                         $scope.ErrorMessage = JSON.stringify(data.ExceptionMSG);
