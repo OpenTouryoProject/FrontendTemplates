@@ -10,29 +10,17 @@ const initialState = {
 const CrudSampleReducer = (state = initialState, action) => {
 
   // stateを複製して
-  let newState = Object.assign({}, state);
-
-  let shipperID = null;
-  let companyName = null;
-  let phone = null;
-
-  if(newState.shipper)
-  {
-    shipperID = newState.shipper.shipperID || "";
-    companyName = newState.shipper.companyName || "";
-    phone = newState.shipper.phone || "";
-  }
+  let newState = null;
 
   switch (action.type) {
     case 'CHANGE_SHIPPER_SHIPPERID':
       // 値をセット。
       newState = {
+        ...state,
         shipper: {
+          ...state.shipper,
           shipperID: action.shipper.shipperID,
-          companyName: companyName,
-          phone: phone
         },
-        shippers: newState.shippers
       };
 
       return newState;
@@ -40,12 +28,11 @@ const CrudSampleReducer = (state = initialState, action) => {
     case 'CHANGE_SHIPPER_COMPANYNAME':
       // 値をセット。
       newState = {
+        ...state,
         shipper: {
-          shipperID: shipperID,
-          companyName: action.shipper.companyName,
-          phone: phone
+          ...state.shipper,
+          companyName: action.shipper.companyName
         },
-        shippers: newState.shippers
       };
 
       return newState;
@@ -53,12 +40,11 @@ const CrudSampleReducer = (state = initialState, action) => {
     case 'CHANGE_SHIPPER_PHONE':
       // 値をセット。
       newState = {
+        ...state,
         shipper: {
-          shipperID: shipperID,
-          companyName: companyName,
+          ...state.shipper,
           phone: action.shipper.phone
         },
-        shippers: newState.shippers
       };
 
       return newState;
@@ -68,13 +54,8 @@ const CrudSampleReducer = (state = initialState, action) => {
     case 'PRE_REQUEST':
       // 値をセット。
       newState = {
+        ...state,
         message : "",
-        shipper: {
-          shipperID: shipperID,
-          companyName: companyName,
-          phone: phone
-        },
-        shippers: newState.shippers
       };
 
       return newState;
@@ -82,8 +63,8 @@ const CrudSampleReducer = (state = initialState, action) => {
     case 'REQUEST_FAILURE':
       // 値をセット。
       newState = {
+        ...state,
         message: action.message,
-        shippers: newState.shippers
       };
 
       return newState;
@@ -91,13 +72,8 @@ const CrudSampleReducer = (state = initialState, action) => {
     case 'REQUEST_SUCCESS':
       // 値をセット。
       newState = {
+        ...state,
         message: action.message,
-        shipper: {
-          shipperID: shipperID,
-          companyName: companyName,
-          phone: phone
-        },
-        shippers: newState.shippers
       };
 
       return newState;
@@ -107,11 +83,7 @@ const CrudSampleReducer = (state = initialState, action) => {
     case 'SELECT_ALL_SUCCESS':
       // 値をセット。
       newState = {
-        shipper: {
-          shipperID: shipperID,
-          companyName: companyName,
-          phone: phone
-        },
+        ...state,
         shippers: action.shippers
       };
 
@@ -120,13 +92,13 @@ const CrudSampleReducer = (state = initialState, action) => {
     case 'SELECT_SUCCESS':
       // 値をセット。
       newState = {
+        ...state,
         shipper: 
         {
           shipperID: action.shipper.ShipperID,
           companyName: action.shipper.CompanyName,
           phone: action.shipper.Phone
         },
-        shippers: newState.shippers
       };
 
       return newState;

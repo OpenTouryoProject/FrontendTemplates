@@ -4,7 +4,7 @@ https://github.com/OpenTouryoProject/SampleProgram/tree/master/Template/SPATempl
 - このフロントエンド・プログラムは、以下のコマンドで実行できる。
   - npm i
   - npm start
-- バックエンド・サーバーには、ASP.NETを使用する。
+- バックエンド・サーバーとして、以下の ASP.NET または ASP.NET Core のプロジェクトを使用する。あらかじめ、以下「実行方法」に記載の手順でバックエンド・サーバーを実行しておく必要がある。
   - URL  
     - ASP.NET  
 https://github.com/OpenTouryoProject/OpenTouryoTemplates/tree/master/root_VS2017/programs/CS/Samples/WS_sample/ASPNETWebService

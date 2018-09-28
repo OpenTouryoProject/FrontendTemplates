@@ -273,32 +273,25 @@ export class CrudSample extends React.Component {
 
     // drop down list
     onChangeDdlDap(e){
-        this.state.ddl.ddlDap = e.target.value;
-        this.setState({ddl: this.state.ddl});
+        this.setState({ddl: { ...this.state.ddl, ddlDap: e.target.value }});
     }
     onChangeDdlMode1(e){
-        this.state.ddl.ddlMode1 = e.target.value;
-        this.setState({ddl: this.state.ddl});
+        this.setState({ddl: { ...this.state.ddl, ddlMode1: e.target.value }});
     }
     onChangeDdlMode2(e){
-        this.state.ddl.ddlMode2 = e.target.value;
-        this.setState({ddl: this.state.ddl});
+        this.setState({ddl: { ...this.state.ddl, ddlMode2: e.target.value }});
     }
     onChangeDdlIso(e){
-        this.state.ddl.ddlIso = e.target.value;
-        this.setState({ddl: this.state.ddl});
+        this.setState({ddl: { ...this.state.ddl, ddlIso: e.target.value }});
     }
     onChangeDdlExRollback(e){
-        this.state.ddl.ddlExRollback = e.target.value;
-        this.setState({ddl: this.state.ddl});
+        this.setState({ddl: { ...this.state.ddl, ddlExRollback: e.target.value }});
     }
     onChangeDdlOrder(e){
-        this.state.ddl.ddlOrder = e.target.value;
-        this.setState({ddl: this.state.ddl});
+        this.setState({ddl: { ...this.state.ddl, ddlOrder: e.target.value }});
     }
     onChangeDdlOrderSequence(e){
-        this.state.ddl.ddlOrderSequence = e.target.value;
-        this.setState({ddl: this.state.ddl});
+        this.setState({ddl: { ...this.state.ddl, ddlOrderSequence: e.target.value }});
     }
 
     // input type text
