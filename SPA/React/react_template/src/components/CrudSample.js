@@ -141,9 +141,7 @@ export class CrudSample extends React.Component {
                 <button className='btn' onClick={ () => { this.selectAll_DT() } }>SelectAll_DT</button>&nbsp;
                 <button className='btn' onClick={ () => { this.selectAll_DS() } }>SelectAll_DS</button>&nbsp;
                 <button className='btn' onClick={ () => { this.selectAll_DR() } }>SelectAll_DS</button>&nbsp;
-                <button className='btn' onClick={ () => { this.selectAll_DSQL() } }>SelectAll_DSQL</button>
-            </div>
-            <div>
+                <button className='btn' onClick={ () => { this.selectAll_DSQL() } }>SelectAll_DSQL</button>&nbsp;
                 <button className='btn' onClick={ () => { this.select() } }>Select</button>&nbsp;
                 <button className='btn' onClick={ () => { this.insert() } }>Insert</button>&nbsp;
                 <button className='btn' onClick={ () => { this.update() } }>Update</button>&nbsp;

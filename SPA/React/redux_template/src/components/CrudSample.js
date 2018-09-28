@@ -148,9 +148,7 @@ export default class CrudSample extends React.Component {
                 <button className='btn' onClick={ () => { this.props.SELECT_ALL_DT_ASYNC(this.state.ddl) } }>SelectAll_DT</button>&nbsp;
                 <button className='btn' onClick={ () => { this.props.SELECT_ALL_DS_ASYNC(this.state.ddl) } }>SelectAll_DS</button>&nbsp;
                 <button className='btn' onClick={ () => { this.props.SELECT_ALL_DR_ASYNC(this.state.ddl) } }>SelectAll_DR</button>&nbsp;
-                <button className='btn' onClick={ () => { this.props.SELECT_ALL_DSQL_ASYNC(this.state.ddl) } }>SelectAll_DSQL</button>
-            </div>
-            <div>
+                <button className='btn' onClick={ () => { this.props.SELECT_ALL_DSQL_ASYNC(this.state.ddl) } }>SelectAll_DSQL</button>&nbsp;
                 <button className='btn' onClick={ () => { this.props.SELECT_ASYNC(this.state.ddl, this.props.shipper) } }>Select</button>&nbsp;
                 <button className='btn' onClick={ () => { this.props.INSERT_ASYNC(this.state.ddl, this.props.shipper) } }>Insert</button>&nbsp;
                 <button className='btn' onClick={ () => { this.props.UPDATE_ASYNC(this.state.ddl, this.props.shipper) } }>Update</button>&nbsp;
