@@ -70,6 +70,7 @@ export const SELECT_COUNT_ASYNC = (ddl) => {
 
     // fetchする。
     fetch(url, {method, headers, body})　
+    .then(fetchStatusHandler)
     .then(response => response.json())
     .then(data => 
       {
@@ -90,7 +91,7 @@ export const SELECT_COUNT_ASYNC = (ddl) => {
     .catch(
       // 異常系
       error => {
-        dispatch(REQUEST_FAILURE(error));
+        dispatch(REQUEST_FAILURE(error.stack));
       }
     );
   };
@@ -129,6 +130,7 @@ export const SELECT_ALL_DT_ASYNC = (ddl) => {
 
     // fetchする。
     fetch(url, {method, headers, body})　
+    .then(fetchStatusHandler)
     .then(response => response.json())
     .then(data => 
       {
@@ -149,7 +151,7 @@ export const SELECT_ALL_DT_ASYNC = (ddl) => {
     .catch(
       // 異常系
       error => {
-        dispatch(REQUEST_FAILURE(error));
+        dispatch(REQUEST_FAILURE(error.stack));
       }
     );
   };
@@ -179,6 +181,7 @@ export const SELECT_ALL_DS_ASYNC = (ddl) => {
 
     // fetchする。
     fetch(url, {method, headers, body})　
+    .then(fetchStatusHandler)
     .then(response => response.json())
     .then(data => 
       {
@@ -199,7 +202,7 @@ export const SELECT_ALL_DS_ASYNC = (ddl) => {
     .catch(
       // 異常系
       error => {
-        dispatch(REQUEST_FAILURE(error));
+        dispatch(REQUEST_FAILURE(error.stack));
       }
     );
   };
@@ -229,6 +232,7 @@ export const SELECT_ALL_DR_ASYNC = (ddl) => {
 
     // fetchする。
     fetch(url, {method, headers, body})　
+    .then(fetchStatusHandler)
     .then(response => response.json())
     .then(data => 
       {
@@ -249,7 +253,7 @@ export const SELECT_ALL_DR_ASYNC = (ddl) => {
     .catch(
       // 異常系
       error => {
-        dispatch(REQUEST_FAILURE(error));
+        dispatch(REQUEST_FAILURE(error.stack));
       }
     );
   };
@@ -281,6 +285,7 @@ export const SELECT_ALL_DSQL_ASYNC = (ddl) => {
 
     // fetchする。
     fetch(url, {method, headers, body})　
+    .then(fetchStatusHandler)
     .then(response => response.json())
     .then(data => 
       {
@@ -301,7 +306,7 @@ export const SELECT_ALL_DSQL_ASYNC = (ddl) => {
     .catch(
       // 異常系
       error => {
-        dispatch(REQUEST_FAILURE(error));
+        dispatch(REQUEST_FAILURE(error.stack));
       }
     );
   };
@@ -345,6 +350,7 @@ export const SELECT_ASYNC = (ddl, shipper) => {
 
     // fetchする。
     fetch(url, {method, headers, body})　
+    .then(fetchStatusHandler)
     .then(response => response.json())
     .then(data => 
       {
@@ -365,7 +371,7 @@ export const SELECT_ASYNC = (ddl, shipper) => {
     .catch(
       // 異常系
       error => {
-        dispatch(REQUEST_FAILURE(error));
+        dispatch(REQUEST_FAILURE(error.stack));
       }
     );
   };
@@ -402,6 +408,7 @@ export const INSERT_ASYNC = (ddl, shipper) => {
 
     // fetchする。
     fetch(url, {method, headers, body})　
+    .then(fetchStatusHandler)
     .then(response => response.json())
     .then(data => 
       {
@@ -422,7 +429,7 @@ export const INSERT_ASYNC = (ddl, shipper) => {
     .catch(
       // 異常系
       error => {
-        dispatch(REQUEST_FAILURE(error));
+        dispatch(REQUEST_FAILURE(error.stack));
       }
     );
   };
@@ -459,6 +466,7 @@ export const UPDATE_ASYNC = (ddl, shipper) => {
 
     // fetchする。
     fetch(url, {method, headers, body})　
+    .then(fetchStatusHandler)
     .then(response => response.json())
     .then(data => 
       {
@@ -479,7 +487,7 @@ export const UPDATE_ASYNC = (ddl, shipper) => {
     .catch(
       // 異常系
       error => {
-        dispatch(REQUEST_FAILURE(error));
+        dispatch(REQUEST_FAILURE(error.stack));
       }
     );
   };
@@ -516,6 +524,7 @@ export const DELETE_ASYNC = (ddl, shipper) => {
 
     // fetchする。
     fetch(url, {method, headers, body})　
+    .then(fetchStatusHandler)
     .then(response => response.json())
     .then(data => 
       {
@@ -536,8 +545,18 @@ export const DELETE_ASYNC = (ddl, shipper) => {
     .catch(
       // 異常系
       error => {
-        dispatch(REQUEST_FAILURE(error));
+        dispatch(REQUEST_FAILURE(error.stack));
       }
     );
   };
 };
+
+// https://github.com/github/fetch/issues/155#issuecomment-108353192
+function fetchStatusHandler(response) {
+  if (response.status === 200) {
+      return response;
+  }
+  else {
+      throw new Error(response.statusText);
+  }
+}

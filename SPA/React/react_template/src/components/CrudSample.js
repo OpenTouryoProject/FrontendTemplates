@@ -296,16 +296,13 @@ export class CrudSample extends React.Component {
 
     // input type text
     onChangeShipperID(e){
-        this.state.shipper.shipperID = e.target.value;
-        this.setState({shipper: this.state.shipper});
+        this.setState({shipper: { ...this.state.shipper, shipperID: e.target.value }});
     }
     onChangeCompanyName(e){
-        this.state.shipper.companyName = e.target.value;
-        this.setState({shipper: this.state.shipper});
+        this.setState({shipper: { ...this.state.shipper, companyName: e.target.value }});
     }
     onChangePhone(e){
-        this.state.shipper.phone = e.target.value;
-        this.setState({shipper: this.state.shipper});
+        this.setState({shipper: { ...this.state.shipper, phone: e.target.value }});
     }
 
     // event handler (WebAPI)
@@ -329,6 +326,7 @@ export class CrudSample extends React.Component {
 
         // リクエストしてレスポンスを処理
         fetch(CrudSampleRootUrl + 'SelectCount', {method, headers, body})
+            .then(this.fetchStatusHandler) 
             .then(response => response.json())
             .then(data =>  {
                 if(data.Message)
@@ -343,7 +341,13 @@ export class CrudSample extends React.Component {
                 {
                     this.setState({ message : JSON.stringify(data.ExceptionMSG) });
                 }
-            });
+            })
+            .catch(
+                // 異常系
+                error => {
+                    this.setState({ message : JSON.stringify(error.stack) });
+                }
+            );
     }
     selectAll_DT() {
         // エラーメッセージをクリアする
@@ -365,6 +369,7 @@ export class CrudSample extends React.Component {
 
         // リクエストしてレスポンスを処理
         fetch(CrudSampleRootUrl + 'SelectAll_DT', {method, headers, body})
+            .then(this.fetchStatusHandler)     
             .then(response => response.json())
             .then(data =>  {
                 if(data.Result)
@@ -384,7 +389,13 @@ export class CrudSample extends React.Component {
                 {
                     this.setState({ message : JSON.stringify(data.ExceptionMSG) });
                 }
-            });
+            })
+            .catch(
+                // 異常系
+                error => {
+                    this.setState({ message : JSON.stringify(error.stack) });
+                }
+            );
     }
     selectAll_DS() {
         // エラーメッセージをクリアする
@@ -406,6 +417,7 @@ export class CrudSample extends React.Component {
 
         // リクエストしてレスポンスを処理
         fetch(CrudSampleRootUrl + 'SelectAll_DS', {method, headers, body})
+            .then(this.fetchStatusHandler) 
             .then(response => response.json())
             .then(data =>  {
                 if(data.Result)
@@ -425,7 +437,13 @@ export class CrudSample extends React.Component {
                 {
                     this.setState({ message : JSON.stringify(data.ExceptionMSG) });
                 }
-            });
+            })
+            .catch(
+                // 異常系
+                error => {
+                    this.setState({ message : JSON.stringify(error.stack) });
+                }
+            );
     }
     selectAll_DR() {
         // エラーメッセージをクリアする
@@ -447,6 +465,7 @@ export class CrudSample extends React.Component {
 
         // リクエストしてレスポンスを処理
         fetch(CrudSampleRootUrl + 'SelectAll_DR', {method, headers, body})
+            .then(this.fetchStatusHandler) 
             .then(response => response.json())
             .then(data =>  {
                 if(data.Result)
@@ -466,7 +485,13 @@ export class CrudSample extends React.Component {
                 {
                     this.setState({ message : JSON.stringify(data.ExceptionMSG) });
                 }
-            });
+            })
+            .catch(
+                // 異常系
+                error => {
+                    this.setState({ message : JSON.stringify(error.stack) });
+                }
+            );
     }
     selectAll_DSQL() {
         // エラーメッセージをクリアする
@@ -490,6 +515,7 @@ export class CrudSample extends React.Component {
 
         // リクエストしてレスポンスを処理
         fetch(CrudSampleRootUrl + 'SelectAll_DSQL', {method, headers, body})
+            .then(this.fetchStatusHandler) 
             .then(response => response.json())
             .then(data =>  {
                 if(data.Result)
@@ -509,7 +535,13 @@ export class CrudSample extends React.Component {
                 {
                     this.setState({ message : JSON.stringify(data.ExceptionMSG) });
                 }
-            });
+            })
+            .catch(
+                // 異常系
+                error => {
+                    this.setState({ message : JSON.stringify(error.stack) });
+                }
+            );
     }
     select() {
         // エラーメッセージをクリアする
@@ -537,6 +569,7 @@ export class CrudSample extends React.Component {
 
         // リクエストしてレスポンスを処理
         fetch(CrudSampleRootUrl + 'Select', {method, headers, body})
+            .then(this.fetchStatusHandler) 
             .then(response => response.json())
             .then(data =>  {
                 if(data.Result)
@@ -558,7 +591,13 @@ export class CrudSample extends React.Component {
                 {
                     this.setState({ message : JSON.stringify(data.ExceptionMSG) });
                 }
-            });
+            })
+            .catch(
+                // 異常系
+                error => {
+                    this.setState({ message : JSON.stringify(error.stack) });
+                }
+            );
     }
     insert() {
         // エラーメッセージをクリアする
@@ -586,6 +625,7 @@ export class CrudSample extends React.Component {
 
         // リクエストしてレスポンスを処理
         fetch(CrudSampleRootUrl + 'Insert', {method, headers, body})
+            .then(this.fetchStatusHandler)   
             .then(response => response.json())
             .then(data =>  {
                 if(data.Message)
@@ -600,7 +640,13 @@ export class CrudSample extends React.Component {
                 {
                     this.setState({ message : JSON.stringify(data.ExceptionMSG) });
                 }
-            });
+            })
+            .catch(
+                // 異常系
+                error => {
+                    this.setState({ message : JSON.stringify(error.stack) });
+                }
+            );
     }
     update() {
         // エラーメッセージをクリアする
@@ -628,6 +674,7 @@ export class CrudSample extends React.Component {
 
         // リクエストしてレスポンスを処理
         fetch(CrudSampleRootUrl + 'Update', {method, headers, body})
+            .then(this.fetchStatusHandler)
             .then(response => response.json())
             .then(data =>  {
                 if(data.Message)
@@ -642,7 +689,13 @@ export class CrudSample extends React.Component {
                 {
                     this.setState({ message : JSON.stringify(data.ExceptionMSG) });
                 }
-            });
+            })
+            .catch(
+                // 異常系
+                error => {
+                    this.setState({ message : JSON.stringify(error.stack) });
+                }
+            );
     }
     delete() {
         // エラーメッセージをクリアする
@@ -670,6 +723,7 @@ export class CrudSample extends React.Component {
 
         // リクエストしてレスポンスを処理
         fetch(CrudSampleRootUrl + 'Delete', {method, headers, body})
+            .then(this.fetchStatusHandler)
             .then(response => response.json())
             .then(data =>  {
                 if(data.Message)
@@ -684,6 +738,22 @@ export class CrudSample extends React.Component {
                 {
                     this.setState({ message : JSON.stringify(data.ExceptionMSG) });
                 }
-            });
+            })
+            .catch(
+                // 異常系
+                error => {
+                    this.setState({ message : JSON.stringify(error.stack) });
+                }
+            );
+    }
+
+    // https://github.com/github/fetch/issues/155#issuecomment-108353192
+    fetchStatusHandler(response) {
+        if (response.status === 200) {
+            return response;
+        }
+        else {
+            throw new Error(response.statusText);
+        }
     }
 }
