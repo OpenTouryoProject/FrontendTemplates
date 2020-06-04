@@ -2,6 +2,8 @@ import * as React from 'react';
 import 'isomorphic-fetch';
 import {CrudSampleRootUrl} from '../const.js';
 
+import oauth_oidc from '../touryo/oauth_oidc';
+
 export class CrudSample extends React.Component {
     // constructor
     constructor() {
@@ -106,12 +108,14 @@ export class CrudSample extends React.Component {
 
     // render
     render() {
+
+        const div0Style = { };
+
         const div1Style = {
-            width:"30%",
             display : 'inline-block'
         };
+
         const div2Style = {
-            width:"70%",
             display : 'inline-block'
         };
 
@@ -128,8 +132,10 @@ export class CrudSample extends React.Component {
         return <div>
             <h1>CRUD sample</h1>
             <p>This component demonstrates CRUD.</p>
-            <div style={div1Style}>
+            <div style={div0Style}>
                 { this.renderDDL() }
+            </div>
+            <div style={div1Style}>
                 { this.renderInput() }
             </div>
             <div style={div2Style}>
@@ -140,7 +146,7 @@ export class CrudSample extends React.Component {
                 <button className='btn' onClick={ () => { this.selectCount() } }>SelectCount</button>&nbsp;
                 <button className='btn' onClick={ () => { this.selectAll_DT() } }>SelectAll_DT</button>&nbsp;
                 <button className='btn' onClick={ () => { this.selectAll_DS() } }>SelectAll_DS</button>&nbsp;
-                <button className='btn' onClick={ () => { this.selectAll_DR() } }>SelectAll_DS</button>&nbsp;
+                <button className='btn' onClick={ () => { this.selectAll_DR() } }>SelectAll_DR</button>&nbsp;
                 <button className='btn' onClick={ () => { this.selectAll_DSQL() } }>SelectAll_DSQL</button>&nbsp;
                 <button className='btn' onClick={ () => { this.select() } }>Select</button>&nbsp;
                 <button className='btn' onClick={ () => { this.insert() } }>Insert</button>&nbsp;
@@ -156,11 +162,11 @@ export class CrudSample extends React.Component {
         };
 
         return <table className='table'>
-            <tbody>
+            <tbody style={ddlStyle}>
                 <tr>
                     <td>データアクセス制御クラス:</td>
                     <td>
-                        <select style={ddlStyle} value={this.state.ddl.ddlDap}
+                        <select value={this.state.ddl.ddlDap}
                             defaultValue={this.state.ddl.ddlDap} onChange={this.onChangeDdlDap}>
                             { this.ddlDap.map( d => <option key={d.value} value={d.value}>{d.label}</option>)}
                         </select>
@@ -169,7 +175,7 @@ export class CrudSample extends React.Component {
                 <tr>
                     <td>Ｄａｏモード:</td>
                     <td>
-                        <select style={ddlStyle} value={this.state.ddl.ddlMode1}
+                        <select value={this.state.ddl.ddlMode1}
                             defaultValue={this.state.ddl.ddlMode1} onChange={this.onChangeDdlMode1}>
                             { this.ddlMode1.map( d => <option key={d.value} value={d.value}>{d.label}</option>)}
                         </select><br/>
@@ -178,7 +184,7 @@ export class CrudSample extends React.Component {
                 <tr>
                     <td>静的、動的のクエリ モード:</td>
                     <td>
-                        <select style={ddlStyle} value={this.state.ddl.ddlMode2}
+                        <select value={this.state.ddl.ddlMode2}
                             defaultValue={this.state.ddl.ddlMode2} onChange={this.onChangeDdlMode2}>
                             { this.ddlMode2.map( d => <option key={d.value} value={d.value}>{d.label}</option>)}
                         </select>
@@ -187,7 +193,7 @@ export class CrudSample extends React.Component {
                 <tr>
                     <td>分離レベル:</td>
                     <td>
-                        <select style={ddlStyle} value={this.state.ddl.ddlIso}
+                        <select value={this.state.ddl.ddlIso}
                             defaultValue={this.state.ddl.ddlIso} onChange={this.onChangeDdlIso}>
                             { this.ddlIso.map( d => <option key={d.value} value={d.value}>{d.label}</option>)}
                         </select>
@@ -196,7 +202,7 @@ export class CrudSample extends React.Component {
                 <tr>
                     <td>コミット、ロールバックを設定:</td>
                     <td>
-                        <select style={ddlStyle} value={this.state.ddl.ddlExRollback}
+                        <select value={this.state.ddl.ddlExRollback}
                             defaultValue={this.state.ddl.ddlExRollback} onChange={this.onChangeDdlExRollback}>
                             { this.ddlExRollback.map( d => <option key={d.value} value={d.value}>{d.label}</option>)}
                         </select>
@@ -205,7 +211,7 @@ export class CrudSample extends React.Component {
                 <tr>
                     <td>並び替え対象列:</td>
                     <td>
-                        <select style={ddlStyle} value={this.state.ddl.ddlOrder}
+                        <select value={this.state.ddl.ddlOrder}
                             defaultValue={this.state.ddl.ddlOrder} onChange={this.onChangeDdlOrder}>
                             { this.ddlOrder.map( d => <option key={d.value} value={d.value}>{d.label}</option>)}
                         </select>
@@ -214,7 +220,7 @@ export class CrudSample extends React.Component {
                 <tr>
                     <td>昇順・降順:</td>
                     <td>
-                        <select style={ddlStyle} value={this.state.ddl.ddlOrderSequence}
+                        <select value={this.state.ddl.ddlOrderSequence}
                             defaultValue={this.state.ddl.ddlOrderSequence} onChange={this.onChangeDdlOrderSequence}>
                             { this.ddlOrderSequence.map( d => <option key={d.value} value={d.value}>{d.label}</option>)}
                         </select>
@@ -225,24 +231,40 @@ export class CrudSample extends React.Component {
     }
     renderInput()
     {
+        const inputStyle = {
+            width:"100%"
+        };
+
         return <table className='table'>
-            <tbody>
+            <tbody style={inputStyle}>
                 <tr>
                     <td>ShipperID：</td>
                     <td>
-                        <p><label><input type="text" id="txtShipperID" value={this.state.shipper.shipperID} onChange={this.onChangeShipperID}/></label></p>            
+                        <p>
+                            <label>
+                                <input type="text" id="txtShipperID" value={this.state.shipper.shipperID} onChange={this.onChangeShipperID}/>
+                            </label>
+                        </p>            
                     </td>
                 </tr>
                 <tr>
                     <td>CompanyName：</td>
                     <td>
-                        <p><label><input type="text" id="txtCompanyName" value={this.state.shipper.companyName} onChange={this.onChangeCompanyName}/></label></p>
+                        <p>
+                            <label>
+                                <input type="text" id="txtCompanyName" value={this.state.shipper.companyName} onChange={this.onChangeCompanyName}/>
+                            </label>
+                        </p>
                     </td>
                 </tr>
                 <tr>
                     <td>Phone：</td>
                     <td>
-                        <p><label><input type="text" id="txtPhone" value={this.state.shipper.phone} onChange={this.onChangePhone}/></label></p>
+                        <p>
+                            <label>
+                                <input type="text" id="txtPhone" value={this.state.shipper.phone} onChange={this.onChangePhone}/>
+                            </label>
+                        </p>
                     </td>
                 </tr>
             </tbody>
@@ -259,10 +281,10 @@ export class CrudSample extends React.Component {
             </thead>
             <tbody>
             {shippers.map(shipper =>
-                <tr key={ shipper.ShipperID }>
-                    <td>{ shipper.ShipperID }</td>
-                    <td>{ shipper.CompanyName }</td>
-                    <td>{ shipper.Phone }</td>
+                <tr key={ shipper.shipperID }>
+                    <td>{ shipper.shipperID }</td>
+                    <td>{ shipper.companyName }</td>
+                    <td>{ shipper.phone }</td>
                 </tr>
             )}
             </tbody>
@@ -314,40 +336,34 @@ export class CrudSample extends React.Component {
 
         // リクエストの生成
         const method = "POST";
-        const headers = {
-            'Accept': 'application/json',
-            'Content-Type': 'application/x-www-form-urlencoded'
-        };
+        const headers = createHttpRequestHeader(false);
         const body = 
             "ddlDap=" + this.state.ddl.ddlDap
             + "&ddlMode1=" + this.state.ddl.ddlMode1
             + "&ddlMode2=" + this.state.ddl.ddlMode2
             + "&ddlExRollback=" + this.state.ddl.ddlExRollback;
 
-        // リクエストしてレスポンスを処理
+        // fetchする。
         fetch(CrudSampleRootUrl + 'SelectCount', {method, headers, body})
-            .then(this.fetchStatusHandler) 
-            .then(response => response.json())
-            .then(data =>  {
-                if(data.Message)
-                {
-                    this.setState({ message : data.Message });
-                }
-                else if(data.ErrorMSG)
-                {
-                    this.setState({ message : JSON.stringify(data.ErrorMSG) });
-                }
-                else if(data.ExceptionMSG)
-                {
-                    this.setState({ message : JSON.stringify(data.ExceptionMSG) });
-                }
-            })
-            .catch(
-                // 異常系
-                error => {
-                    this.setState({ message : JSON.stringify(error.stack) });
-                }
-            );
+        .then(fetchStatusHandler) 
+        .then(response => response.json())
+        .then(data => {
+            if(data.message) {
+                this.setState({ message : data.message });
+            }
+            else if(data.errorMSG) {
+                this.setState({ message : JSON.stringify(data.errorMSG) });
+            }
+            else if(data.exceptionMSG) {
+                this.setState({ message : JSON.stringify(data.exceptionMSG) });
+            }
+        })
+        .catch(
+            // 異常系
+            error => {
+                this.setState({ message : JSON.stringify(error.stack) });
+            }
+        );
     }
     selectAll_DT() {
         // エラーメッセージをクリアする
@@ -357,45 +373,38 @@ export class CrudSample extends React.Component {
 
         // リクエストの生成
         const method = "POST";
-        const headers = {
-            'Accept': 'application/json',
-            'Content-Type': 'application/x-www-form-urlencoded'
-        };
+        const headers = createHttpRequestHeader(false);
         const body = 
             "ddlDap=" + this.state.ddl.ddlDap
             + "&ddlMode1=" + this.state.ddl.ddlMode1
             + "&ddlMode2=" + this.state.ddl.ddlMode2
             + "&ddlExRollback=" + this.state.ddl.ddlExRollback;
 
-        // リクエストしてレスポンスを処理
+        // fetchする。
         fetch(CrudSampleRootUrl + 'SelectAll_DT', {method, headers, body})
-            .then(this.fetchStatusHandler)     
-            .then(response => response.json())
-            .then(data =>  {
-                if(data.Result)
-                {
-                    this.setState(
-                        {
-                            message : "",
-                            shippers : data.Result,
-                            loading: false
-                        });
-                }
-                else if(data.ErrorMSG)
-                {
-                    this.setState({ message : JSON.stringify(data.ErrorMSG) });
-                }
-                else if(data.ExceptionMSG)
-                {
-                    this.setState({ message : JSON.stringify(data.ExceptionMSG) });
-                }
-            })
-            .catch(
-                // 異常系
-                error => {
-                    this.setState({ message : JSON.stringify(error.stack) });
-                }
-            );
+        .then(fetchStatusHandler)     
+        .then(response => response.json())
+        .then(data => {
+            if(data.result) {
+                this.setState({
+                    message : "",
+                    shippers : data.result,
+                    loading: false
+                });
+            }
+            else if(data.errorMSG) {
+                this.setState({ message : JSON.stringify(data.errorMSG) });
+            }
+            else if(data.exceptionMSG) {
+                this.setState({ message : JSON.stringify(data.exceptionMSG) });
+            }
+        })
+        .catch(
+            // 異常系
+            error => {
+                this.setState({ message : JSON.stringify(error.stack) });
+            }
+        );
     }
     selectAll_DS() {
         // エラーメッセージをクリアする
@@ -405,45 +414,38 @@ export class CrudSample extends React.Component {
 
         // リクエストの生成
         const method = "POST";
-        const headers = {
-            'Accept': 'application/json',
-            'Content-Type': 'application/x-www-form-urlencoded'
-        };
+        const headers = createHttpRequestHeader(false);
         const body = 
             "ddlDap=" + this.state.ddl.ddlDap
             + "&ddlMode1=" + this.state.ddl.ddlMode1
             + "&ddlMode2=" + this.state.ddl.ddlMode2
             + "&ddlExRollback=" + this.state.ddl.ddlExRollback;
 
-        // リクエストしてレスポンスを処理
+        // fetchする。
         fetch(CrudSampleRootUrl + 'SelectAll_DS', {method, headers, body})
-            .then(this.fetchStatusHandler) 
-            .then(response => response.json())
-            .then(data =>  {
-                if(data.Result)
-                {
-                    this.setState(
-                        {
-                            message : "",
-                            shippers : data.Result,
-                            loading: false
-                        });
-                }
-                else if(data.ErrorMSG)
-                {
-                    this.setState({ message : JSON.stringify(data.ErrorMSG) });
-                }
-                else if(data.ExceptionMSG)
-                {
-                    this.setState({ message : JSON.stringify(data.ExceptionMSG) });
-                }
-            })
-            .catch(
-                // 異常系
-                error => {
-                    this.setState({ message : JSON.stringify(error.stack) });
-                }
-            );
+        .then(fetchStatusHandler) 
+        .then(response => response.json())
+        .then(data => {
+            if(data.result) {
+                this.setState({
+                    message : "",
+                    shippers : data.result,
+                    loading: false
+                });
+            }
+            else if(data.errorMSG) {
+                this.setState({ message : JSON.stringify(data.errorMSG) });
+            }
+            else if(data.exceptionMSG) {
+                this.setState({ message : JSON.stringify(data.exceptionMSG) });
+            }
+        })
+        .catch(
+            // 異常系
+            error => {
+                this.setState({ message : JSON.stringify(error.stack) });
+            }
+        );
     }
     selectAll_DR() {
         // エラーメッセージをクリアする
@@ -453,45 +455,38 @@ export class CrudSample extends React.Component {
 
         // リクエストの生成
         const method = "POST";
-        const headers = {
-            'Accept': 'application/json',
-            'Content-Type': 'application/x-www-form-urlencoded'
-        };
+        const headers = createHttpRequestHeader(false);
         const body = 
             "ddlDap=" + this.state.ddl.ddlDap
             + "&ddlMode1=" + this.state.ddl.ddlMode1
             + "&ddlMode2=" + this.state.ddl.ddlMode2
             + "&ddlExRollback=" + this.state.ddl.ddlExRollback;
 
-        // リクエストしてレスポンスを処理
+        // fetchする。
         fetch(CrudSampleRootUrl + 'SelectAll_DR', {method, headers, body})
-            .then(this.fetchStatusHandler) 
-            .then(response => response.json())
-            .then(data =>  {
-                if(data.Result)
-                {
-                    this.setState(
-                        {
-                            message : "",
-                            shippers : data.Result,
-                            loading: false
-                        });
-                }
-                else if(data.ErrorMSG)
-                {
-                    this.setState({ message : JSON.stringify(data.ErrorMSG) });
-                }
-                else if(data.ExceptionMSG)
-                {
-                    this.setState({ message : JSON.stringify(data.ExceptionMSG) });
-                }
-            })
-            .catch(
-                // 異常系
-                error => {
-                    this.setState({ message : JSON.stringify(error.stack) });
-                }
-            );
+        .then(fetchStatusHandler) 
+        .then(response => response.json())
+        .then(data => {
+            if(data.result) {
+                this.setState({
+                    message : "",
+                    shippers : data.result,
+                    loading: false
+                });
+            }
+            else if(data.errorMSG) {
+                this.setState({ message : JSON.stringify(data.errorMSG) });
+            }
+            else if(data.exceptionMSG) {
+                this.setState({ message : JSON.stringify(data.exceptionMSG) });
+            }
+        })
+        .catch(
+            // 異常系
+            error => {
+                this.setState({ message : JSON.stringify(error.stack) });
+            }
+        );
     }
     selectAll_DSQL() {
         // エラーメッセージをクリアする
@@ -501,47 +496,40 @@ export class CrudSample extends React.Component {
 
         // リクエストの生成
         const method = "POST";
-        const headers = {
-            'Accept': 'application/json',
-            'Content-Type': 'application/x-www-form-urlencoded'
-        };
+        const headers = createHttpRequestHeader(false);
         const body = 
             "ddlDap=" + this.state.ddl.ddlDap
             + "&ddlMode1=" + this.state.ddl.ddlMode1
             + "&ddlMode2=" + this.state.ddl.ddlMode2
             + "&ddlExRollback=" + this.state.ddl.ddlExRollback
-            + "&OrderColumn=" + this.state.ddl.ddlOrder
-            + "&OrderSequence=" + this.state.ddl.ddlOrderSequence;
+            + "&orderColumn=" + this.state.ddl.ddlOrder
+            + "&orderSequence=" + this.state.ddl.ddlOrderSequence;
 
-        // リクエストしてレスポンスを処理
+        // fetchする。
         fetch(CrudSampleRootUrl + 'SelectAll_DSQL', {method, headers, body})
-            .then(this.fetchStatusHandler) 
-            .then(response => response.json())
-            .then(data =>  {
-                if(data.Result)
-                {
-                    this.setState(
-                        {
-                            message : "",
-                            shippers : data.Result,
-                            loading: false
-                        });
-                }
-                else if(data.ErrorMSG)
-                {
-                    this.setState({ message : JSON.stringify(data.ErrorMSG) });
-                }
-                else if(data.ExceptionMSG)
-                {
-                    this.setState({ message : JSON.stringify(data.ExceptionMSG) });
-                }
-            })
-            .catch(
-                // 異常系
-                error => {
-                    this.setState({ message : JSON.stringify(error.stack) });
-                }
-            );
+        .then(fetchStatusHandler) 
+        .then(response => response.json())
+        .then(data => {
+            if(data.result) {
+                this.setState({
+                    message : "",
+                    shippers : data.result,
+                    loading: false
+                });
+            }
+            else if(data.errorMSG) {
+                this.setState({ message : JSON.stringify(data.errorMSG) });
+            }
+            else if(data.exceptionMSG) {
+                this.setState({ message : JSON.stringify(data.exceptionMSG) });
+            }
+        })
+        .catch(
+            // 異常系
+            error => {
+                this.setState({ message : JSON.stringify(error.stack) });
+            }
+        );
     }
     select() {
         // エラーメッセージをクリアする
@@ -551,53 +539,46 @@ export class CrudSample extends React.Component {
 
         // リクエストの生成
         const method = "POST";
-        const headers = {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        };
+        const headers = createHttpRequestHeader(true);
         const body = JSON.stringify({
             ddlDap: this.state.ddl.ddlDap,
             ddlMode1: this.state.ddl.ddlMode1,
             ddlMode2: this.state.ddl.ddlMode2,
             ddlExRollback: this.state.ddl.ddlExRollback,
-            Shipper: {
-                ShipperID: this.state.shipper.shipperID,
-                CompanyName: "",
-                Phone: ""
+            shipper: {
+                shipperID: this.state.shipper.shipperID,
+                companyName: "",
+                phone: ""
             }
         });
 
-        // リクエストしてレスポンスを処理
+        // fetchする。
         fetch(CrudSampleRootUrl + 'Select', {method, headers, body})
-            .then(this.fetchStatusHandler) 
-            .then(response => response.json())
-            .then(data =>  {
-                if(data.Result)
-                {
-                    this.setState(
-                        {
-                            shipper:{
-                                shipperID: data.Result.ShipperID,
-                                companyName: data.Result.CompanyName,
-                                phone: data.Result.Phone
-                            }
-                        });
-                }
-                else if(data.ErrorMSG)
-                {
-                    this.setState({ message : JSON.stringify(data.ErrorMSG) });
-                }
-                else if(data.ExceptionMSG)
-                {
-                    this.setState({ message : JSON.stringify(data.ExceptionMSG) });
-                }
-            })
-            .catch(
-                // 異常系
-                error => {
-                    this.setState({ message : JSON.stringify(error.stack) });
-                }
-            );
+        .then(fetchStatusHandler) 
+        .then(response => response.json())
+        .then(data => {
+            if(data.result) {
+                this.setState({
+                    shipper:{
+                        shipperID: data.result.shipperID,
+                        companyName: data.result.companyName,
+                        phone: data.result.phone
+                        }
+                });
+            }
+            else if(data.errorMSG) {
+                this.setState({ message : JSON.stringify(data.errorMSG) });
+            }
+            else if(data.exceptionMSG) {
+                this.setState({ message : JSON.stringify(data.exceptionMSG) });
+            }
+        })
+        .catch(
+            // 異常系
+            error => {
+                this.setState({ message : JSON.stringify(error.stack) });
+            }
+        );
     }
     insert() {
         // エラーメッセージをクリアする
@@ -607,46 +588,40 @@ export class CrudSample extends React.Component {
 
         // リクエストの生成
         const method = "POST";
-        const headers = {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        };
+        const headers = createHttpRequestHeader(true);
         const body = JSON.stringify({
             ddlDap: this.state.ddl.ddlDap,
             ddlMode1: this.state.ddl.ddlMode1,
             ddlMode2: this.state.ddl.ddlMode2,
             ddlExRollback: this.state.ddl.ddlExRollback,
-            Shipper: {
-                ShipperID: '0',
-                CompanyName: this.state.shipper.companyName,
-                Phone: this.state.shipper.phone
+            shipper: {
+                shipperID: '0',
+                companyName: this.state.shipper.companyName,
+                phone: this.state.shipper.phone
             }
         });
 
-        // リクエストしてレスポンスを処理
+        // fetchする。
         fetch(CrudSampleRootUrl + 'Insert', {method, headers, body})
-            .then(this.fetchStatusHandler)   
-            .then(response => response.json())
-            .then(data =>  {
-                if(data.Message)
-                {
-                    this.setState({ message : data.Message });
-                }
-                else if(data.ErrorMSG)
-                {
-                    this.setState({ message : JSON.stringify(data.ErrorMSG) });
-                }
-                else if(data.ExceptionMSG)
-                {
-                    this.setState({ message : JSON.stringify(data.ExceptionMSG) });
-                }
-            })
-            .catch(
-                // 異常系
-                error => {
-                    this.setState({ message : JSON.stringify(error.stack) });
-                }
-            );
+        .then(fetchStatusHandler)   
+        .then(response => response.json())
+        .then(data =>  {
+            if(data.message) {
+                this.setState({ message : data.message });
+            }
+            else if(data.errorMSG) {
+                this.setState({ message : JSON.stringify(data.errorMSG) });
+            }
+            else if(data.exceptionMSG) {
+                this.setState({ message : JSON.stringify(data.exceptionMSG) });
+            }
+        })
+        .catch(
+            // 異常系
+            error => {
+                this.setState({ message : JSON.stringify(error.stack) });
+            }
+        );
     }
     update() {
         // エラーメッセージをクリアする
@@ -656,46 +631,40 @@ export class CrudSample extends React.Component {
 
         // リクエストの生成
         const method = "POST";
-        const headers = {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        };
+        const headers = createHttpRequestHeader(true);
         const body = JSON.stringify({
             ddlDap: this.state.ddl.ddlDap,
             ddlMode1: this.state.ddl.ddlMode1,
             ddlMode2: this.state.ddl.ddlMode2,
             ddlExRollback: this.state.ddl.ddlExRollback,
-            Shipper: {
-                ShipperID: this.state.shipper.shipperID,
-                CompanyName: this.state.shipper.companyName,
-                Phone: this.state.shipper.phone
+            shipper: {
+                shipperID: this.state.shipper.shipperID,
+                companyName: this.state.shipper.companyName,
+                phone: this.state.shipper.phone
             }
         });
 
-        // リクエストしてレスポンスを処理
+        // fetchする。
         fetch(CrudSampleRootUrl + 'Update', {method, headers, body})
-            .then(this.fetchStatusHandler)
-            .then(response => response.json())
-            .then(data =>  {
-                if(data.Message)
-                {
-                    this.setState({ message : data.Message });
-                }
-                else if(data.ErrorMSG)
-                {
-                    this.setState({ message : JSON.stringify(data.ErrorMSG) });
-                }
-                else if(data.ExceptionMSG)
-                {
-                    this.setState({ message : JSON.stringify(data.ExceptionMSG) });
-                }
-            })
-            .catch(
-                // 異常系
-                error => {
-                    this.setState({ message : JSON.stringify(error.stack) });
-                }
-            );
+        .then(fetchStatusHandler)
+        .then(response => response.json())
+        .then(data => {
+            if(data.message) {
+                this.setState({ message : data.message });
+            }
+            else if(data.errorMSG) {
+                this.setState({ message : JSON.stringify(data.errorMSG) });
+            }
+            else if(data.exceptionMSG) {
+                this.setState({ message : JSON.stringify(data.exceptionMSG) });
+            }
+        })
+        .catch(
+            // 異常系
+            error => {
+                this.setState({ message : JSON.stringify(error.stack) });
+            }
+        );
     }
     delete() {
         // エラーメッセージをクリアする
@@ -705,55 +674,73 @@ export class CrudSample extends React.Component {
 
         // リクエストの生成
         const method = "POST";
-        const headers = {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        };
+        const headers = createHttpRequestHeader(true);
         const body = JSON.stringify({
             ddlDap: this.state.ddl.ddlDap,
             ddlMode1: this.state.ddl.ddlMode1,
             ddlMode2: this.state.ddl.ddlMode2,
             ddlExRollback: this.state.ddl.ddlExRollback,
-            Shipper: {
-                ShipperID: this.state.shipper.shipperID,
-                CompanyName: "",
-                Phone: ""
+            shipper: {
+                shipperID: this.state.shipper.shipperID,
+                companyName: "",
+                phone: ""
             }
         });
 
-        // リクエストしてレスポンスを処理
+        // fetchする。
         fetch(CrudSampleRootUrl + 'Delete', {method, headers, body})
-            .then(this.fetchStatusHandler)
-            .then(response => response.json())
-            .then(data =>  {
-                if(data.Message)
-                {
-                    this.setState({ message : data.Message });
-                }
-                else if(data.ErrorMSG)
-                {
-                    this.setState({ message : JSON.stringify(data.ErrorMSG) });
-                }
-                else if(data.ExceptionMSG)
-                {
-                    this.setState({ message : JSON.stringify(data.ExceptionMSG) });
-                }
-            })
-            .catch(
-                // 異常系
-                error => {
-                    this.setState({ message : JSON.stringify(error.stack) });
-                }
-            );
+        .then(fetchStatusHandler)
+        .then(response => response.json())
+        .then(data => {
+            if(data.message) {
+                this.setState({ message : data.message });
+            }
+            else if(data.errorMSG) {
+                this.setState({ message : JSON.stringify(data.errorMSG) });
+            }
+            else if(data.exceptionMSG) {
+                this.setState({ message : JSON.stringify(data.exceptionMSG) });
+            }
+        })
+        .catch(
+            // 異常系
+            error => {
+                this.setState({ message : JSON.stringify(error.stack) });
+            }
+        );
     }
+}
 
-    // https://github.com/github/fetch/issues/155#issuecomment-108353192
-    fetchStatusHandler(response) {
-        if (response.status === 200) {
-            return response;
-        }
-        else {
-            throw new Error(response.statusText);
-        }
-    }
+function createHttpRequestHeader(isJsonRpc) {
+  let headers = { };
+
+  if(isJsonRpc) {
+    headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    };
+  }
+  else {
+    headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded'
+    };
+  }
+
+  let access_token = oauth_oidc.getAccessToken();
+  if(access_token) {
+    headers.Authorization = "Bearer " + access_token;
+  }
+  
+  return headers;
+}
+
+// https://github.com/github/fetch/issues/155#issuecomment-108353192
+function fetchStatusHandler(response) {
+  if (response.status === 200) {
+      return response;
+  }
+  else {
+      throw new Error(response.statusText);
+  }
 }

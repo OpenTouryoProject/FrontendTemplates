@@ -6,7 +6,7 @@ export class FetchData extends React.Component {
     constructor() {
         super();
         this.state = { forecasts: [], loading: true };
-        fetch(FetchDataRootUrl)
+        fetch(FetchDataRootUrl + "startDateIndex=1")
             .then(response => response.json())
             .then(data => {
                 this.setState({ forecasts: data, loading: false });
@@ -23,6 +23,7 @@ export class FetchData extends React.Component {
             { contents }
         </div>;
     }
+
     static renderForecastsTable(forecasts) {
         console.log("components/FetchData.renderForecastsTable: " + JSON.stringify(forecasts));
 

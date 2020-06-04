@@ -1,4 +1,5 @@
 import * as React from 'react';
+import SignIn from './SignIn';
 import { Link, NavLink } from 'react-router-dom';
 
 export class NavMenu extends React.Component {
@@ -12,7 +13,8 @@ export class NavMenu extends React.Component {
                         <span className='icon-bar'></span>
                         <span className='icon-bar'></span>
                     </button>
-                    <Link className='navbar-brand' to={ '/' }>ReactReduxTemplate</Link>
+                    <Link className='navbar-brand' to={ '/' }>ReactTemplate</Link>
+                    <SignIn/>
                 </div>
                 <div className='clearfix'></div>
                 <div className='navbar-collapse collapse'>
@@ -35,6 +37,11 @@ export class NavMenu extends React.Component {
                         <li>
                             <NavLink to={ '/crudsample' } activeClassName='active'>
                                 <span className='glyphicon glyphicon-modal-window'></span> Crud sample
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to={ '/crudsample2' } activeClassName='active'>
+                                <span className='glyphicon glyphicon-modal-window'></span> Crud sample2
                             </NavLink>
                         </li>
                     </ul>

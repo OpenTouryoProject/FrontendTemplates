@@ -21,6 +21,7 @@ function renderApp() {
         document.getElementById('react-app'));
 }
 renderApp();
+
 // Allow Hot Module Replacement
 if (module.hot) {
     module.hot.accept('./routes', () => {
