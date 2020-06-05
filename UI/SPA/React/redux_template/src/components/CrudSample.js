@@ -35,8 +35,6 @@ export default class CrudSample extends React.Component {
             }
         };
 
-        this.rootUrl = 'http://localhost:8888/api/json/';
-
         // データアクセス制御クラス
         this.ddlDap = [
             { label: "SQL Server / SQL Client", value: "SQL" }, 
@@ -112,12 +110,13 @@ export default class CrudSample extends React.Component {
 
     // render
     render() {
+        const div0Style = { };
+
         const div1Style = {
-            width:"30%",
             display : 'inline-block'
         };
+
         const div2Style = {
-            width:"70%",
             display : 'inline-block'
         };
 
@@ -135,8 +134,10 @@ export default class CrudSample extends React.Component {
         return <div>
             <h1>CRUD sample</h1>
             <p>This component demonstrates CRUD.</p>
-            <div style={div1Style}>
+            <div style={div0Style}>
                 { this.renderDDL() }
+            </div>
+            <div style={div1Style}>
                 { this.renderInput(this.props.shipper) }
             </div>
             <div style={div2Style}>
@@ -163,11 +164,11 @@ export default class CrudSample extends React.Component {
         };
 
         return <table className='table'>
-            <tbody>
+            <tbody style={ddlStyle}>
                 <tr>
                     <td>データアクセス制御クラス:</td>
                     <td>
-                        <select style={ddlStyle} value={this.state.ddl.ddlDap}
+                        <select value={this.state.ddl.ddlDap}
                             defaultValue={this.state.ddl.ddlDap} onChange={this.onChangeDdlDap}>
                             { this.ddlDap.map( d => <option key={d.value} value={d.value}>{d.label}</option>)}
                         </select>
@@ -176,7 +177,7 @@ export default class CrudSample extends React.Component {
                 <tr>
                     <td>Ｄａｏモード:</td>
                     <td>
-                        <select style={ddlStyle} value={this.state.ddl.ddlMode1}
+                        <select value={this.state.ddl.ddlMode1}
                             defaultValue={this.state.ddl.ddlMode1} onChange={this.onChangeDdlMode1}>
                             { this.ddlMode1.map( d => <option key={d.value} value={d.value}>{d.label}</option>)}
                         </select><br/>
@@ -185,7 +186,7 @@ export default class CrudSample extends React.Component {
                 <tr>
                     <td>静的、動的のクエリ モード:</td>
                     <td>
-                        <select style={ddlStyle} value={this.state.ddl.ddlMode2}
+                        <select value={this.state.ddl.ddlMode2}
                             defaultValue={this.state.ddl.ddlMode2} onChange={this.onChangeDdlMode2}>
                             { this.ddlMode2.map( d => <option key={d.value} value={d.value}>{d.label}</option>)}
                         </select>
@@ -194,7 +195,7 @@ export default class CrudSample extends React.Component {
                 <tr>
                     <td>分離レベル:</td>
                     <td>
-                        <select style={ddlStyle} value={this.state.ddl.ddlIso}
+                        <select value={this.state.ddl.ddlIso}
                             defaultValue={this.state.ddl.ddlIso} onChange={this.onChangeDdlIso}>
                             { this.ddlIso.map( d => <option key={d.value} value={d.value}>{d.label}</option>)}
                         </select>
@@ -203,7 +204,7 @@ export default class CrudSample extends React.Component {
                 <tr>
                     <td>コミット、ロールバックを設定:</td>
                     <td>
-                        <select style={ddlStyle} value={this.state.ddl.ddlExRollback}
+                        <select value={this.state.ddl.ddlExRollback}
                             defaultValue={this.state.ddl.ddlExRollback} onChange={this.onChangeDdlExRollback}>
                             { this.ddlExRollback.map( d => <option key={d.value} value={d.value}>{d.label}</option>)}
                         </select>
@@ -212,7 +213,7 @@ export default class CrudSample extends React.Component {
                 <tr>
                     <td>並び替え対象列:</td>
                     <td>
-                        <select style={ddlStyle} value={this.state.ddl.ddlOrder}
+                        <select value={this.state.ddl.ddlOrder}
                             defaultValue={this.state.ddl.ddlOrder} onChange={this.onChangeDdlOrder}>
                             { this.ddlOrder.map( d => <option key={d.value} value={d.value}>{d.label}</option>)}
                         </select>
@@ -221,7 +222,7 @@ export default class CrudSample extends React.Component {
                 <tr>
                     <td>昇順・降順:</td>
                     <td>
-                        <select style={ddlStyle} value={this.state.ddl.ddlOrderSequence}
+                        <select value={this.state.ddl.ddlOrderSequence}
                             defaultValue={this.state.ddl.ddlOrderSequence} onChange={this.onChangeDdlOrderSequence}>
                             { this.ddlOrderSequence.map( d => <option key={d.value} value={d.value}>{d.label}</option>)}
                         </select>
@@ -232,6 +233,10 @@ export default class CrudSample extends React.Component {
     }
     renderInput(shipper)
     {
+        const inputStyle = {
+            width:"100%"
+        };
+
         if(!shipper)
         {
             shipper = {
@@ -241,26 +246,38 @@ export default class CrudSample extends React.Component {
             }
         }
         return <table className='table'>
-            <tbody>
+            <tbody style={inputStyle}>
                 <tr>
                     <td>ShipperID：</td>
                     <td>
-                        <p><label><input type="text" id="txtShipperID" value={shipper.shipperID}
-                            defaultValue={shipper.shipperID} onChange={this.props.CHANGE_SHIPPER_SHIPPERID}/></label></p>            
+                        <p>
+                            <label>
+                                <input type="text" id="txtShipperID" value={shipper.shipperID}
+                                    defaultValue={shipper.shipperID} onChange={this.props.CHANGE_SHIPPER_SHIPPERID}/>
+                            </label>
+                        </p>            
                     </td>
                 </tr>
                 <tr>
                     <td>CompanyName：</td>
                     <td>
-                        <p><label><input type="text" id="txtCompanyName" value={shipper.companyName}
-                            defaultValue={shipper.companyName} onChange={this.props.CHANGE_SHIPPER_COMPANYNAME}/></label></p>
+                        <p>
+                            <label>
+                                <input type="text" id="txtCompanyName" value={shipper.companyName}
+                                    defaultValue={shipper.companyName} onChange={this.props.CHANGE_SHIPPER_COMPANYNAME}/>
+                            </label>
+                        </p>
                     </td>
                 </tr>
                 <tr>
                     <td>Phone：</td>
                     <td>
-                        <p><label><input type="text" id="txtPhone" value={shipper.phone}
-                            defaultValue={shipper.phone} onChange={this.props.CHANGE_SHIPPER_PHONE}/></label></p>
+                        <p>
+                            <label>
+                                <input type="text" id="txtPhone" value={shipper.phone}
+                                    defaultValue={shipper.phone} onChange={this.props.CHANGE_SHIPPER_PHONE}/>
+                            </label>
+                        </p>
                     </td>
                 </tr>
             </tbody>
@@ -277,10 +294,10 @@ export default class CrudSample extends React.Component {
             </thead>
             <tbody>
             {shippers.map(shipper =>
-                <tr key={ shipper.ShipperID }>
-                    <td>{ shipper.ShipperID }</td>
-                    <td>{ shipper.CompanyName }</td>
-                    <td>{ shipper.Phone }</td>
+                <tr key={ shipper.shipperID }>
+                    <td>{ shipper.shipperID }</td>
+                    <td>{ shipper.companyName }</td>
+                    <td>{ shipper.phone }</td>
                 </tr>
             )}
             </tbody>

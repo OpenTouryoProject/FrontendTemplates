@@ -2,6 +2,52 @@ import {CrudSampleRootUrl} from '../const.js';
 import oauth_oidc from '../touryo/oauth_oidc';
 
 // CHANGE
+
+// DDL
+export const CHANGE_DDL_DAP = (e) => {
+  return { 
+    type: 'CHANGE_DDL_DAP',
+    ddl: {ddlDap: e.target.value}
+  };
+};
+export const CHANGE_DDL_MODE1 = (e) => {
+  return { 
+    type: 'CHANGE_DDL_MODE1',
+    ddl: {ddlMode1: e.target.value}
+  };
+};
+export const CHANGE_DDL_MODE2 = (e) => {
+  return { 
+    type: 'CHANGE_DDL_MODE2',
+    ddl: {ddlMode2: e.target.value}
+  };
+};
+export const CHANGE_DDL_ISO = (e) => {
+  return { 
+    type: 'CHANGE_DDL_ISO',
+    ddl: {ddlIso: e.target.value}
+  };
+};
+export const CHANGE_DDL_EXROLLBACK = (e) => {
+  return { 
+    type: 'CHANGE_DDL_EXROLLBACK',
+    ddl: {ddlExRollback: e.target.value}
+  };
+};
+export const CHANGE_DDL_ORDER = (e) => {
+  return { 
+    type: 'CHANGE_DDL_ORDER',
+    ddl: {ddlOrder: e.target.value}
+  };
+};
+export const CHANGE_DDL_ORDERSEQUENCE = (e) => {
+  return { 
+    type: 'CHANGE_DDL_ORDERSEQUENCE',
+    ddl: {ddlOrderSequence: e.target.value}
+  };
+};
+
+// Input
 export const CHANGE_SHIPPER_SHIPPERID = (e) => {
   return { 
     type: 'CHANGE_SHIPPER_SHIPPERID',

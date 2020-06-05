@@ -3,7 +3,6 @@ import * as React from 'react';
 export default class Counter extends React.Component {
     constructor() {
         super();
-        this.state = { currentCount: 0 };
     }
     render() {
         return <div>

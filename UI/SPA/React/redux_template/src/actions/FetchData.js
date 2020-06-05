@@ -29,8 +29,7 @@ export const GET_DATA_ASYNC = (startDateIndex) => {
   return (dispatch) => {
 
     // URL
-    let url = FetchDataRootUrl + startDateIndex;
-    console.log("GET_DATA_ASYNC > url: " + url);
+    let url = FetchDataRootUrl + "startDateIndex=" + startDateIndex;
 
     // リクエスト開始前処理
     dispatch(PRE_REQUEST());
@@ -40,14 +39,12 @@ export const GET_DATA_ASYNC = (startDateIndex) => {
     .then(response => response.json())
     .then(data => 
       {
-        console.log("GET_DATA_ASYNC > REQUEST_SUCCESS: " + JSON.stringify(data));
         dispatch(REQUEST_SUCCESS(data, startDateIndex));
       }
     )
     .catch(
       // 異常系
       error => {
-        console.log("GET_DATA_ASYNC > REQUEST_FAILURE: " + JSON.stringify(error));
         dispatch(REQUEST_FAILURE(error));
       }
     );
