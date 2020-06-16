@@ -1,0 +1,1 @@
+xcopy /E /Y "build" "..\..\..\..\HOST\dotnet\FrontendHost\wwwroot\"
