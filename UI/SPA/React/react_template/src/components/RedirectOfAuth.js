@@ -6,9 +6,9 @@ import {callConvertCodeToToken} from '../common.js';
 import util from '../touryo/common.js';
 import oauth_oidc from '../touryo/oauth_oidc';
 
-export class RedirectOfAuth extends React.Component {
+export default class RedirectOfAuth extends React.Component {
     render() {
-        if(window.location.hash.indexOf("#code=") !== -1)
+        if(window.location.hash.indexOf("code=") !== -1)
         {
             // Tokenリクエスト
             let params = util.getParameterFromFragment();
