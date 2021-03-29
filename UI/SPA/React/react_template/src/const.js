@@ -1,7 +1,7 @@
 // const.js
 let FrontendHostRootUrl = 'http://localhost:3000';
 let AuthServerRootUrl = 'https://localhost:44300/MultiPurposeAuthSite';
-let ResourcesServerRootUrl = 'http://localhost:8888';
+let ResourcesServerRootUrl = 'https://localhost:44335';
 
 let constants = {
     BaseUrl: '~/',

@@ -8,7 +8,7 @@ import oauth_oidc from '../touryo/oauth_oidc';
 
 export default class RedirectOfAuth extends React.Component {
     render() {
-        if(window.location.hash.indexOf("#code=") !== -1)
+        if(window.location.hash.indexOf("code=") !== -1)
         {
             // Tokenリクエスト
             let params = util.getParameterFromFragment();
