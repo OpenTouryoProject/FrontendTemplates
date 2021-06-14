@@ -1,3 +1,5 @@
+/// FCMテスト画面に表示されるMetaCard（Container）。
+
 import 'package:flutter/material.dart';
 
 /// UI Widget for displaying metadata.

@@ -1,7 +1,8 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
+/// FCMテスト画面の通知リスト
 
-import 'message.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_template/models/message_arguments.dart';
 
 /// Listens for incoming foreground messages and displays them in a list.
 class MessageList extends StatefulWidget {

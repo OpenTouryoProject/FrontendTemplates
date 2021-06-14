@@ -1,5 +1,7 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
+/// FCMテスト画面のトークン情報
+
 import 'package:flutter/material.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 /// Manages & returns the users FCM token.
 /// Also monitors token refreshes and updates state.

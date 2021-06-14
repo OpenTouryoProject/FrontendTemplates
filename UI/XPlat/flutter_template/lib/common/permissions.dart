@@ -1,6 +1,8 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
+/// FCMテスト画面のpermissions情報
+
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 /// Requests & displays the current user permissions for this device.
 class Permissions extends StatefulWidget {
@@ -9,6 +11,29 @@ class Permissions extends StatefulWidget {
 }
 
 class _Permissions extends State<Permissions> {
+  /// Maps a [AuthorizationStatus] to a string value.
+  static const statusMap = {
+    AuthorizationStatus.authorized: 'Authorized',
+    AuthorizationStatus.denied: 'Denied',
+    AuthorizationStatus.notDetermined: 'Not Determined',
+    AuthorizationStatus.provisional: 'Provisional',
+  };
+
+  /// Maps a [AppleNotificationSetting] to a string value.
+  static const settingsMap = {
+    AppleNotificationSetting.disabled: 'Disabled',
+    AppleNotificationSetting.enabled: 'Enabled',
+    AppleNotificationSetting.notSupported: 'Not Supported',
+  };
+
+  /// Maps a [AppleShowPreviewSetting] to a string value.
+  static const previewMap = {
+    AppleShowPreviewSetting.always: 'Always',
+    AppleShowPreviewSetting.never: 'Never',
+    AppleShowPreviewSetting.notSupported: 'Not Supported',
+    AppleShowPreviewSetting.whenAuthenticated: 'Only When Authenticated',
+  };
+
   bool _requested = false;
   bool _fetching = false;
   NotificationSettings? _settings;
@@ -74,26 +99,3 @@ class _Permissions extends State<Permissions> {
     ]);
   }
 }
-
-/// Maps a [AuthorizationStatus] to a string value.
-const statusMap = {
-  AuthorizationStatus.authorized: 'Authorized',
-  AuthorizationStatus.denied: 'Denied',
-  AuthorizationStatus.notDetermined: 'Not Determined',
-  AuthorizationStatus.provisional: 'Provisional',
-};
-
-/// Maps a [AppleNotificationSetting] to a string value.
-const settingsMap = {
-  AppleNotificationSetting.disabled: 'Disabled',
-  AppleNotificationSetting.enabled: 'Enabled',
-  AppleNotificationSetting.notSupported: 'Not Supported',
-};
-
-/// Maps a [AppleShowPreviewSetting] to a string value.
-const previewMap = {
-  AppleShowPreviewSetting.always: 'Always',
-  AppleShowPreviewSetting.never: 'Never',
-  AppleShowPreviewSetting.notSupported: 'Not Supported',
-  AppleShowPreviewSetting.whenAuthenticated: 'Only When Authenticated',
-};
