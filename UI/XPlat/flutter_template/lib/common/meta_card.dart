@@ -1,4 +1,4 @@
-/// FCMテスト画面に表示されるMetaCard（Container）。
+/// 画面に表示されるMetaCard（Container）。
 
 import 'package:flutter/material.dart';
 

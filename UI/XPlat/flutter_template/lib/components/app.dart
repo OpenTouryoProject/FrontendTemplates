@@ -1,5 +1,4 @@
 import 'importer.dart';
-import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -21,8 +20,8 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/': (context) => MyHomePage(title: 'Flutter Demo Home Page'),
-        '/appauth': (context) => AppAuthPage(title: 'Flutter Demo Home Page'),
-        '/fcm': (context) => FcmPage(title: 'Flutter Demo Home Page'),
+        '/appauth': (context) => AppAuthPage(title: 'Flutter Demo AppAuth Page'),
+        '/fcm': (context) => FcmPage(title: 'Flutter Demo FCM Page'),
         '/message': (context) => MessageView(),
       },
     );

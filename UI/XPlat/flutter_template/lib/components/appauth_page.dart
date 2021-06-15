@@ -1,8 +1,5 @@
 import 'importer.dart';
 
-import 'package:flutter/material.dart';
-import 'dart:async';
-
 // WebAPI呼出
 import 'package:http/http.dart' as http;
 
@@ -171,34 +168,7 @@ class _AppAuthPageState extends State<AppAuthPage> {
         ),
       ),
       // This trailing comma makes auto-formatting nicer for build methods.
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            DrawerHeader(
-              child: Text('Drawer Header'),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-            ),
-            ListTile(
-              title: Text("appauth"),
-              trailing: Icon(Icons.arrow_forward),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pushNamed("/appauth");
-              },
-            ),
-            ListTile(
-              title: Text("fcm"),
-              trailing: Icon(Icons.arrow_forward),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pushNamed("/fcm");
-              },
-            ),
-          ],
-        ),
-      ),
+      drawer: MyDrawer(),
     );
   }
 }

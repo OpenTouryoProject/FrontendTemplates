@@ -1,12 +1,8 @@
 import 'importer.dart';
 
-import 'package:flutter/material.dart';
+// パッケージ
 import 'package:english_words/english_words.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import 'dart:io';
-import 'dart:async';
-import 'dart:convert' as convert;
 
 // Platform呼出
 import 'package:flutter/services.dart';
@@ -162,7 +158,7 @@ class _MyHomePageState extends State<MyHomePage> {
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonResponse =
-      convert.jsonDecode(response.body) as Map<String, dynamic>;
+      jsonDecode(response.body) as Map<String, dynamic>;
       var itemCount = jsonResponse['totalItems'];
       setState(() {
         this._display = itemCount.toString();
@@ -201,6 +197,27 @@ class _MyHomePageState extends State<MyHomePage> {
                   style: Theme.of(context).textTheme.headline4,
                 ),
               ],
+            ),
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  ElevatedButton(
+                    child: const Text('NextPage Button'),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.orange,
+                      onPrimary: Colors.white,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return MyHomePage(title: 'Flutter Demo Home Page');
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                ]
             ),
             Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -253,34 +270,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Icon(Icons.add),
       ),
       // This trailing comma makes auto-formatting nicer for build methods.
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            DrawerHeader(
-              child: Text('Drawer Header'),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-            ),
-            ListTile(
-              title: Text("appauth"),
-              trailing: Icon(Icons.arrow_forward),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pushNamed("/appauth");
-              },
-            ),
-            ListTile(
-              title: Text("fcm"),
-              trailing: Icon(Icons.arrow_forward),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pushNamed("/fcm");
-              },
-            ),
-          ],
-        ),
-      ),
+      drawer: MyDrawer(),
     );
   }
 }

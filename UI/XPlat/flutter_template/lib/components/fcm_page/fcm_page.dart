@@ -1,18 +1,15 @@
-import 'importer.dart';
-
-import 'package:flutter/material.dart';
-
-import 'dart:async';
-import 'dart:convert' as convert;
+import '../importer.dart';
 
 // WebAPI呼出
 import 'package:http/http.dart' as http;
 
 // プッシュ通知
-export 'package:flutter/foundation.dart';
-export 'package:firebase_core/firebase_core.dart';
-export 'package:firebase_messaging/firebase_messaging.dart';
-export 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+
+// ...
+import 'package:flutter_template/components/fcm_page/permissions.dart';
+import 'package:flutter_template/components/fcm_page/token_checker.dart';
+import 'package:flutter_template/components/fcm_page/message_list.dart';
 
 class FcmPage extends StatefulWidget {
   FcmPage({Key? key, required this.title}) : super(key: key);
@@ -109,7 +106,7 @@ class _FcmPageState extends State<FcmPage> {
         title: Text(widget.title),
         actions: <Widget>[
           PopupMenuButton(
-            onSelected: _onActionSelected,
+            onSelected: this._onActionSelected,
             itemBuilder: (BuildContext context) {
               return [
                 const PopupMenuItem(
@@ -172,34 +169,7 @@ class _FcmPageState extends State<FcmPage> {
         ),
       ),
       // This trailing comma makes auto-formatting nicer for build methods.
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            DrawerHeader(
-              child: Text('Drawer Header'),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-            ),
-            ListTile(
-              title: Text("appauth"),
-              trailing: Icon(Icons.arrow_forward),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pushNamed("/appauth");
-              },
-            ),
-            ListTile(
-              title: Text("fcm"),
-              trailing: Icon(Icons.arrow_forward),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pushNamed("/fcm");
-              },
-            ),
-          ],
-        ),
-      ),
+      drawer: MyDrawer(),
     );
   }
 }
@@ -210,7 +180,7 @@ int _messageCount = 0;
 /// The API endpoint here accepts a raw FCM payload for demonstration purposes.
 String constructFCMPayload(String? token) {
   _messageCount++;
-  return convert.jsonEncode({
+  return jsonEncode({
     'token': token,
     'data': {
       'via': 'FlutterFire Cloud Messaging!!!',
