@@ -43,6 +43,16 @@ class MyDrawer extends StatelessWidget {
               Navigator.of(context).pushNamed("/fcm");
             },
           ),
+          ListTile(
+            title: Text("crud"),
+            trailing: Icon(Icons.arrow_forward),
+            onTap: () {
+              while(Navigator.of(context).canPop()){
+                Navigator.of(context).pop();
+              }
+              Navigator.of(context).pushNamed("/crud");
+            },
+          ),
         ],
       ),
     );

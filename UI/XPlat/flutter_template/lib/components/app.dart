@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => MyHomePage(title: 'Flutter Demo Home Page'),
         '/appauth': (context) => AppAuthPage(title: 'Flutter Demo AppAuth Page'),
         '/fcm': (context) => FcmPage(title: 'Flutter Demo FCM Page'),
+        '/crud': (context) => CrudPage(title: 'Flutter Demo CRUD Page'),
         '/message': (context) => MessageView(),
       },
     );
