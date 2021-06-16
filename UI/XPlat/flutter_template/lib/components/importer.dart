@@ -17,4 +17,5 @@ export 'package:flutter_template/common/my_drawer.dart';
 export 'package:flutter_template/components/my_homepage.dart';
 export 'package:flutter_template/components/appauth_page.dart';
 export 'package:flutter_template/components/fcm_page/fcm_page.dart';
+export 'package:flutter_template/components/crud_page.dart';
 export 'package:flutter_template/components/message_view.dart';

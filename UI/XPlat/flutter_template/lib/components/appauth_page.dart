@@ -126,7 +126,7 @@ class _AppAuthPageState extends State<AppAuthPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  'You have pushed the button this many times:',
+                  'userinfo:',
                 ),
                 Text(
                   '$_display',

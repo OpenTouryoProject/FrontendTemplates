@@ -22,31 +22,11 @@ class FcmPage extends StatefulWidget {
 
 class _FcmPageState extends State<FcmPage> {
   String _display = "hoge";
-  String? _token;
+  String _token = "";
 
   @override
   void initState() {
     super.initState();
-  }
-
-  Future<void> _sendPushMessage() async {
-    if (_token == null) {
-      print('Unable to send FCM message, no token exists.');
-      return;
-    }
-
-    try {
-      await http.post(
-        Uri.parse('https://api.rnfirebase.io/messaging/send'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: constructFCMPayload(_token),
-      );
-      print('FCM request for device sent!');
-    } catch (e) {
-      print(e);
-    }
   }
 
   Future<void> _onActionSelected(String value) async {
@@ -113,31 +93,6 @@ class _FcmPageState extends State<FcmPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'You have pushed the button this many times:',
-                ),
-                Text(
-                  '$_display',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-              ],
-            ),
-            Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  ElevatedButton(
-                    child: const Text('SendPushMessage Button'),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.orange,
-                      onPrimary: Colors.white,
-                    ),
-                    onPressed: this._sendPushMessage,
-                  ),
-                ]
-            ),
             Column(children: [
               MetaCard('Permissions', Permissions()),
               MetaCard('FCM Token', TokenChecker((token) {
