@@ -6,7 +6,7 @@ import {callConvertCodeToToken} from '../common.js';
 import util from '../touryo/common.js';
 import oauth_oidc from '../touryo/oauth_oidc';
 
-export default class RedirectOfAuth extends React.Component {
+export class RedirectOfAuth extends React.Component {
     render() {
         if(window.location.hash.indexOf("code=") !== -1)
         {
