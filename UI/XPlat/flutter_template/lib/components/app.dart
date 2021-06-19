@@ -1,3 +1,5 @@
+import 'package:flutter_template/components/gyomu_page.dart';
+
 import 'importer.dart';
 
 class MyApp extends StatelessWidget {
@@ -22,6 +24,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => MyHomePage(title: 'Flutter Demo Home Page'),
         '/appauth': (context) => AppAuthPage(title: 'Flutter Demo AppAuth Page'),
         '/fcm': (context) => FcmPage(title: 'Flutter Demo FCM Page'),
+        '/gyomu': (context) => GyomuPage(title: 'Flutter Demo Gyomu Page'),
         '/crud': (context) => CrudPage(title: 'Flutter Demo CRUD Page'),
         '/message': (context) => MessageView(),
       },

@@ -23,7 +23,6 @@ class _AppAuthPageState extends State<AppAuthPage> {
 
   String? _codeVerifier;
   String? _authorizationCode;
-  String? _refreshToken;
   String? _accessToken;
 
   // final String _clientId = 'interactive.public';
@@ -129,7 +128,7 @@ class _AppAuthPageState extends State<AppAuthPage> {
                   'userinfo:',
                 ),
                 Text(
-                  '$_display',
+                  '$this._display',
                   style: Theme.of(context).textTheme.headline4,
                 ),
               ],
@@ -137,14 +136,7 @@ class _AppAuthPageState extends State<AppAuthPage> {
             Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  ElevatedButton(
-                    child: const Text('SignIn Button'),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.orange,
-                      onPrimary: Colors.white,
-                    ),
-                    onPressed: this._signInWithNoCodeExchange,
-                  ),
+                  MyElevatedButton('SignIn Button', this._signInWithNoCodeExchange),
                 ]
             ),
           ],

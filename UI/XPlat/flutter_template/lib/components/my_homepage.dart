@@ -158,7 +158,7 @@ class _MyHomePageState extends State<MyHomePage> {
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonResponse =
-      jsonDecode(response.body) as Map<String, dynamic>;
+        jsonDecode(response.body) as Map<String, dynamic>;
       var itemCount = jsonResponse['totalItems'];
       setState(() {
         this._display = itemCount.toString();
@@ -201,71 +201,36 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  ElevatedButton(
-                    child: const Text('NextPage Button'),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.orange,
-                      onPrimary: Colors.white,
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return MyHomePage(title: 'Flutter Demo Home Page');
-                          },
-                        ),
-                      );
-                    },
-                  ),
+                  MyElevatedButton('NextPage Button',() {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return MyHomePage(title: 'Flutter Demo Home Page');
+                        },
+                      ),
+                    );
+                  }),
                 ]
             ),
             Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  ElevatedButton(
-                    child: const Text('EnglishWords Button'),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.orange,
-                      onPrimary: Colors.white,
-                    ),
-                    onPressed: this._englishWords,
-                  ),
-                  ElevatedButton(
-                    child: const Text('UrlLauncher Button'),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.orange,
-                      onPrimary: Colors.white,
-                    ),
-                    onPressed: this._urlLauncher,
-                  ),
+                  MyElevatedButton('EnglishWords Button', this._englishWords),
+                  MyElevatedButton('UrlLauncher Button', this._urlLauncher),
                 ]
             ),
             Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  ElevatedButton(
-                    child: const Text('BatteryLevel Button'),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.orange,
-                      onPrimary: Colors.white,
-                    ),
-                    onPressed: this._getBatteryLevel,
-                  ),
-                  ElevatedButton(
-                    child: const Text('GetBooks Button'),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.orange,
-                      onPrimary: Colors.white,
-                    ),
-                    onPressed: this._getBooks,
-                  ),
+                  MyElevatedButton('BatteryLevel Button', this._getBatteryLevel),
+                  MyElevatedButton('GetBooks Button', this._getBooks),
                 ]
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: this._incrementCounter,
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),

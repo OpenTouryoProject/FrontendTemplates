@@ -13,25 +13,34 @@ class CrudPage extends StatefulWidget {
 }
 
 class _CrudPageState extends State<CrudPage> {
-  // Field値
-  String _userId = "";
-  String _password = "";
-
-  // フォーカス制御
-  final _userIdFocusNode = FocusNode();
-  final _passwordFocusNode = FocusNode();
+  // ddl値
+  String _ddlDap = "SQL";
+  String _ddlMode1 = "individual";
+  String _ddlMode2 = "static";
+  String _ddlIso = "RC";
+  String _ddlExRollback = "-";
+  String _ddlOrder = "c1";
+  String _ddlOrderSequence = "";
 
   // 値取得
   final _formKey = GlobalKey<FormState>();
-
   // 値設定
-  final _userIdKey = GlobalKey<FormFieldState>();
-  final _passwordKey = GlobalKey<FormFieldState>();
+  final _shipperIDKey = GlobalKey<FormFieldState>();
+  final _companyNameKey = GlobalKey<FormFieldState>();
+  final _phoneKey = GlobalKey<FormFieldState>();
+  // Field値
+  String _shipperID = "";
+  String _companyName = "";
+  String _phone = "";
+  // フォーカス制御
+  final _shipperIDFocusNode = FocusNode();
+  final _companyNameFocusNode = FocusNode();
+  final _phoneFocusNode = FocusNode();
 
   // JSON値
   String _display = "";
   List<dynamic> _jsonItems  = jsonDecode(
-      '[{"kind":"kind","id":"id","etag":"etag"}]'
+      '[{"shipperID":"shipperID","companyName":"companyName","phone":"phone"}]'
   );
 
   @override
@@ -39,14 +48,15 @@ class _CrudPageState extends State<CrudPage> {
     super.initState();
   }
 
-  Future<void> _getBooks() async {
+  Future<void> _selectCount() async {
     var url =
     Uri.https('www.googleapis.com', '/books/v1/volumes', {'q': '{http}'});
 
     // Await the http get response, then decode the json-formatted response.
     var response = await http.get(url);
     if (response.statusCode == 200) {
-      Map<String, dynamic> jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
+      Map<String, dynamic> jsonResponse
+        = jsonDecode(response.body) as Map<String, dynamic>;
       setState(() {
         this._display = jsonResponse['totalItems'].toString();
         this._jsonItems = jsonResponse['items'];
@@ -63,101 +73,190 @@ class _CrudPageState extends State<CrudPage> {
         title: Text(widget.title),
       ),
       body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              TextFormField(
-                key: _userIdKey,
-                decoration: InputDecoration(labelText: 'userId'),
-                textInputAction: TextInputAction.next,
-                onFieldSubmitted: (_) {
-                  FocusScope.of(context).requestFocus(this._passwordFocusNode);
-                },
-                onSaved: (value) {
-                  this._userId = value ?? "";
-                  print("onSaved: " + this._userId);
-                },
-              ),
-              TextFormField(
-                key: _passwordKey,
-                decoration: InputDecoration(labelText: 'password'),
-                obscureText: true, // password
-                focusNode: this._passwordFocusNode,
-                onSaved: (value) {
-                  this._password = value ?? "";
-                  print("onSaved: " + this._password);
-                },
-              ),
-              ElevatedButton(
-                child: const Text('Save Button'),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.orange,
-                  onPrimary: Colors.white,
-                ),
-                onPressed: () {
-                  // 値のsave
-                  this._formKey.currentState?.save();
-                  //print("onPressed: " + this._userId);
-                  //print("onPressed: " + this._password);
-
-                  // WebAPI呼出
-
-                  // 値のload
-                  this._userIdKey.currentState?.didChange(this._userId);
-                  this._passwordKey.currentState?.didChange(this._userId);
-                },
-              ),
-              /*
-              ElevatedButton(
-                child: const Text('Load Button'),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.orange,
-                  onPrimary: Colors.white,
-                ),
-                onPressed: () {
-                  this._userIdKey.currentState?.didChange("hoge");
-                  this._passwordKey.currentState?.didChange("hoge");
-                },
-              ),
-              */
-              ElevatedButton(
-                child: const Text('GetData Button'),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.orange,
-                  onPrimary: Colors.white,
-                ),
-                onPressed: _getBooks,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    '件数:',
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            MyDropdownButton(
+              "ddlDap",
+              (value) => {
+                setState(() {
+                  this._ddlDap = value.toString();
+                }),
+              },
+              this._ddlDap,
+              {
+                "SQL Server / SQL Client" : "SQL",
+                "Multi-DB / OLEDB.NET" : "OLE",
+                "Multi-DB / ODBC.NET" : "ODB",
+                "Oracle / ODP.NET" : "ODP",
+                "DB2 / DB2.NET" : "DB2",
+                "HiRDB / HiRDB-DP" : "HIR",
+                "MySQL Cnn/NET" : "MCN",
+                "PostgreSQL / Npgsql" : "NPS"
+              }
+            ),
+            MyDropdownButton(
+              "ddlMode1",
+              (value) => {
+                setState(() {
+                  this._ddlMode1 = value.toString();
+                }),
+              },
+              this._ddlMode1,
+              {
+                "個別Ｄａｏ" : "individual",
+                "共通Ｄａｏ" : "common",
+                "自動生成Ｄａｏ（更新のみ）" : "generate",
+              }
+            ),
+            MyDropdownButton(
+              "ddlMode2",
+                (value) => {
+                  setState(() {
+                    this._ddlMode2 = value.toString();
+                }),
+              },
+              this._ddlMode2,
+              {
+                "静的クエリ" : "static",
+                "動的クエリ" : "dynamic",
+              }
+            ),
+            MyDropdownButton(
+              "ddlIso",
+              (value) => {
+                setState(() {
+                  this._ddlIso = value.toString();
+                }),
+              },
+              this._ddlIso,
+              {
+                "ノットコネクト" : "NC",
+                "ノートランザクション" : "NT",
+                "ダーティリード" : "RU",
+                "リードコミット" : "RC",
+                "リピータブルリード" : "RR",
+                "シリアライザブル" : "SZ",
+                "スナップショット" : "SS",
+                "デフォルト" : "DF",
+              }
+            ),
+            MyDropdownButton(
+              "ddlExRollback",
+              (value) => {
+                setState(() {
+                  this._ddlExRollback = value.toString();
+                }),
+              },
+              this._ddlExRollback,
+              {
+                "正常時" : "-",
+                "業務例外" : "Business",
+                "システム例外" : "System",
+                "その他、一般的な例外" : "Other",
+                "業務例外への振替" : "Other-Business",
+                "システム例外への振替" : "Other-System",
+              }
+            ),
+            MyDropdownButton(
+              "ddlOrder",
+              (value) => {
+                setState(() {
+                  this._ddlOrder = value.toString();
+                }),
+              },
+              this._ddlOrder,
+              {
+                "c1" : "c1",
+                "c2" : "c2",
+                "c3" : "c3",
+              }
+            ),
+            MyDropdownButton(
+              "ddlOrderSequence",
+              (value) => {
+                setState(() {
+                  this._ddlOrderSequence = value.toString();
+                }),
+              },
+              this._ddlOrderSequence,
+              {
+                "ASC" : "",
+                "DESC" : "D",
+              }
+            ),
+            Form(
+              key: this._formKey,
+              child: Column(
+                children: [
+                  TextFormField(
+                    key: this._shipperIDKey,
+                    decoration: InputDecoration(labelText: 'shipperID'),
+                    textInputAction: TextInputAction.next,
+                    onFieldSubmitted: (_) {
+                      FocusScope.of(context).requestFocus(this._companyNameFocusNode);
+                    },
+                    onSaved: (value) {
+                      this._shipperID = value ?? "";
+                    },
                   ),
-                  Text(
-                    '$_display',
-                    style: Theme.of(context).textTheme.headline4,
+                  TextFormField(
+                    key: this._companyNameKey,
+                    decoration: InputDecoration(labelText: 'companyName'),
+                    textInputAction: TextInputAction.next,
+                    focusNode: this._companyNameFocusNode,
+                    onFieldSubmitted: (_) {
+                      FocusScope.of(context).requestFocus(this._companyNameFocusNode);
+                    },
+                    onSaved: (value) {
+                      this._companyName = value ?? "";
+                    },
+                  ),
+                  TextFormField(
+                    key: this._phoneKey,
+                    decoration: InputDecoration(labelText: 'phone'),
+                    focusNode: this._phoneFocusNode,
+                    onSaved: (value) {
+                      this._phone = value ?? "";
+                    },
                   ),
                 ],
               ),
-              DataTable(
-                columns: [
-                  DataColumn(label: Text('kind')),
-                  DataColumn(label: Text('id')),
-                  DataColumn(label: Text('etag')),
-                ],
-                rows: (this._jsonItems)
-                    .map((element) => DataRow(
-                        cells: <DataCell>[
-                          DataCell(Text(element["kind"] ?? "")),
-                          DataCell(Text(element["id"] ?? "")),
-                          DataCell(Text(element["etag"] ?? "")),
-                    ])).toList(),
-              ),
-            ],
-          ),
-        ),
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                MyElevatedButton('GetData Button', this._selectCount),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      '件数:',
+                    ),
+                    Text(
+                      this._display,
+                      style: Theme.of(context).textTheme.headline4,
+                    ),
+                  ],
+                ),
+                DataTable(
+                  columns: [
+                    DataColumn(label: Text('shipperID')),
+                    DataColumn(label: Text('companyName')),
+                    DataColumn(label: Text('phone')),
+                  ],
+                  rows: (this._jsonItems).map((element) => DataRow(
+                    cells: <DataCell>[
+                      DataCell(Text(element["shipperID"] ?? "")),
+                      DataCell(Text(element["companyName"] ?? "")),
+                      DataCell(Text(element["phone"] ?? "")),
+                    ]
+                  )).toList(),
+                ),
+              ]
+            ),
+          ],
+        )
       ),
       drawer: MyDrawer(),
     );
