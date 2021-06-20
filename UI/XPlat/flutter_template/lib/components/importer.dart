@@ -9,6 +9,7 @@ export 'package:flutter/foundation.dart';
 
 // ...
 export 'package:flutter_template/configs/app_config.dart';
+export 'package:flutter_template/configs/app_auth.dart';
 export 'package:flutter_template/configs/app_fcm.dart';
 export 'package:flutter_template/models/message_arguments.dart';
 

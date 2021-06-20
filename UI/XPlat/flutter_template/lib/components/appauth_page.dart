@@ -25,32 +25,16 @@ class _AppAuthPageState extends State<AppAuthPage> {
   String? _authorizationCode;
   String? _accessToken;
 
-  // final String _clientId = 'interactive.public';
-  // final String _redirectUrl = 'io.identityserver.demo:/oauthredirect';
-  // final String _issuer = 'https://demo.identityserver.io';
-  // final String _discoveryUrl =
-  //     'https://demo.identityserver.io/.well-known/openid-configuration';
-
-  final String _clientId = '40319c0100f94ff3aab3004c8bdb5e52';
-  final String _redirectUrl = 'com.opentouryo:/oauthredirect';
-  final String _issuer = 'https://ssoauth.opentouryo.com';
-  final String _discoveryUrl =
-      'https://${AppConfig.serverFqdn}/MultiPurposeAuthSite/.well-known/openid-configuration';
-
   final List<String> _scopes = <String>[
     'openid',
     'email'
   ];
 
-  // final AuthorizationServiceConfiguration _serviceConfiguration =
-  //   const AuthorizationServiceConfiguration(
-  //       'https://demo.identityserver.io/connect/authorize',
-  //       'https://demo.identityserver.io/connect/token');
-
   final AuthorizationServiceConfiguration _serviceConfiguration =
-  const AuthorizationServiceConfiguration(
-      'https://${AppConfig.serverFqdn}/MultiPurposeAuthSite/authorize',
-      'https://${AppConfig.serverFqdn}/MultiPurposeAuthSite/token');
+    const AuthorizationServiceConfiguration(
+        AppAuth.authorizationEndpoint,
+        AppAuth.tokenEndpoint
+    );
 
   @override
   void initState() {
@@ -61,8 +45,8 @@ class _AppAuthPageState extends State<AppAuthPage> {
     try {
       final AuthorizationResponse? result
       = await this._appAuth.authorize(AuthorizationRequest(
-          this._clientId, this._redirectUrl,
-          discoveryUrl: this._discoveryUrl, scopes: this._scopes),
+          AppAuth.clientId, AppAuth.redirectUrl,
+          discoveryUrl: AppAuth.discoveryUrl, scopes: this._scopes),
       );
       if (result != null) {
         print("AuthorizationRequest was returned the response.");
@@ -82,15 +66,14 @@ class _AppAuthPageState extends State<AppAuthPage> {
   Future<void> _exchangeCode() async {
     try {
       final TokenResponse? result = await this._appAuth.token(TokenRequest(
-          this._clientId, this._redirectUrl,
+          AppAuth.clientId, AppAuth.redirectUrl,
           authorizationCode: this._authorizationCode,
-          discoveryUrl: this._discoveryUrl,
+          discoveryUrl: AppAuth.discoveryUrl,
           codeVerifier: this._codeVerifier,
           scopes: this._scopes));
       if (result != null) {
-        print("TokenRequest was returned the response.");
-        print("accessToken: " + result.accessToken!.toString());
-        this._accessToken = result.accessToken!;
+        this._accessToken = result.accessToken;
+        AppAuth.accessToken = this._accessToken;
         await this._testApi();
       }
       else {
@@ -104,7 +87,7 @@ class _AppAuthPageState extends State<AppAuthPage> {
   Future<void> _testApi() async {
     final http.Response httpResponse = await http.get(
         Uri.parse('http://mpos-opentouryo.ddo.jp/MultiPurposeAuthSite/userinfo'),
-        headers: <String, String>{'Authorization': 'Bearer ' + this._accessToken!});
+        headers: <String, String>{'Authorization': 'Bearer ' + AppAuth.accessToken!});
     setState(() {
       this._display = httpResponse.statusCode == 200 ?
       httpResponse.body : httpResponse.statusCode.toString();

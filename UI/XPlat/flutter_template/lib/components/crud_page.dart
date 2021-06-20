@@ -49,12 +49,14 @@ class _CrudPageState extends State<CrudPage> {
   }
 
   Future<void> _selectCount() async {
+    print("accessToken: " + AppAuth.accessToken!);
     var url = Uri.http(AppConfig.serverFqdn,
       'ASPNETWebService/api/json/SelectCount',);
     var response = await http.post(url,
       headers: {
         "Accept": "application/json",
-        "Content-Type": "application/x-www-form-urlencoded"
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Authorization": "Bearer ${AppAuth.accessToken}",
       },
       body: {
         "ddlDap" : this._ddlDap,
@@ -80,7 +82,8 @@ class _CrudPageState extends State<CrudPage> {
     var response = await http.post(url,
       headers: {
         "Accept": "application/json",
-        "Content-Type": "application/x-www-form-urlencoded"
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Authorization": "Bearer ${AppAuth.accessToken}",
       },
       body: {
         "ddlDap" : this._ddlDap,
@@ -111,7 +114,8 @@ class _CrudPageState extends State<CrudPage> {
     var response = await http.post(url,
         headers: {
           "Accept": "application/json",
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Authorization": "Bearer ${AppAuth.accessToken}",
         },
         body: jsonEncode({
           "ddlDap" : this._ddlDap,
