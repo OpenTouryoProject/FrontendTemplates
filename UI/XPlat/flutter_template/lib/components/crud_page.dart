@@ -19,8 +19,8 @@ class _CrudPageState extends State<CrudPage> {
   String _ddlMode2 = "static";
   String _ddlIso = "RC";
   String _ddlExRollback = "-";
-  String _ddlOrder = "c1";
-  String _ddlOrderSequence = "";
+  String _orderColumn = "c1";
+  String _orderSequence = "";
 
   // 値取得
   final _formKey = GlobalKey<FormState>();
@@ -50,16 +50,55 @@ class _CrudPageState extends State<CrudPage> {
 
   Future<void> _selectCount() async {
     var url =
-    Uri.https('www.googleapis.com', '/books/v1/volumes', {'q': '{http}'});
-
-    // Await the http get response, then decode the json-formatted response.
-    var response = await http.get(url);
+    Uri.http(AppConfig.serverFqdn,
+      'ASPNETWebService/api/json/SelectCount',);
+    var response = await http.post(url,
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: {
+        "ddlDap" : this._ddlDap,
+        "ddlMode1" : this._ddlMode1,
+        "ddlMode2": this._ddlMode2,
+        "ddlExRollback" : this._ddlExRollback,
+      }
+    );
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonResponse
         = jsonDecode(response.body) as Map<String, dynamic>;
       setState(() {
-        this._display = jsonResponse['totalItems'].toString();
-        this._jsonItems = jsonResponse['items'];
+        this._display = jsonResponse['message'];
+      });
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+    }
+  }
+
+  Future<void> _selectAll(String urlPrefix) async {
+    var url =
+    Uri.http(AppConfig.serverFqdn,
+      'ASPNETWebService/api/json/SelectAll_' + urlPrefix);
+    var response = await http.post(url,
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: {
+        "ddlDap" : this._ddlDap,
+        "ddlMode1" : this._ddlMode1,
+        "ddlMode2": this._ddlMode2,
+        "ddlExRollback" : this._ddlExRollback,
+        "orderColumn" : this._orderColumn,
+        "orderSequence" : this._orderSequence,
+      }
+    );
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonResponse
+        = jsonDecode(response.body) as Map<String, dynamic>;
+      setState(() {
+        this._display = jsonResponse['message'];
+        this._jsonItems = jsonResponse['result'];
       });
     } else {
       print('Request failed with status: ${response.statusCode}.');
@@ -162,10 +201,10 @@ class _CrudPageState extends State<CrudPage> {
               "ddlOrder",
               (value) => {
                 setState(() {
-                  this._ddlOrder = value.toString();
+                  this._orderColumn = value.toString();
                 }),
               },
-              this._ddlOrder,
+              this._orderColumn,
               {
                 "c1" : "c1",
                 "c2" : "c2",
@@ -176,10 +215,10 @@ class _CrudPageState extends State<CrudPage> {
               "ddlOrderSequence",
               (value) => {
                 setState(() {
-                  this._ddlOrderSequence = value.toString();
+                  this._orderSequence = value.toString();
                 }),
               },
-              this._ddlOrderSequence,
+              this._orderSequence,
               {
                 "ASC" : "",
                 "DESC" : "D",
@@ -223,10 +262,17 @@ class _CrudPageState extends State<CrudPage> {
                 ],
               ),
             ),
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  MyElevatedButton('SelectCount', this._selectCount),
+                  MyElevatedButton('SelectAll_DT', (){ this._selectAll("DT"); }),
+                  MyElevatedButton('SelectAll_DSQL', (){ this._selectAll("DSQL"); }),
+                ]
+            ),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                MyElevatedButton('GetData Button', this._selectCount),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[

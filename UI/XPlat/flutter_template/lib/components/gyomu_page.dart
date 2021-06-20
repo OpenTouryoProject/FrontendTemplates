@@ -38,7 +38,7 @@ class _GyomuPageState extends State<GyomuPage> {
 
   Future<void> _getBooks() async {
     var url =
-    Uri.https('www.googleapis.com', '/books/v1/volumes', {'q': '{http}'});
+      Uri.https('www.googleapis.com', '/books/v1/volumes', {'q': '{http}'});
 
     // Await the http get response, then decode the json-formatted response.
     var response = await http.get(url);

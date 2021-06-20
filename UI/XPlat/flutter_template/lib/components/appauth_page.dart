@@ -35,7 +35,7 @@ class _AppAuthPageState extends State<AppAuthPage> {
   final String _redirectUrl = 'com.opentouryo:/oauthredirect';
   final String _issuer = 'https://ssoauth.opentouryo.com';
   final String _discoveryUrl =
-      'https://mpos-opentouryo.ddo.jp/MultiPurposeAuthSite/.well-known/openid-configuration';
+      'https://${AppConfig.serverFqdn}/MultiPurposeAuthSite/.well-known/openid-configuration';
 
   final List<String> _scopes = <String>[
     'openid',
@@ -49,8 +49,8 @@ class _AppAuthPageState extends State<AppAuthPage> {
 
   final AuthorizationServiceConfiguration _serviceConfiguration =
   const AuthorizationServiceConfiguration(
-      'https://mpos-opentouryo.ddo.jp/MultiPurposeAuthSite/authorize',
-      'https://mpos-opentouryo.ddo.jp/MultiPurposeAuthSite/token');
+      'https://${AppConfig.serverFqdn}/MultiPurposeAuthSite/authorize',
+      'https://${AppConfig.serverFqdn}/MultiPurposeAuthSite/token');
 
   @override
   void initState() {
@@ -128,7 +128,7 @@ class _AppAuthPageState extends State<AppAuthPage> {
                   'userinfo:',
                 ),
                 Text(
-                  '$this._display',
+                  this._display,
                   style: Theme.of(context).textTheme.headline4,
                 ),
               ],
