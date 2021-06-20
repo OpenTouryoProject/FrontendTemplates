@@ -49,8 +49,7 @@ class _CrudPageState extends State<CrudPage> {
   }
 
   Future<void> _selectCount() async {
-    var url =
-    Uri.http(AppConfig.serverFqdn,
+    var url = Uri.http(AppConfig.serverFqdn,
       'ASPNETWebService/api/json/SelectCount',);
     var response = await http.post(url,
       headers: {
@@ -76,9 +75,8 @@ class _CrudPageState extends State<CrudPage> {
   }
 
   Future<void> _selectAll(String urlPrefix) async {
-    var url =
-    Uri.http(AppConfig.serverFqdn,
-      'ASPNETWebService/api/json/SelectAll_' + urlPrefix);
+    var url = Uri.http(AppConfig.serverFqdn,
+        'ASPNETWebService/api/json/SelectAll_' + urlPrefix);
     var response = await http.post(url,
       headers: {
         "Accept": "application/json",
@@ -99,6 +97,45 @@ class _CrudPageState extends State<CrudPage> {
       setState(() {
         this._display = jsonResponse['message'];
         this._jsonItems = jsonResponse['result'];
+      });
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+    }
+  }
+
+  Future<void> _crud(String urlPrefix) async {
+    this._formKey.currentState?.save();
+
+    var url = Uri.http(AppConfig.serverFqdn,
+        'ASPNETWebService/api/json/' + urlPrefix);
+    var response = await http.post(url,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: jsonEncode({
+          "ddlDap" : this._ddlDap,
+          "ddlMode1" : this._ddlMode1,
+          "ddlMode2": this._ddlMode2,
+          "ddlExRollback" : this._ddlExRollback,
+          "shipper": {
+            "shipperID": this._shipperID,
+            "companyName": this._companyName,
+            "phone": this._phone
+          }
+        }),
+    );
+    if (response.statusCode == 200) {
+      Map<String, dynamic>? jsonResponse = null;
+      jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
+      setState(() {
+        this._display = jsonResponse?['message'];
+        if(urlPrefix == "Select") {
+          var shipper = jsonResponse?['result'];
+          this._shipperIDKey.currentState?.didChange(shipper['shipperID']);
+          this._companyNameKey.currentState?.didChange(shipper['companyName']);
+          this._phoneKey.currentState?.didChange(shipper['phone']);
+        }
       });
     } else {
       print('Request failed with status: ${response.statusCode}.');
@@ -261,6 +298,15 @@ class _CrudPageState extends State<CrudPage> {
                   ),
                 ],
               ),
+            ),
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  MyElevatedButton('Select', (){ this._crud("Select"); }),
+                  MyElevatedButton('Insert', (){ this._crud("Insert"); }),
+                  MyElevatedButton('Update', (){ this._crud("Update"); }),
+                  MyElevatedButton('Delete', (){ this._crud("Delete"); }),
+                ]
             ),
             Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
