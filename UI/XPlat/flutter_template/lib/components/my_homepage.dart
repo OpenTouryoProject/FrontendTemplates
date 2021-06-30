@@ -51,14 +51,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
     // ターミネーテッド状態でプッシュ通知からアプリを起動した時のアクションを実装
     FirebaseMessaging.instance
-        .getInitialMessage()
-        .then((RemoteMessage? message) {
-      if (message != null) {
-        // メッセージ詳細画面へ遷移
-        Navigator.pushNamed(context, '/message',
+      .getInitialMessage()
+      .then((RemoteMessage? message) {
+        if (message != null) {
+          // メッセージ詳細画面へ遷移
+          Navigator.pushNamed(context, '/message',
             arguments: MessageArguments(message, true));
-      }
-    });
+        }
+      });
 
     // Android のフォアグラウンドプッシュ通知受信時アクションを設定
     //   (iOSと異なり、)Androidではアプリがフォアグラウンド状態で
@@ -72,19 +72,20 @@ class _MyHomePageState extends State<MyHomePage> {
           && notification != null && android != null && !kIsWeb) {
 
         AppFcm.flutterLocalNotificationsPlugin?.show(
-            notification.hashCode,
-            notification.title,
-            notification.body,
-            NotificationDetails(
-              android: AndroidNotificationDetails(
-                AppFcm.channel.id,
-                AppFcm.channel.name,
-                AppFcm.channel.description,
-                // TODO add a proper drawable resource to android, for now using
-                //      one that already exists in example app.
-                icon: 'notification_icon',
-              ),
-            ));
+          notification.hashCode,
+          notification.title,
+          notification.body,
+          NotificationDetails(
+            android: AndroidNotificationDetails(
+              AppFcm.channel.id,
+              AppFcm.channel.name,
+              AppFcm.channel.description,
+              // TODO add a proper drawable resource to android, for now using
+              //      one that already exists in example app.
+              icon: 'notification_icon',
+            ),
+          )
+        );
       }
     });
 
@@ -93,13 +94,13 @@ class _MyHomePageState extends State<MyHomePage> {
       print('A new onMessageOpenedApp event was published!');
       // メッセージ詳細画面へ遷移
       Navigator.pushNamed(context, '/message',
-          arguments: MessageArguments(message, true));
+        arguments: MessageArguments(message, true));
     });
 
     // トークンの取得
     FirebaseMessaging.instance
-        .getToken(vapidKey: AppFcm.vapidKey)
-        .then(setToken);
+      .getToken(vapidKey: AppFcm.vapidKey)
+      .then(setToken);
 
     // トークンの更新
     AppFcm.tokenStream = FirebaseMessaging.instance.onTokenRefresh;
@@ -110,9 +111,6 @@ class _MyHomePageState extends State<MyHomePage> {
   void setToken(String? token) {
     print('FCM Token: $token');
     AppFcm.token = token;
-    /*setState(() {
-      this._token = token;
-    });*/
   }
 
   /// this._counterのインクリメント

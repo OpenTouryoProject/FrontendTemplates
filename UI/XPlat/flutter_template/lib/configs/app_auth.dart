@@ -1,4 +1,4 @@
-import 'app_config.dart';
+import 'package:flutter_template/configs/app_config.dart';
 
 class AppAuth {
   // static const String clientId = 'interactive.public';
@@ -11,9 +11,9 @@ class AppAuth {
 
   // Endpoints
   static const String userinfoEndpoint =  // テストなので、HTTP
-      "http://${AppConfig.serverFqdn}/MultiPurposeAuthSite/userinfo";
+    "http://${AppConfig.serverFqdn}/MultiPurposeAuthSite/userinfo";
   static const String discoveryUrl =
-      'https://${AppConfig.serverFqdn}/MultiPurposeAuthSite/.well-known/openid-configuration';
+    "https://${AppConfig.serverFqdn}/MultiPurposeAuthSite/.well-known/openid-configuration";
 
   static String? accessToken = "hoge";
 }

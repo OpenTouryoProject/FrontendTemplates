@@ -38,10 +38,11 @@ class _AppAuthPageState extends State<AppAuthPage> {
   Future<void> _signInWithNoCodeExchange() async {
     try {
       final AuthorizationResponse? result
-      = await this._appAuth.authorize(AuthorizationRequest(
+        = await this._appAuth.authorize(AuthorizationRequest(
           AppAuth.clientId, AppAuth.redirectUrl,
-          discoveryUrl: AppAuth.discoveryUrl, scopes: this._scopes),
-      );
+          discoveryUrl: AppAuth.discoveryUrl, scopes: this._scopes
+          ),
+        );
       if (result != null) {
         print("AuthorizationRequest was returned the response.");
         print("authorizationCode: " + result.authorizationCode!.toString());
@@ -59,12 +60,15 @@ class _AppAuthPageState extends State<AppAuthPage> {
 
   Future<void> _exchangeCode() async {
     try {
-      final TokenResponse? result = await this._appAuth.token(TokenRequest(
+      final TokenResponse? result = await this._appAuth.token(
+        TokenRequest(
           AppAuth.clientId, AppAuth.redirectUrl,
           authorizationCode: this._authorizationCode,
           discoveryUrl: AppAuth.discoveryUrl,
           codeVerifier: this._codeVerifier,
-          scopes: this._scopes));
+          scopes: this._scopes
+        )
+      );
       if (result != null) {
         this._accessToken = result.accessToken;
         AppAuth.accessToken = this._accessToken;
@@ -80,8 +84,9 @@ class _AppAuthPageState extends State<AppAuthPage> {
 
   Future<void> _testApi() async {
     final http.Response httpResponse = await http.get(
-        Uri.parse('http://mpos-opentouryo.ddo.jp/MultiPurposeAuthSite/userinfo'),
-        headers: <String, String>{'Authorization': 'Bearer ' + AppAuth.accessToken!});
+      Uri.parse(AppAuth.userinfoEndpoint),
+      headers: <String, String>{'Authorization': 'Bearer ' + AppAuth.accessToken!}
+    );
     setState(() {
       this._display = httpResponse.statusCode == 200 ?
       httpResponse.body : httpResponse.statusCode.toString();
