@@ -9,7 +9,7 @@ import 'package:flutter_template/models/message_arguments.dart';
 /// Displays information about a [RemoteMessage].
 class MessageView extends StatelessWidget {
   /// A single data row.
-  Widget row(String? title, String? value) {
+  Widget _row(String? title, String? value) {
     return Padding(
       padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
       child: Row(children: [
@@ -22,7 +22,7 @@ class MessageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     MessageArguments? args =
-    ModalRoute.of(context)?.settings.arguments as MessageArguments;
+      ModalRoute.of(context)?.settings.arguments as MessageArguments;
 
     RemoteMessage? message = args.message;
     RemoteNotification? notification = message.notification;
@@ -35,18 +35,18 @@ class MessageView extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8),
             child: Column(children: [
-              row('Triggered application open', args.openedApplication.toString()),
-              row('Message ID', message.messageId ?? ""),
-              row('Sender ID', message.senderId ?? ""),
-              row('Category', message.category ?? ""),
-              row('Collapse Key', message.collapseKey ?? ""),
-              row('Content Available', message.contentAvailable.toString()),
-              row('Data', message.data.toString()),
-              row('From', message.from ?? ""),
-              row('Message ID', message.messageId ?? ""),
-              row('Sent Time', message.sentTime?.toString() ?? ""),
-              row('Thread ID', message.threadId ?? ""),
-              row('Time to Live (TTL)', message.ttl?.toString() ?? ""),
+              this._row('Triggered application open', args.openedApplication.toString()),
+              this._row('Message ID', message.messageId ?? ""),
+              this._row('Sender ID', message.senderId ?? ""),
+              this._row('Category', message.category ?? ""),
+              this._row('Collapse Key', message.collapseKey ?? ""),
+              this._row('Content Available', message.contentAvailable.toString()),
+              this._row('Data', message.data.toString()),
+              this._row('From', message.from ?? ""),
+              this._row('Message ID', message.messageId ?? ""),
+              this._row('Sent Time', message.sentTime?.toString() ?? ""),
+              this._row('Thread ID', message.threadId ?? ""),
+              this._row('Time to Live (TTL)', message.ttl?.toString() ?? ""),
               if (notification != null) ...[
                 Padding(
                   padding: const EdgeInsets.only(top: 16),
@@ -55,11 +55,11 @@ class MessageView extends StatelessWidget {
                       'Remote Notification',
                       style: TextStyle(fontSize: 18),
                     ),
-                    row(
+                    this._row(
                       'Title',
                       notification.title ?? "",
                     ),
-                    row(
+                    this._row(
                       'Body',
                       notification.body ?? "",
                     ),
@@ -68,47 +68,47 @@ class MessageView extends StatelessWidget {
                         'Android Properties',
                         style: TextStyle(fontSize: 18),
                       ),
-                      row(
+                      this._row(
                         'Channel ID',
                         notification.android?.channelId ?? "",
                       ),
-                      row(
+                      this._row(
                         'Click Action',
                         notification.android?.clickAction ?? "",
                       ),
-                      row(
+                      this._row(
                         'Color',
                         notification.android?.color ?? "",
                       ),
-                      row(
+                      this._row(
                         'Count',
                         notification.android?.count?.toString() ?? "",
                       ),
-                      row(
+                      this._row(
                         'Image URL',
                         notification.android?.imageUrl ?? "",
                       ),
-                      row(
+                      this._row(
                         'Link',
                         notification.android?.link ?? "",
                       ),
-                      row(
+                      this._row(
                         'Priority',
                         notification.android?.priority.toString() ?? "",
                       ),
-                      row(
+                      this._row(
                         'Small Icon',
                         notification.android?.smallIcon ?? "",
                       ),
-                      row(
+                      this._row(
                         'Sound',
                         notification.android?.sound ?? "",
                       ),
-                      row(
+                      this._row(
                         'Ticker',
                         notification.android?.ticker ?? "",
                       ),
-                      row(
+                      this._row(
                         'Visibility',
                         notification.android?.visibility.toString() ?? "",
                       ),
@@ -118,15 +118,15 @@ class MessageView extends StatelessWidget {
                         'Apple Properties',
                         style: TextStyle(fontSize: 18),
                       ),
-                      row(
+                      this._row(
                         'Subtitle',
                         notification.apple?.subtitle ?? "",
                       ),
-                      row(
+                      this._row(
                         'Badge',
                         notification.apple?.badge ?? "",
                       ),
-                      row(
+                      this._row(
                         'Sound',
                         notification.apple?.sound?.name ?? "",
                       ),
