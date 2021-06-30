@@ -2,6 +2,7 @@ import 'importer.dart';
 
 // パッケージ
 import 'package:english_words/english_words.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // Platform呼出
@@ -35,8 +36,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  String _display = "hoge";
+  int? _counter = 0;
+  String? _display = "hoge";
 
   // Platform呼出
   static const platform = const MethodChannel('flutter_template.opentouryo.com/battery');
@@ -44,6 +45,9 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
+
+    // this._counterの初期化
+    this._getCounterValue();
 
     // ターミネーテッド状態でプッシュ通知からアプリを起動した時のアクションを実装
     FirebaseMessaging.instance
@@ -64,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
       print("ローカル通知で擬似的に通知メッセージを表示");
       RemoteNotification? notification = message?.notification;
       AndroidNotification? android = message?.notification?.android;
-      if (AppFcm.channel != null && AppFcm.flutterLocalNotificationsPlugin != null
+      if (AppFcm.flutterLocalNotificationsPlugin != null
           && notification != null && android != null && !kIsWeb) {
 
         AppFcm.flutterLocalNotificationsPlugin?.show(
@@ -111,6 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });*/
   }
 
+  /// this._counterのインクリメント
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -118,16 +123,64 @@ class _MyHomePageState extends State<MyHomePage> {
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      this._display = (this._counter++).toString();
+      this._counter = this._counter! + 1;
+      this._display = this._counter?.toString();
+    });
+    this._setCounterValue();
+  }
+
+  /// this._counterのリセット
+  void _resetCounter() {
+    this._removeCounterValue();
+    setState(() {
+      // This call to setState tells the Flutter framework that something has
+      // changed in this State, which causes it to rerun the build method below
+      // so that the display can reflect the updated values. If we changed
+      // _counter without calling setState(), then the build method would not be
+      // called again, and so nothing would appear to happen.
+      this._counter = 0;
+      this._display = this._counter?.toString();
     });
   }
 
+  /// shared_preferences
+  /// this._counterの永続化対応
+  void _getCounterValue() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      int? temp = prefs.getInt('counter');
+      if(temp == null){
+        this._counter = 0;
+      }
+      else{
+        this._counter = temp;
+      }
+    });
+  }
+  /// shared_preferences
+  /// this._counterの永続化対応
+  void _setCounterValue() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('counter', this._counter!);
+  }
+  /// shared_preferences
+  /// this._counterの永続化対応
+  void _removeCounterValue() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      this._counter = 0;
+      prefs.remove('counter');
+    });
+  }
+
+  /// english_words
   void _englishWords() {
     setState(() {
       this._display = WordPair.random().asPascalCase;
     });
   }
 
+  /// url_launcher
   void _urlLauncher() async {
     const url = "https://www.osscons.jp/jo5v2ne7n-537/";
     if (await canLaunch(url)) {
@@ -137,6 +190,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  /// MethodChannel
   Future<void> _getBatteryLevel() async {
     String batteryLevel;
     try {
@@ -150,6 +204,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  /// WebAPI
   Future<void> _getBooks() async {
     var url =
       Uri.https('www.googleapis.com', '/books/v1/volumes', {'q': '{http}'});
@@ -193,7 +248,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   'You have pushed the button this many times:',
                 ),
                 Text(
-                  '$_display',
+                  this._display ?? "",
                   style: Theme.of(context).textTheme.headline4,
                 ),
               ],
@@ -210,6 +265,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     );
                   }),
+                  MyElevatedButton('Reset Button', this._resetCounter),
                 ]
             ),
             Row(

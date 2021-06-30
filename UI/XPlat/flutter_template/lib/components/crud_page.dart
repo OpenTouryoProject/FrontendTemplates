@@ -33,7 +33,7 @@ class _CrudPageState extends State<CrudPage> {
   String _companyName = "";
   String _phone = "";
   // フォーカス制御
-  final _shipperIDFocusNode = FocusNode();
+  //final _shipperIDFocusNode = FocusNode();
   final _companyNameFocusNode = FocusNode();
   final _phoneFocusNode = FocusNode();
 

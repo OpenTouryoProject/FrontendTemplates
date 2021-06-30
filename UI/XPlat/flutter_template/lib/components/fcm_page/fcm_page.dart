@@ -1,8 +1,5 @@
 import '../importer.dart';
 
-// WebAPI呼出
-import 'package:http/http.dart' as http;
-
 // プッシュ通知
 import 'package:firebase_messaging/firebase_messaging.dart';
 
@@ -21,8 +18,6 @@ class FcmPage extends StatefulWidget {
 }
 
 class _FcmPageState extends State<FcmPage> {
-  String _display = "hoge";
-  String _token = "";
 
   @override
   void initState() {
@@ -96,7 +91,6 @@ class _FcmPageState extends State<FcmPage> {
             Column(children: [
               MetaCard('Permissions', Permissions()),
               MetaCard('FCM Token', TokenChecker((token) {
-                _token = token;
                 return token == null
                     ? const CircularProgressIndicator()
                     : Text(token, style: const TextStyle(fontSize: 12));

@@ -30,12 +30,6 @@ class _AppAuthPageState extends State<AppAuthPage> {
     'email'
   ];
 
-  final AuthorizationServiceConfiguration _serviceConfiguration =
-    const AuthorizationServiceConfiguration(
-        AppAuth.authorizationEndpoint,
-        AppAuth.tokenEndpoint
-    );
-
   @override
   void initState() {
     super.initState();

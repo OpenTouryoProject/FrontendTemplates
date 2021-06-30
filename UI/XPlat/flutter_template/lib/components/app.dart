@@ -1,5 +1,3 @@
-import 'package:flutter_template/components/gyomu_page.dart';
-
 import 'importer.dart';
 
 class MyApp extends StatelessWidget {

@@ -22,7 +22,7 @@ class _GyomuPageState extends State<GyomuPage> {
   String _userId = "";
   String _password = "";
   // フォーカス制御
-  final _userIdFocusNode = FocusNode();
+  //final _userIdFocusNode = FocusNode();
   final _passwordFocusNode = FocusNode();
   
   // JSON値

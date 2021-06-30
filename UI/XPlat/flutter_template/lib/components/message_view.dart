@@ -1,4 +1,6 @@
-import 'package:flutter/material.dart';
+import 'importer.dart';
+
+// プッシュ通知
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 // ...
@@ -22,29 +24,29 @@ class MessageView extends StatelessWidget {
     MessageArguments? args =
     ModalRoute.of(context)?.settings.arguments as MessageArguments;
 
-    RemoteMessage? message = args?.message;
-    RemoteNotification? notification = message?.notification;
+    RemoteMessage? message = args.message;
+    RemoteNotification? notification = message.notification;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(message?.messageId ?? ""),
+        title: Text(message.messageId ?? ""),
       ),
       body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(8),
             child: Column(children: [
               row('Triggered application open', args.openedApplication.toString()),
-              row('Message ID', message?.messageId ?? ""),
-              row('Sender ID', message?.senderId ?? ""),
-              row('Category', message?.category ?? ""),
-              row('Collapse Key', message?.collapseKey ?? ""),
-              row('Content Available', message?.contentAvailable.toString()),
-              row('Data', message?.data.toString()),
-              row('From', message?.from ?? ""),
-              row('Message ID', message?.messageId ?? ""),
-              row('Sent Time', message?.sentTime?.toString() ?? ""),
-              row('Thread ID', message?.threadId ?? ""),
-              row('Time to Live (TTL)', message?.ttl?.toString() ?? ""),
+              row('Message ID', message.messageId ?? ""),
+              row('Sender ID', message.senderId ?? ""),
+              row('Category', message.category ?? ""),
+              row('Collapse Key', message.collapseKey ?? ""),
+              row('Content Available', message.contentAvailable.toString()),
+              row('Data', message.data.toString()),
+              row('From', message.from ?? ""),
+              row('Message ID', message.messageId ?? ""),
+              row('Sent Time', message.sentTime?.toString() ?? ""),
+              row('Thread ID', message.threadId ?? ""),
+              row('Time to Live (TTL)', message.ttl?.toString() ?? ""),
               if (notification != null) ...[
                 Padding(
                   padding: const EdgeInsets.only(top: 16),
@@ -92,7 +94,7 @@ class MessageView extends StatelessWidget {
                       ),
                       row(
                         'Priority',
-                        notification.android?.priority?.toString() ?? "",
+                        notification.android?.priority.toString() ?? "",
                       ),
                       row(
                         'Small Icon',
@@ -108,7 +110,7 @@ class MessageView extends StatelessWidget {
                       ),
                       row(
                         'Visibility',
-                        notification.android?.visibility?.toString() ?? "",
+                        notification.android?.visibility.toString() ?? "",
                       ),
                     ],
                     if (notification.apple != null) ...[
