@@ -1,0 +1,7 @@
+{
+  "to": "Topic or FCM Token",
+  "notification": {
+    "title":"FCM Message",
+    "body":"This is an FCM Message"
+  }
+}

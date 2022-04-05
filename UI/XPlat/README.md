@@ -1,0 +1,1 @@
+Cross-platform系テンプレートを格納する。
