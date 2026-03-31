@@ -6,6 +6,7 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Settings from './pages/Settings'
 import { Counter } from './pages/Counter'
+import { CrudSample } from './pages/CrudSample'
 
 import './App.css'
 
@@ -22,6 +23,7 @@ function App() {
               <Route path="/about" element={<About />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/counter" element={<Counter />} />
+              <Route path="/crudsample" element={<CrudSample />} />
             </Routes>
           </main>
         </div>
