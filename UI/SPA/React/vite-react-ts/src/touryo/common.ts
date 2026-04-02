@@ -161,3 +161,16 @@ export function initStringFormat(): void {
     };
   }
 }
+
+// 全関数をオブジェクトとしてデフォルトエクスポート
+const common = {
+  getParameterFromFragment,
+  getParameterFromQueryString,
+  parseQueryString,
+  getRandomString,
+  stringToAscii,
+  base64URLEncode,
+  initStringFormat,
+};
+
+export default common;

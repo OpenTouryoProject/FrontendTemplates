@@ -1,4 +1,4 @@
-import { ClientId, TokenRequestUrl, UserInfoRequestUrl } from './const';
+import constants from './const';
 import oauth_oidc from './touryo/oauth_oidc';
 
 // UserInfo の型定義
@@ -27,11 +27,11 @@ export function callConvertCodeToToken(
   };
   const body =
     "grant_type=authorization_code" +
-    "&client_id=" + ClientId +
+    "&client_id=" + constants.ClientId +
     "&code=" + code +
     "&code_verifier=" + code_verifier;
 
-  fetch(TokenRequestUrl, { method, headers, body })
+  fetch(constants.TokenRequestUrl, { method, headers, body })
     .then(fetchStatusHandler)
     .then((response) => response.json() as Promise<TokenResponse>)
     .then((data) => {
@@ -57,7 +57,7 @@ export function callUserInfo(
     Accept: "application/json",
   };
 
-  fetch(UserInfoRequestUrl, { method, headers })
+  fetch(constants.UserInfoRequestUrl, { method, headers })
     .then(fetchStatusHandler)
     .then((response) => response.json() as Promise<UserInfo>)
     .then((userInfo) => {

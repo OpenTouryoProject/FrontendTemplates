@@ -7,6 +7,7 @@ import About from './pages/About'
 import Settings from './pages/Settings'
 import { Counter } from './pages/Counter'
 import { CrudSample } from './pages/CrudSample'
+import { RedirectOfAuth } from './components/RedirectOfAuth';
 
 import './App.css'
 
@@ -24,6 +25,7 @@ function App() {
               <Route path="/settings" element={<Settings />} />
               <Route path="/counter" element={<Counter />} />
               <Route path="/crudsample" element={<CrudSample />} />
+              <Route path="/RedirectEndpoint" element={<RedirectOfAuth />} />
             </Routes>
           </main>
         </div>

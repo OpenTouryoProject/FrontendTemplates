@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CrudSampleRootUrl } from '../const';
+import constants from '../const';
 import oauth_oidc from '../touryo/oauth_oidc';
 
 // ===== 型定義 =====
@@ -206,15 +206,15 @@ export class CrudSample extends React.Component<Record<string, never>, CrudSampl
           <p>処理結果：{this.state.message}</p>
         </div>
         <div>
-          <button className='btn' onClick={() => { this.selectCount(); }}>SelectCount</button>&nbsp;
-          <button className='btn' onClick={() => { this.selectAll_DT(); }}>SelectAll_DT</button>&nbsp;
-          <button className='btn' onClick={() => { this.selectAll_DS(); }}>SelectAll_DS</button>&nbsp;
-          <button className='btn' onClick={() => { this.selectAll_DR(); }}>SelectAll_DR</button>&nbsp;
-          <button className='btn' onClick={() => { this.selectAll_DSQL(); }}>SelectAll_DSQL</button>&nbsp;
-          <button className='btn' onClick={() => { this.select(); }}>Select</button>&nbsp;
-          <button className='btn' onClick={() => { this.insert(); }}>Insert</button>&nbsp;
-          <button className='btn' onClick={() => { this.update(); }}>Update</button>&nbsp;
-          <button className='btn' onClick={() => { this.delete(); }}>Delete</button>
+          <button className='btn-primary' onClick={() => { this.selectCount(); }}>SelectCount</button>&nbsp;
+          <button className='btn-primary' onClick={() => { this.selectAll_DT(); }}>SelectAll_DT</button>&nbsp;
+          <button className='btn-primary' onClick={() => { this.selectAll_DS(); }}>SelectAll_DS</button>&nbsp;
+          <button className='btn-primary' onClick={() => { this.selectAll_DR(); }}>SelectAll_DR</button>&nbsp;
+          <button className='btn-primary' onClick={() => { this.selectAll_DSQL(); }}>SelectAll_DSQL</button>&nbsp;
+          <button className='btn-primary' onClick={() => { this.select(); }}>Select</button>&nbsp;
+          <button className='btn-primary' onClick={() => { this.insert(); }}>Insert</button>&nbsp;
+          <button className='btn-primary' onClick={() => { this.update(); }}>Update</button>&nbsp;
+          <button className='btn-primary' onClick={() => { this.delete(); }}>Delete</button>
         </div>
       </div>
     );
@@ -400,7 +400,7 @@ export class CrudSample extends React.Component<Record<string, never>, CrudSampl
       + '&ddlMode2=' + this.state.ddl.ddlMode2
       + '&ddlExRollback=' + this.state.ddl.ddlExRollback;
 
-    fetch(CrudSampleRootUrl + 'SelectCount', { method, headers, body })
+    fetch(constants.CrudSampleRootUrl + 'SelectCount', { method, headers, body })
       .then(fetchStatusHandler)
       .then(response => response.json())
       .then(data => {
@@ -428,7 +428,7 @@ export class CrudSample extends React.Component<Record<string, never>, CrudSampl
       + '&ddlMode2=' + this.state.ddl.ddlMode2
       + '&ddlExRollback=' + this.state.ddl.ddlExRollback;
 
-    fetch(CrudSampleRootUrl + 'SelectAll_DT', { method, headers, body })
+    fetch(constants.CrudSampleRootUrl + 'SelectAll_DT', { method, headers, body })
       .then(fetchStatusHandler)
       .then(response => response.json())
       .then(data => {
@@ -456,7 +456,7 @@ export class CrudSample extends React.Component<Record<string, never>, CrudSampl
       + '&ddlMode2=' + this.state.ddl.ddlMode2
       + '&ddlExRollback=' + this.state.ddl.ddlExRollback;
 
-    fetch(CrudSampleRootUrl + 'SelectAll_DS', { method, headers, body })
+    fetch(constants.CrudSampleRootUrl + 'SelectAll_DS', { method, headers, body })
       .then(fetchStatusHandler)
       .then(response => response.json())
       .then(data => {
@@ -484,7 +484,7 @@ export class CrudSample extends React.Component<Record<string, never>, CrudSampl
       + '&ddlMode2=' + this.state.ddl.ddlMode2
       + '&ddlExRollback=' + this.state.ddl.ddlExRollback;
 
-    fetch(CrudSampleRootUrl + 'SelectAll_DR', { method, headers, body })
+    fetch(constants.CrudSampleRootUrl + 'SelectAll_DR', { method, headers, body })
       .then(fetchStatusHandler)
       .then(response => response.json())
       .then(data => {
@@ -514,7 +514,7 @@ export class CrudSample extends React.Component<Record<string, never>, CrudSampl
       + '&orderColumn=' + this.state.ddl.ddlOrder
       + '&orderSequence=' + this.state.ddl.ddlOrderSequence;
 
-    fetch(CrudSampleRootUrl + 'SelectAll_DSQL', { method, headers, body })
+    fetch(constants.CrudSampleRootUrl + 'SelectAll_DSQL', { method, headers, body })
       .then(fetchStatusHandler)
       .then(response => response.json())
       .then(data => {
@@ -548,7 +548,7 @@ export class CrudSample extends React.Component<Record<string, never>, CrudSampl
       },
     });
 
-    fetch(CrudSampleRootUrl + 'Select', { method, headers, body })
+    fetch(constants.CrudSampleRootUrl + 'Select', { method, headers, body })
       .then(fetchStatusHandler)
       .then(response => response.json())
       .then(data => {
@@ -588,7 +588,7 @@ export class CrudSample extends React.Component<Record<string, never>, CrudSampl
       },
     });
 
-    fetch(CrudSampleRootUrl + 'Insert', { method, headers, body })
+    fetch(constants.CrudSampleRootUrl + 'Insert', { method, headers, body })
       .then(fetchStatusHandler)
       .then(response => response.json())
       .then(data => {
@@ -622,7 +622,7 @@ export class CrudSample extends React.Component<Record<string, never>, CrudSampl
       },
     });
 
-    fetch(CrudSampleRootUrl + 'Update', { method, headers, body })
+    fetch(constants.CrudSampleRootUrl + 'Update', { method, headers, body })
       .then(fetchStatusHandler)
       .then(response => response.json())
       .then(data => {
@@ -656,7 +656,7 @@ export class CrudSample extends React.Component<Record<string, never>, CrudSampl
       },
     });
 
-    fetch(CrudSampleRootUrl + 'Delete', { method, headers, body })
+    fetch(constants.CrudSampleRootUrl + 'Delete', { method, headers, body })
       .then(fetchStatusHandler)
       .then(response => response.json())
       .then(data => {

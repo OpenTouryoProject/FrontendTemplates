@@ -37,9 +37,9 @@ const STORAGE_KEYS = {
 // ---------------------------------------------------------------
 async function sha256(input: string): Promise<ArrayBuffer> {
   const encoded = new TextEncoder().encode(input);
-  return await globalThis.crypto.subtle.digest('SHA-256', encoded);
+   return await crypto.subtle.digest('SHA-256', encoded);
 }
- 
+
 // ---------------------------------------------------------------
 // 状態の初期化
 // ---------------------------------------------------------------

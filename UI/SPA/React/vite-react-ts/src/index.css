@@ -1,3 +1,20 @@
+@import "tailwindcss";
+
+@layer components {
+  .btn-primary {
+    padding: 8px 16px;
+    background-color: #2563eb;
+    color: white;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+    cursor: pointer;
+  }
+
+  .btn-primary:hover {
+    background-color: #1d4ed8;
+  }
+}
+
 :root {
   --text: #6b6375;
   --text-h: #08060d;
