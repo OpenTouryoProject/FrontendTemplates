@@ -6,7 +6,9 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Settings from './pages/Settings'
 import { Counter } from './pages/Counter'
+import { FetchData } from './pages/FetchData'
 import { CrudSample } from './pages/CrudSample'
+import { CrudSample2 } from './pages/CrudSample2'
 import { RedirectOfAuth } from './components/RedirectOfAuth';
 
 import './App.css'
@@ -24,7 +26,9 @@ function App() {
               <Route path="/about" element={<About />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/counter" element={<Counter />} />
+              <Route path='/fetchdata' element={<FetchData />} />
               <Route path="/crudsample" element={<CrudSample />} />
+              <Route path="/crudsample2" element={<CrudSample2 />} />
               <Route path="/RedirectEndpoint" element={<RedirectOfAuth />} />
             </Routes>
           </main>

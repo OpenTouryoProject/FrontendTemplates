@@ -8,7 +8,7 @@ const constants = Object.freeze({
     AuthRequestUrl: `${AuthServerRootUrl}/authorize`,
     TokenRequestUrl: `${AuthServerRootUrl}/token`,
     UserInfoRequestUrl: `${AuthServerRootUrl}/userinfo`,
-    FetchDataRootUrl: `${FrontendHostRootUrl}/api/sampledata/weatherforecasts?`,
+    FetchDataRootUrl: `${ResourcesServerRootUrl}/api/sampledata/weatherforecasts?`,
     CrudSampleRootUrl: `${ResourcesServerRootUrl}/api/json/`
 } as const);
 
