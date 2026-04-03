@@ -20,7 +20,7 @@ export class Counter extends React.Component<CounterProps, CounterState> {
         <h1>Counter</h1>
         <p>This is a simple example of a React component.</p>
         <p>Current count: <strong>{this.state.currentCount}</strong></p>
-        <button className='btn' onClick={() => this.incrementCounter()}>
+        <button className='btn-primary' onClick={() => this.incrementCounter()}>
           Increment
         </button>
       </div>

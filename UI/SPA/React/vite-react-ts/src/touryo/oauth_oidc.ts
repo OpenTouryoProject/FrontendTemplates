@@ -17,8 +17,197 @@
 //       Web Crypto API (globalThis.crypto) に置き換えています。
 // ---------------------------------------------------------------
 
+import constants from '../const';
 import { getRandomString, base64URLEncode } from './common.ts';
- 
+
+// UserInfo の型定義
+interface UserInfo {
+  sub: string;
+  [key: string]: unknown;
+}
+
+interface TokenResponse {
+  access_token?: string;
+  [key: string]: unknown;
+}
+
+// ---------------------------------------------------------------
+// URLのパラメタを抽出する。
+// ---------------------------------------------------------------
+
+// -----------------------------------------------------------
+// フラグメント（# ～ の部分）を取得する。
+// ---------------------------------------------------------------
+// 引数    －
+// 戻り値  Record<string, string>
+// -----------------------------------------------------------
+export function getParameterFromFragment(): Record<string, string> {
+  const temp = window.location.hash;
+  window.location.hash = "";
+
+  if (temp.indexOf("#") === 0) {
+    // # が1文字目にある場合
+    // 2文字目以降を object に parse
+    return parseQueryString(temp.substring(1));
+  } else {
+    return {}; // 空
+  }
+}
+
+// -----------------------------------------------------------
+// クエリストリング（? ～ の部分）を取得する。
+// ---------------------------------------------------------------
+// 引数    －
+// 戻り値  Record<string, string>
+// -----------------------------------------------------------
+export function getParameterFromQueryString(): Record<string, string> {
+  const temp = window.location.search;
+  // ※ window.location.search への代入はブラウザで無視されるため
+  //    URLSearchParams を使う形に変更
+  if (temp.indexOf("?") === 0) {
+    // ? が1文字目にある場合
+    // 2文字目以降を object に parse
+    return parseQueryString(temp.substring(1));
+  } else {
+    return {}; // 空
+  }
+}
+
+// -----------------------------------------------------------
+// QueryString を object に parse する。
+// ---------------------------------------------------------------
+// 引数    queryString
+// 戻り値  Record<string, string>
+// -----------------------------------------------------------
+function parseQueryString(queryString: string): Record<string, string> {
+  const data: Record<string, string> = {};
+
+  if (!queryString) {
+    return data; // 空で返す
+  }
+
+  const pairs = queryString.split("&");
+
+  for (const pair of pairs) {
+    const separatorIndex = pair.indexOf("=");
+
+    let escapedKey: string;
+    let escapedValue: string;
+
+    if (separatorIndex === -1) {
+      escapedKey = pair;
+      escapedValue = "";
+    } else {
+      escapedKey = pair.substring(0, separatorIndex);
+      escapedValue = pair.substring(separatorIndex + 1);
+    }
+
+    const key = decodeURIComponent(escapedKey);
+    const value = decodeURIComponent(escapedValue);
+
+    data[key] = value;
+  }
+
+  return data;
+}
+
+// ---------------------------------------------------------------
+// /token にリクエスト
+// ---------------------------------------------------------------
+export function callConvertCodeToToken(
+  code: string,
+  code_verifier: string,
+  callback: () => void
+): void {
+  const method = "POST";
+  const headers: HeadersInit = {
+    Accept: "application/json",
+    "Content-Type": "application/x-www-form-urlencoded",
+  };
+  const body =
+    "grant_type=authorization_code" +
+    "&client_id=" + constants.ClientId +
+    "&code=" + code +
+    "&code_verifier=" + code_verifier;
+
+  fetch(constants.TokenRequestUrl, { method, headers, body })
+    .then(fetchStatusHandler)
+    .then((response) => response.json() as Promise<TokenResponse>)
+    .then((data) => {
+      if (data.access_token) {
+        callUserInfo(data.access_token, callback);
+      }
+    })
+    .catch((error: Error) => {
+      alert("error.stack: " + error.stack);
+    });
+}
+
+// ---------------------------------------------------------------
+// /userinfo にリクエスト
+// ---------------------------------------------------------------
+export function callUserInfo(
+  access_token: string,
+  callback: () => void
+): void {
+  const method = "GET";
+  const headers: HeadersInit = {
+    Authorization: "Bearer " + access_token,
+    Accept: "application/json",
+  };
+
+  fetch(constants.UserInfoRequestUrl, { method, headers })
+    .then(fetchStatusHandler)
+    .then((response) => response.json() as Promise<UserInfo>)
+    .then((userInfo) => {
+      if (userInfo.sub) {
+        oauth_oidc.setAccessToken(access_token);
+        oauth_oidc.setUserInfo(JSON.stringify(userInfo));
+        callback();
+      }
+    })
+    .catch((error: Error) => {
+      alert("error.stack: " + error.stack);
+    });
+}
+
+// ---------------------------------------------------------------
+// HTTPリクエストヘッダの作成
+// ---------------------------------------------------------------
+export function createHttpRequestHeader(isJsonRpc: boolean): HeadersInit {
+  let headers: Record<string, string>;
+
+  if (isJsonRpc) {
+    headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    };
+  } else {
+    headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded',
+    };
+  }
+
+  const access_token = oauth_oidc.getAccessToken();
+  if (access_token) {
+    headers['Authorization'] = 'Bearer ' + access_token;
+  }
+
+  return headers;
+}
+
+// ---------------------------------------------------------------
+// fetch のレスポンスのステータスコードをチェック
+// ---------------------------------------------------------------
+export function fetchStatusHandler(response: Response): Response {
+  if (response.status === 200) {
+    return response;
+  } else {
+    throw new Error(response.statusText);
+  }
+}
+
 // ---------------------------------------------------------------
 // ローカルストレージのキー定数
 // ---------------------------------------------------------------
@@ -146,6 +335,13 @@ export function getUserInfo(): string | null {
 
 // 全関数をオブジェクトとしてデフォルトエクスポート
 const oauth_oidc = {
+  getParameterFromFragment,
+  getParameterFromQueryString,
+  parseQueryString,
+  callConvertCodeToToken,
+  callUserInfo,
+  createHttpRequestHeader,
+  fetchStatusHandler,
   initSignUpStatus,
   getState,
   getCodeVerifier,

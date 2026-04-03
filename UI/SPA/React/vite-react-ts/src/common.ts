@@ -1,84 +1,44 @@
-import constants from './const';
 import oauth_oidc from './touryo/oauth_oidc';
 
-// UserInfo の型定義
-interface UserInfo {
-  sub: string;
-  [key: string]: unknown;
-}
+type SuccessHandler = (data: Record<string, unknown>) => void;
 
-interface TokenResponse {
-  access_token?: string;
-  [key: string]: unknown;
-}
-
-// ---------------------------------------------------------------
-// /token にリクエスト
-// ---------------------------------------------------------------
-export function callConvertCodeToToken(
-  code: string,
-  code_verifier: string,
-  callback: () => void
+/**
+ * 共通のfetchラッパー
+ * @param url         リクエスト先URL
+ * @param headers     HTTPヘッダー
+ * @param body        リクエストボディ
+ * @param onSuccess   成功時のハンドラ（data.errorMSG / data.exceptionMSG 以外の処理）
+ * @param setMessage  メッセージをセットする関数
+ */
+export function postFetch(
+  url: string,
+  headers: HeadersInit,
+  body: BodyInit,
+  onSuccess: SuccessHandler,
+  setMessage: (msg: string) => void,
 ): void {
-  const method = "POST";
-  const headers: HeadersInit = {
-    Accept: "application/json",
-    "Content-Type": "application/x-www-form-urlencoded",
-  };
-  const body =
-    "grant_type=authorization_code" +
-    "&client_id=" + constants.ClientId +
-    "&code=" + code +
-    "&code_verifier=" + code_verifier;
+  setMessage('');
 
-  fetch(constants.TokenRequestUrl, { method, headers, body })
-    .then(fetchStatusHandler)
-    .then((response) => response.json() as Promise<TokenResponse>)
-    .then((data) => {
-      if (data.access_token) {
-        callUserInfo(data.access_token, callback);
+  fetch(url, { method: 'POST', headers, body })
+    .then(oauth_oidc.fetchStatusHandler)
+    .then(response => response.json())
+    .then((data: Record<string, unknown>) => {
+      if (data.errorMSG) {
+        setMessage(JSON.stringify(data.errorMSG));
+      } else if (data.exceptionMSG) {
+        setMessage(JSON.stringify(data.exceptionMSG));
+      } else {
+        onSuccess(data);
       }
     })
     .catch((error: Error) => {
-      alert("error.stack: " + error.stack);
+      setMessage(JSON.stringify(error.stack));
     });
 }
 
-// ---------------------------------------------------------------
-// /userinfo にリクエスト
-// ---------------------------------------------------------------
-export function callUserInfo(
-  access_token: string,
-  callback: () => void
-): void {
-  const method = "GET";
-  const headers: HeadersInit = {
-    Authorization: "Bearer " + access_token,
-    Accept: "application/json",
-  };
+// 全関数をオブジェクトとしてデフォルトエクスポート
+const common = {
+  postFetch,
+};
 
-  fetch(constants.UserInfoRequestUrl, { method, headers })
-    .then(fetchStatusHandler)
-    .then((response) => response.json() as Promise<UserInfo>)
-    .then((userInfo) => {
-      if (userInfo.sub) {
-        oauth_oidc.setAccessToken(access_token);
-        oauth_oidc.setUserInfo(JSON.stringify(userInfo));
-        callback();
-      }
-    })
-    .catch((error: Error) => {
-      alert("error.stack: " + error.stack);
-    });
-}
-
-// ---------------------------------------------------------------
-// fetch ステータスハンドラ
-// ---------------------------------------------------------------
-function fetchStatusHandler(response: Response): Response {
-  if (response.status === 200) {
-    return response;
-  } else {
-    throw new Error(response.statusText);
-  }
-}
+export default common;

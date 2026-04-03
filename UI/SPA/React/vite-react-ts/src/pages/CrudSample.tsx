@@ -1,5 +1,6 @@
 import * as React from 'react';
 import constants from '../const';
+import common from '../common.ts';
 import oauth_oidc from '../touryo/oauth_oidc';
 
 // ===== 型定義 =====
@@ -31,40 +32,6 @@ interface CrudSampleState {
   shipper: ShipperState;
   shippers: ShipperState[];
   loading: boolean;
-}
-
-// ===== ヘルパー関数 =====
-
-function createHttpRequestHeader(isJsonRpc: boolean): HeadersInit {
-  let headers: Record<string, string>;
-
-  if (isJsonRpc) {
-    headers = {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    };
-  } else {
-    headers = {
-      'Accept': 'application/json',
-      'Content-Type': 'application/x-www-form-urlencoded',
-    };
-  }
-
-  const access_token = oauth_oidc.getAccessToken();
-  if (access_token) {
-    headers['Authorization'] = 'Bearer ' + access_token;
-  }
-
-  return headers;
-}
-
-// https://github.com/github/fetch/issues/155#issuecomment-108353192
-function fetchStatusHandler(response: Response): Response {
-  if (response.status === 200) {
-    return response;
-  } else {
-    throw new Error(response.statusText);
-  }
 }
 
 // ===== コンポーネント =====
@@ -391,285 +358,200 @@ export class CrudSample extends React.Component<Record<string, never>, CrudSampl
 
   selectCount() {
     this.setState({ message: '' });
-
-    const method = 'POST';
-    const headers = createHttpRequestHeader(false);
-    const body =
+    common.postFetch(
+      constants.CrudSampleRootUrl + 'SelectCount',
+      oauth_oidc.createHttpRequestHeader(false),
       'ddlDap=' + this.state.ddl.ddlDap
-      + '&ddlMode1=' + this.state.ddl.ddlMode1
-      + '&ddlMode2=' + this.state.ddl.ddlMode2
-      + '&ddlExRollback=' + this.state.ddl.ddlExRollback;
-
-    fetch(constants.CrudSampleRootUrl + 'SelectCount', { method, headers, body })
-      .then(fetchStatusHandler)
-      .then(response => response.json())
-      .then(data => {
+        + '&ddlMode1=' + this.state.ddl.ddlMode1
+        + '&ddlMode2=' + this.state.ddl.ddlMode2
+        + '&ddlExRollback=' + this.state.ddl.ddlExRollback,
+      (data) => {
         if (data.message) {
-          this.setState({ message: data.message });
-        } else if (data.errorMSG) {
-          this.setState({ message: JSON.stringify(data.errorMSG) });
-        } else if (data.exceptionMSG) {
-          this.setState({ message: JSON.stringify(data.exceptionMSG) });
+          this.setState({ message: JSON.stringify(data.message) });
         }
-      })
-      .catch((error: Error) => {
-        this.setState({ message: JSON.stringify(error.stack) });
-      });
+      },
+      (msg) => this.setState({ message: JSON.stringify(msg) }),
+    );
   }
 
   selectAll_DT() {
     this.setState({ message: '' });
-
-    const method = 'POST';
-    const headers = createHttpRequestHeader(false);
-    const body =
+    common.postFetch(
+      constants.CrudSampleRootUrl + 'SelectAll_DT',
+      oauth_oidc.createHttpRequestHeader(false),
       'ddlDap=' + this.state.ddl.ddlDap
-      + '&ddlMode1=' + this.state.ddl.ddlMode1
-      + '&ddlMode2=' + this.state.ddl.ddlMode2
-      + '&ddlExRollback=' + this.state.ddl.ddlExRollback;
-
-    fetch(constants.CrudSampleRootUrl + 'SelectAll_DT', { method, headers, body })
-      .then(fetchStatusHandler)
-      .then(response => response.json())
-      .then(data => {
+        + '&ddlMode1=' + this.state.ddl.ddlMode1
+        + '&ddlMode2=' + this.state.ddl.ddlMode2
+        + '&ddlExRollback=' + this.state.ddl.ddlExRollback,
+      (data) => {
         if (data.result) {
-          this.setState({ message: '', shippers: data.result, loading: false });
-        } else if (data.errorMSG) {
-          this.setState({ message: JSON.stringify(data.errorMSG) });
-        } else if (data.exceptionMSG) {
-          this.setState({ message: JSON.stringify(data.exceptionMSG) });
-        }
-      })
-      .catch((error: Error) => {
-        this.setState({ message: JSON.stringify(error.stack) });
-      });
+          this.setState({ message: '', shippers: data.result as ShipperState[], loading: false });
+        }        
+      },
+      (msg) => this.setState({ message: JSON.stringify(msg) }),
+    );    
   }
 
   selectAll_DS() {
     this.setState({ message: '' });
-
-    const method = 'POST';
-    const headers = createHttpRequestHeader(false);
-    const body =
+    common.postFetch(
+      constants.CrudSampleRootUrl + 'selectAll_DS',
+      oauth_oidc.createHttpRequestHeader(false),
       'ddlDap=' + this.state.ddl.ddlDap
-      + '&ddlMode1=' + this.state.ddl.ddlMode1
-      + '&ddlMode2=' + this.state.ddl.ddlMode2
-      + '&ddlExRollback=' + this.state.ddl.ddlExRollback;
-
-    fetch(constants.CrudSampleRootUrl + 'SelectAll_DS', { method, headers, body })
-      .then(fetchStatusHandler)
-      .then(response => response.json())
-      .then(data => {
+        + '&ddlMode1=' + this.state.ddl.ddlMode1
+        + '&ddlMode2=' + this.state.ddl.ddlMode2
+        + '&ddlExRollback=' + this.state.ddl.ddlExRollback,
+      (data) => {
         if (data.result) {
-          this.setState({ message: '', shippers: data.result, loading: false });
-        } else if (data.errorMSG) {
-          this.setState({ message: JSON.stringify(data.errorMSG) });
-        } else if (data.exceptionMSG) {
-          this.setState({ message: JSON.stringify(data.exceptionMSG) });
-        }
-      })
-      .catch((error: Error) => {
-        this.setState({ message: JSON.stringify(error.stack) });
-      });
+          this.setState({ message: '', shippers: data.result as ShipperState[], loading: false });
+        }        
+      },
+      (msg) => this.setState({ message: JSON.stringify(msg) }),
+    );  
   }
 
   selectAll_DR() {
     this.setState({ message: '' });
-
-    const method = 'POST';
-    const headers = createHttpRequestHeader(false);
-    const body =
+    common.postFetch(
+      constants.CrudSampleRootUrl + 'selectAll_DR',
+      oauth_oidc.createHttpRequestHeader(false),
       'ddlDap=' + this.state.ddl.ddlDap
-      + '&ddlMode1=' + this.state.ddl.ddlMode1
-      + '&ddlMode2=' + this.state.ddl.ddlMode2
-      + '&ddlExRollback=' + this.state.ddl.ddlExRollback;
-
-    fetch(constants.CrudSampleRootUrl + 'SelectAll_DR', { method, headers, body })
-      .then(fetchStatusHandler)
-      .then(response => response.json())
-      .then(data => {
+        + '&ddlMode1=' + this.state.ddl.ddlMode1
+        + '&ddlMode2=' + this.state.ddl.ddlMode2
+        + '&ddlExRollback=' + this.state.ddl.ddlExRollback,
+      (data) => {
         if (data.result) {
-          this.setState({ message: '', shippers: data.result, loading: false });
-        } else if (data.errorMSG) {
-          this.setState({ message: JSON.stringify(data.errorMSG) });
-        } else if (data.exceptionMSG) {
-          this.setState({ message: JSON.stringify(data.exceptionMSG) });
-        }
-      })
-      .catch((error: Error) => {
-        this.setState({ message: JSON.stringify(error.stack) });
-      });
+          this.setState({ message: '', shippers: data.result as ShipperState[], loading: false });
+        }        
+      },
+      (msg) => this.setState({ message: JSON.stringify(msg) }),
+    );  
   }
 
   selectAll_DSQL() {
     this.setState({ message: '' });
-
-    const method = 'POST';
-    const headers = createHttpRequestHeader(false);
-    const body =
+    common.postFetch(
+      constants.CrudSampleRootUrl + 'selectAll_DSQL',
+      oauth_oidc.createHttpRequestHeader(false),
       'ddlDap=' + this.state.ddl.ddlDap
-      + '&ddlMode1=' + this.state.ddl.ddlMode1
-      + '&ddlMode2=' + this.state.ddl.ddlMode2
-      + '&ddlExRollback=' + this.state.ddl.ddlExRollback
-      + '&orderColumn=' + this.state.ddl.ddlOrder
-      + '&orderSequence=' + this.state.ddl.ddlOrderSequence;
-
-    fetch(constants.CrudSampleRootUrl + 'SelectAll_DSQL', { method, headers, body })
-      .then(fetchStatusHandler)
-      .then(response => response.json())
-      .then(data => {
+        + '&ddlMode1=' + this.state.ddl.ddlMode1
+        + '&ddlMode2=' + this.state.ddl.ddlMode2
+        + '&ddlExRollback=' + this.state.ddl.ddlExRollback
+        + '&orderColumn=' + this.state.ddl.ddlOrder
+        + '&orderSequence=' + this.state.ddl.ddlOrderSequence,
+      (data) => {
         if (data.result) {
-          this.setState({ message: '', shippers: data.result, loading: false });
-        } else if (data.errorMSG) {
-          this.setState({ message: JSON.stringify(data.errorMSG) });
-        } else if (data.exceptionMSG) {
-          this.setState({ message: JSON.stringify(data.exceptionMSG) });
-        }
-      })
-      .catch((error: Error) => {
-        this.setState({ message: JSON.stringify(error.stack) });
-      });
+          this.setState({ message: '', shippers: data.result as ShipperState[], loading: false });
+        }        
+      },
+      (msg) => this.setState({ message: JSON.stringify(msg) }),
+    );  
   }
 
   select() {
     this.setState({ message: '' });
-
-    const method = 'POST';
-    const headers = createHttpRequestHeader(true);
-    const body = JSON.stringify({
-      ddlDap: this.state.ddl.ddlDap,
-      ddlMode1: this.state.ddl.ddlMode1,
-      ddlMode2: this.state.ddl.ddlMode2,
-      ddlExRollback: this.state.ddl.ddlExRollback,
-      shipper: {
-        shipperID: this.state.shipper.shipperID,
-        companyName: '',
-        phone: '',
-      },
-    });
-
-    fetch(constants.CrudSampleRootUrl + 'Select', { method, headers, body })
-      .then(fetchStatusHandler)
-      .then(response => response.json())
-      .then(data => {
+    common.postFetch(
+      constants.CrudSampleRootUrl + 'select',
+      oauth_oidc.createHttpRequestHeader(true),
+      JSON.stringify({
+        ddlDap: this.state.ddl.ddlDap,
+        ddlMode1: this.state.ddl.ddlMode1,
+        ddlMode2: this.state.ddl.ddlMode2,
+        ddlExRollback: this.state.ddl.ddlExRollback,
+        shipper: {
+          shipperID: this.state.shipper.shipperID,
+          companyName: '',
+          phone: '',
+        },
+      }),
+      (data) => {
         if (data.result) {
+          const result = data.result as ShipperState;
           this.setState({
             shipper: {
-              shipperID: data.result.shipperID,
-              companyName: data.result.companyName,
-              phone: data.result.phone,
+              shipperID: result.shipperID,
+              companyName: result.companyName,
+              phone: result.phone,
             },
           });
-        } else if (data.errorMSG) {
-          this.setState({ message: JSON.stringify(data.errorMSG) });
-        } else if (data.exceptionMSG) {
-          this.setState({ message: JSON.stringify(data.exceptionMSG) });
-        }
-      })
-      .catch((error: Error) => {
-        this.setState({ message: JSON.stringify(error.stack) });
-      });
+        }        
+      },
+      (msg) => this.setState({ message: JSON.stringify(msg) }),
+    ); 
   }
 
   insert() {
     this.setState({ message: '' });
-
-    const method = 'POST';
-    const headers = createHttpRequestHeader(true);
-    const body = JSON.stringify({
-      ddlDap: this.state.ddl.ddlDap,
-      ddlMode1: this.state.ddl.ddlMode1,
-      ddlMode2: this.state.ddl.ddlMode2,
-      ddlExRollback: this.state.ddl.ddlExRollback,
-      shipper: {
-        shipperID: '0',
-        companyName: this.state.shipper.companyName,
-        phone: this.state.shipper.phone,
-      },
-    });
-
-    fetch(constants.CrudSampleRootUrl + 'Insert', { method, headers, body })
-      .then(fetchStatusHandler)
-      .then(response => response.json())
-      .then(data => {
+    common.postFetch(
+      constants.CrudSampleRootUrl + 'insert',
+      oauth_oidc.createHttpRequestHeader(true),
+      JSON.stringify({
+        ddlDap: this.state.ddl.ddlDap,
+        ddlMode1: this.state.ddl.ddlMode1,
+        ddlMode2: this.state.ddl.ddlMode2,
+        ddlExRollback: this.state.ddl.ddlExRollback,
+        shipper: {
+          shipperID: '0',
+          companyName: this.state.shipper.companyName,
+          phone: this.state.shipper.phone,
+        },
+      }),
+      (data) => {
         if (data.message) {
-          this.setState({ message: data.message });
-        } else if (data.errorMSG) {
-          this.setState({ message: JSON.stringify(data.errorMSG) });
-        } else if (data.exceptionMSG) {
-          this.setState({ message: JSON.stringify(data.exceptionMSG) });
-        }
-      })
-      .catch((error: Error) => {
-        this.setState({ message: JSON.stringify(error.stack) });
-      });
+          this.setState({ message: JSON.stringify(data.message) });
+        }        
+      },
+      (msg) => this.setState({ message: JSON.stringify(msg) }),
+    );
   }
 
   update() {
     this.setState({ message: '' });
-
-    const method = 'POST';
-    const headers = createHttpRequestHeader(true);
-    const body = JSON.stringify({
-      ddlDap: this.state.ddl.ddlDap,
-      ddlMode1: this.state.ddl.ddlMode1,
-      ddlMode2: this.state.ddl.ddlMode2,
-      ddlExRollback: this.state.ddl.ddlExRollback,
-      shipper: {
-        shipperID: this.state.shipper.shipperID,
-        companyName: this.state.shipper.companyName,
-        phone: this.state.shipper.phone,
-      },
-    });
-
-    fetch(constants.CrudSampleRootUrl + 'Update', { method, headers, body })
-      .then(fetchStatusHandler)
-      .then(response => response.json())
-      .then(data => {
+    common.postFetch(
+      constants.CrudSampleRootUrl + 'update',
+      oauth_oidc.createHttpRequestHeader(true),
+      JSON.stringify({
+        ddlDap: this.state.ddl.ddlDap,
+        ddlMode1: this.state.ddl.ddlMode1,
+        ddlMode2: this.state.ddl.ddlMode2,
+        ddlExRollback: this.state.ddl.ddlExRollback,
+        shipper: {
+          shipperID: this.state.shipper.shipperID,
+          companyName: this.state.shipper.companyName,
+          phone: this.state.shipper.phone,
+        },
+      }),
+      (data) => {
         if (data.message) {
-          this.setState({ message: data.message });
-        } else if (data.errorMSG) {
-          this.setState({ message: JSON.stringify(data.errorMSG) });
-        } else if (data.exceptionMSG) {
-          this.setState({ message: JSON.stringify(data.exceptionMSG) });
-        }
-      })
-      .catch((error: Error) => {
-        this.setState({ message: JSON.stringify(error.stack) });
-      });
+          this.setState({ message: JSON.stringify(data.message) });
+        }        
+      },
+      (msg) => this.setState({ message: JSON.stringify(msg) }),
+    );
   }
 
   delete() {
     this.setState({ message: '' });
-
-    const method = 'POST';
-    const headers = createHttpRequestHeader(true);
-    const body = JSON.stringify({
-      ddlDap: this.state.ddl.ddlDap,
-      ddlMode1: this.state.ddl.ddlMode1,
-      ddlMode2: this.state.ddl.ddlMode2,
-      ddlExRollback: this.state.ddl.ddlExRollback,
-      shipper: {
-        shipperID: this.state.shipper.shipperID,
-        companyName: '',
-        phone: '',
-      },
-    });
-
-    fetch(constants.CrudSampleRootUrl + 'Delete', { method, headers, body })
-      .then(fetchStatusHandler)
-      .then(response => response.json())
-      .then(data => {
+    common.postFetch(
+      constants.CrudSampleRootUrl + 'delete',
+      oauth_oidc.createHttpRequestHeader(true),
+      JSON.stringify({
+        ddlDap: this.state.ddl.ddlDap,
+        ddlMode1: this.state.ddl.ddlMode1,
+        ddlMode2: this.state.ddl.ddlMode2,
+        ddlExRollback: this.state.ddl.ddlExRollback,
+        shipper: {
+          shipperID: this.state.shipper.shipperID,
+          companyName: '',
+          phone: '',
+        },
+      }),
+      (data) => {
         if (data.message) {
-          this.setState({ message: data.message });
-        } else if (data.errorMSG) {
-          this.setState({ message: JSON.stringify(data.errorMSG) });
-        } else if (data.exceptionMSG) {
-          this.setState({ message: JSON.stringify(data.exceptionMSG) });
-        }
-      })
-      .catch((error: Error) => {
-        this.setState({ message: JSON.stringify(error.stack) });
-      });
+          this.setState({ message: JSON.stringify(data.message) });
+        }        
+      },
+      (msg) => this.setState({ message: JSON.stringify(msg) }),
+    );
   }
 }

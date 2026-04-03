@@ -22,86 +22,6 @@ declare global {
 }
 
 // ---------------------------------------------------------------
-// URLのパラメタを抽出する。
-// ---------------------------------------------------------------
-
-// -----------------------------------------------------------
-// フラグメント（# ～ の部分）を取得する。
-// ---------------------------------------------------------------
-// 引数    －
-// 戻り値  Record<string, string>
-// -----------------------------------------------------------
-export function getParameterFromFragment(): Record<string, string> {
-  const temp = window.location.hash;
-  window.location.hash = "";
-
-  if (temp.indexOf("#") === 0) {
-    // # が1文字目にある場合
-    // 2文字目以降を object に parse
-    return parseQueryString(temp.substring(1));
-  } else {
-    return {}; // 空
-  }
-}
-
-// -----------------------------------------------------------
-// クエリストリング（? ～ の部分）を取得する。
-// ---------------------------------------------------------------
-// 引数    －
-// 戻り値  Record<string, string>
-// -----------------------------------------------------------
-export function getParameterFromQueryString(): Record<string, string> {
-  const temp = window.location.search;
-  // ※ window.location.search への代入はブラウザで無視されるため
-  //    URLSearchParams を使う形に変更
-  if (temp.indexOf("?") === 0) {
-    // ? が1文字目にある場合
-    // 2文字目以降を object に parse
-    return parseQueryString(temp.substring(1));
-  } else {
-    return {}; // 空
-  }
-}
-
-// -----------------------------------------------------------
-// QueryString を object に parse する。
-// ---------------------------------------------------------------
-// 引数    queryString
-// 戻り値  Record<string, string>
-// -----------------------------------------------------------
-function parseQueryString(queryString: string): Record<string, string> {
-  const data: Record<string, string> = {};
-
-  if (!queryString) {
-    return data; // 空で返す
-  }
-
-  const pairs = queryString.split("&");
-
-  for (const pair of pairs) {
-    const separatorIndex = pair.indexOf("=");
-
-    let escapedKey: string;
-    let escapedValue: string;
-
-    if (separatorIndex === -1) {
-      escapedKey = pair;
-      escapedValue = "";
-    } else {
-      escapedKey = pair.substring(0, separatorIndex);
-      escapedValue = pair.substring(separatorIndex + 1);
-    }
-
-    const key = decodeURIComponent(escapedKey);
-    const value = decodeURIComponent(escapedValue);
-
-    data[key] = value;
-  }
-
-  return data;
-}
-
-// ---------------------------------------------------------------
 // ランダム文字列を取得する。
 // ---------------------------------------------------------------
 // 引数    l（生成する文字列の長さ）
@@ -164,9 +84,6 @@ export function initStringFormat(): void {
 
 // 全関数をオブジェクトとしてデフォルトエクスポート
 const common = {
-  getParameterFromFragment,
-  getParameterFromQueryString,
-  parseQueryString,
   getRandomString,
   stringToAscii,
   base64URLEncode,

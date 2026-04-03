@@ -18,16 +18,27 @@ export class FetchData extends React.Component<object, FetchDataState> {
   constructor(props: object) {
     super(props);
     this.state = { forecasts: [], loading: true, currentPage: 1 };
-    this.fetchForecasts(1);
+    //this.fetchForecasts(1);// fetchForecasts の呼び出しを削除
+  }
+
+  componentDidMount() {
+     this.fetchForecasts(1); // マウント後に呼び出す
   }
 
   fetchForecasts(page: number) {
     this.setState({ loading: true });
     fetch(constants.FetchDataRootUrl + `startDateIndex=${page}`)
-      .then((response) => response.json())
-      .then((data: WeatherForecast[]) => {
-        this.setState({ forecasts: data, loading: false, currentPage: page });
-      });
+    .then((response) => {
+      console.log('response status', response.status); // ステータスは？
+      return response.json();
+    })
+    .then((data) => {
+      console.log('data received', data);              // データは来ているか？
+      this.setState({ forecasts: data, loading: false, currentPage: page });
+    })
+    .catch((err) => {
+      console.error('fetch error', err);              // エラーは？
+    });
   }
 
   handlePrev = () => {

@@ -1,8 +1,6 @@
 import * as React from 'react';
 
-import constants, { FrontendHostRootUrl } from '../const';
-import { callUserInfo } from '../common';
-
+import constants from '../const';
 import common from '../touryo/common';
 import oauth_oidc from '../touryo/oauth_oidc';
 
@@ -33,7 +31,7 @@ export default class SignIn extends React.Component<
 
         const access_token = oauth_oidc.getAccessToken();
         if (access_token) {
-            callUserInfo(access_token, this.signedIn);
+            oauth_oidc.callUserInfo(access_token, this.signedIn);
         }
     }
 
@@ -79,6 +77,6 @@ export default class SignIn extends React.Component<
 
     signOut() {
         oauth_oidc.initSignUpStatus();
-        window.location.href = FrontendHostRootUrl;
+        window.location.href = constants.FrontendHostRootUrl;
     }
 }

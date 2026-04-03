@@ -35,9 +35,9 @@ const DDL_DAP: DdlOption[] = [
 ];
 
 const DDL_MODE1: DdlOption[] = [
-  { label: "個別Ｄａｏ",                 value: "individual" },
-  { label: "共通Ｄａｏ",                 value: "common"     },
-  { label: "自動生成Ｄａｏ（更新のみ）",  value: "generate"   },
+  { label: "個別Dao",                 value: "individual" },
+  { label: "共通Dao",                 value: "common"     },
+  { label: "自動生成Dao（更新のみ）",  value: "generate"   },
 ];
 
 const DDL_MODE2: DdlOption[] = [
@@ -121,7 +121,7 @@ export const DropDownLists: React.FC<DropDownListsProps> = ({ onChangeDdl }) => 
           </td>
         </tr>
         <tr>
-          <td>Ｄａｏモード:</td>
+          <td>Daoモード:</td>
           <td>
             <select value={ddl.ddlMode1} onChange={handleChange('ddlMode1')}>
               {toOptions(DDL_MODE1)}
