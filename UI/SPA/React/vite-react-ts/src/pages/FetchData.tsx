@@ -1,5 +1,7 @@
 import * as React from 'react';
 import constants from '../const';
+import common from '../common.ts';
+import oauth_oidc from '../touryo/oauth_oidc';
 
 interface WeatherForecast {
   dateFormatted: string;
@@ -27,18 +29,19 @@ export class FetchData extends React.Component<object, FetchDataState> {
 
   fetchForecasts(page: number) {
     this.setState({ loading: true });
-    fetch(constants.FetchDataRootUrl + `startDateIndex=${page}`)
-    .then((response) => {
-      console.log('response status', response.status); // ステータスは？
-      return response.json();
-    })
-    .then((data) => {
-      console.log('data received', data);              // データは来ているか？
-      this.setState({ forecasts: data, loading: false, currentPage: page });
-    })
-    .catch((err) => {
-      console.error('fetch error', err);              // エラーは？
-    });
+    common.getFetch(
+      constants.FetchDataRootUrl + `startDateIndex=${page}`,
+      oauth_oidc.createHttpRequestHeader(false),
+      (data) => {
+        this.setState({
+          forecasts: data as unknown as WeatherForecast[],
+          loading: false, currentPage: page });
+      },
+      (msg) => {
+        this.setState({ loading: false });
+        console.error('fetch error', msg);
+      },
+    );
   }
 
   handlePrev = () => {

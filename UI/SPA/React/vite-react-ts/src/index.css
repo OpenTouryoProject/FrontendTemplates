@@ -1,6 +1,32 @@
 @import "tailwindcss";
 
 @layer components {
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="tel"],
+  select,
+  textarea {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #d1d5db; /* gray-300 相当 */
+    border-radius: 0.25rem;
+    padding: 0.5rem 0.75rem;
+    width: 100%;
+  }
+
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="password"]:focus,
+  input[type="tel"]:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-color: #3b82f6; /* blue-500 相当 */
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+  }
+
   .btn-primary {
     padding: 8px 16px;
     background-color: #2563eb;

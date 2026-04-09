@@ -4,7 +4,7 @@ export default function Header() {
   return (
     <header className="flex items-center">
       <span>My App</span>
-      <div className="ml-auto">
+      <div>
         <SignIn />
       </div>
     </header>
