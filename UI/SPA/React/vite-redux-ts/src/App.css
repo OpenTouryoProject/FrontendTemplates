@@ -1,0 +1,67 @@
+/* src/App.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* ヘッダー */
+header {
+  height: 60px;
+  background-color: #1e293b;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* ← 追加 */
+  padding: 0 24px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+/* ヘッダー下の横並びエリア */
+.body-container {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* 左メニュー */
+nav.sidebar {
+  width: 220px;
+  background-color: #f1f5f9;
+  border-right: 1px solid #e2e8f0;
+  padding: 16px 0;
+  flex-shrink: 0;
+  overflow-y: auto;
+}
+
+nav.sidebar a {
+  display: block;
+  padding: 12px 24px;
+  text-decoration: none;
+  color: #334155;
+  font-size: 0.95rem;
+  transition: background 0.2s;
+}
+
+nav.sidebar a:hover,
+nav.sidebar a.active {
+  background-color: #e0e7ef;
+  color: #1e40af;
+  font-weight: 600;
+}
+
+/* メインエリア */
+.main-area {
+  flex: 1;
+  padding: 32px;
+  overflow-y: auto;
+  background-color: #ffffff;
+}
