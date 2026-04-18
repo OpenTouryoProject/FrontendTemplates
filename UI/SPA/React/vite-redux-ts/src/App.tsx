@@ -7,8 +7,9 @@ import About from './pages/About'
 import Settings from './pages/Settings'
 import { Counter } from './pages/Counter'
 import { FetchData } from './pages/FetchData'
-import { CrudSample } from './pages/CrudSample'
-import { CrudSample2 } from './pages/CrudSample2'
+ // 名前付きimport から default import に変更 connectされたComponentを使用）
+import CrudSample from './pages/CrudSample'
+import CrudSample2 from './pages/CrudSample2'
 import { RedirectOfAuth } from './components/RedirectOfAuth';
 
 import './App.css'

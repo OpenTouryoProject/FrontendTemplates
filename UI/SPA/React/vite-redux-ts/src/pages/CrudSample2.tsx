@@ -7,8 +7,26 @@ import DropDownLists from '../components/CrudSample2/DropDownLists';
 import Buttons from '../components/CrudSample2/Buttons';
 import Outputs from '../components/CrudSample2/Outputs';
 
+// Redux 関連のインポート
+import { connect } from 'react-redux';
+import type { RootState, AppDispatch } from '../store';
+import { setMessage, clearMessage } from '../store/crudSampleSlice';
+
 // ===== 型定義 =====
 
+// Propsの型定義
+interface StateProps {
+  message: string;
+}
+interface DispatchProps {
+  onSetMessage: (msg: string) => void;
+  onClearMessage: () => void;
+}
+
+// コンポーネント自身のProps（connect後に外から渡すものは空）
+type CrudSampleProps = StateProps & DispatchProps;
+
+// Stateの型定義
 interface DdlState {
   ddlDap: string;
   ddlMode1: string;
@@ -26,7 +44,7 @@ interface ShipperState {
 }
 
 interface CrudSample2State {
-  message: string;
+  //message: string; は Redux管理のため削除
   ddl: DdlState;
   shipper: ShipperState;
   shippers: ShipperState[];
@@ -35,13 +53,13 @@ interface CrudSample2State {
 
 // ===== コンポーネント =====
 
-export class CrudSample2 extends React.Component<Record<string, never>, CrudSample2State>
+export class CrudSample2 extends React.Component<CrudSampleProps, CrudSample2State> //<Record<string, never>, CrudSample2State>
 {
-  constructor(props: Record<string, never>) {
+  constructor(props: CrudSampleProps) {//Record<string, never>) {
     super(props);
 
     this.state = {
-      message: '',
+      // message: '', は Redux管理のため削除
       ddl: {
         ddlDap: 'SQL',
         ddlMode1: 'individual',
@@ -92,7 +110,7 @@ export class CrudSample2 extends React.Component<Record<string, never>, CrudSamp
           <Outputs
             loading={this.state.loading}
             shippers={this.state.shippers}
-            message={this.state.message}
+            message={this.props.message} //message={this.state.message}            
           />
         </div>
         <div>
@@ -130,9 +148,12 @@ export class CrudSample2 extends React.Component<Record<string, never>, CrudSamp
   }
 
   // ===== WebAPI イベントハンドラ =====
+  // this.setState({ message: ... }) → this.props.onSetMessage(...) に変更
+  // this.setState({ message: '' })  → this.props.onClearMessage()  に変更
 
   selectCount() {
-    this.setState({ message: '' });
+    //this.setState({ message: '' });
+    this.props.onClearMessage();
     common.postFetch(
       constants.CrudSampleRootUrl + 'SelectCount',
       oauth_oidc.createHttpRequestHeader(false),
@@ -142,15 +163,18 @@ export class CrudSample2 extends React.Component<Record<string, never>, CrudSamp
         + '&ddlExRollback=' + this.state.ddl.ddlExRollback,
       (data) => {
         if (data.message) {
-          this.setState({ message: JSON.stringify(data.message) });
+          //this.setState({ message: JSON.stringify(data.message) });
+          this.props.onSetMessage(JSON.stringify(data.message));
         }
       },
-      (msg) => this.setState({ message: JSON.stringify(msg) }),
+      //(msg) => this.setState({ message: JSON.stringify(msg) }),
+      (msg) => this.props.onSetMessage(JSON.stringify(msg)),
     );
   }
 
   selectAll_DT() {
-    this.setState({ message: '' });
+    //this.setState({ message: '' });
+    this.props.onClearMessage();
     common.postFetch(
       constants.CrudSampleRootUrl + 'SelectAll_DT',
       oauth_oidc.createHttpRequestHeader(false),
@@ -160,15 +184,17 @@ export class CrudSample2 extends React.Component<Record<string, never>, CrudSamp
         + '&ddlExRollback=' + this.state.ddl.ddlExRollback,
       (data) => {
         if (data.result) {
-          this.setState({ message: '', shippers: data.result as ShipperState[], loading: false });
+          this.setState({ shippers: data.result as ShipperState[], loading: false });
         }        
       },
-      (msg) => this.setState({ message: JSON.stringify(msg) }),
+      //(msg) => this.setState({ message: JSON.stringify(msg) }),
+      (msg) => this.props.onSetMessage(JSON.stringify(msg)),
     );    
   }
 
   selectAll_DS() {
-    this.setState({ message: '' });
+    //this.setState({ message: '' });
+    this.props.onClearMessage();
     common.postFetch(
       constants.CrudSampleRootUrl + 'selectAll_DS',
       oauth_oidc.createHttpRequestHeader(false),
@@ -178,15 +204,17 @@ export class CrudSample2 extends React.Component<Record<string, never>, CrudSamp
         + '&ddlExRollback=' + this.state.ddl.ddlExRollback,
       (data) => {
         if (data.result) {
-          this.setState({ message: '', shippers: data.result as ShipperState[], loading: false });
+          this.setState({ shippers: data.result as ShipperState[], loading: false });
         }        
       },
-      (msg) => this.setState({ message: JSON.stringify(msg) }),
+      //(msg) => this.setState({ message: JSON.stringify(msg) }),
+      (msg) => this.props.onSetMessage(JSON.stringify(msg)),
     );  
   }
 
   selectAll_DR() {
-    this.setState({ message: '' });
+    //this.setState({ message: '' });
+    this.props.onClearMessage();
     common.postFetch(
       constants.CrudSampleRootUrl + 'selectAll_DR',
       oauth_oidc.createHttpRequestHeader(false),
@@ -196,15 +224,18 @@ export class CrudSample2 extends React.Component<Record<string, never>, CrudSamp
         + '&ddlExRollback=' + this.state.ddl.ddlExRollback,
       (data) => {
         if (data.result) {
-          this.setState({ message: '', shippers: data.result as ShipperState[], loading: false });
+          this.setState({ shippers: data.result as ShipperState[], loading: false });
         }        
       },
-      (msg) => this.setState({ message: JSON.stringify(msg) }),
+      //(msg) => this.setState({ message: JSON.stringify(msg) }),
+      (msg) => this.props.onSetMessage(JSON.stringify(msg)),
+
     );  
   }
 
   selectAll_DSQL() {
-    this.setState({ message: '' });
+    //this.setState({ message: '' });
+    this.props.onClearMessage();
     common.postFetch(
       constants.CrudSampleRootUrl + 'selectAll_DSQL',
       oauth_oidc.createHttpRequestHeader(false),
@@ -216,15 +247,17 @@ export class CrudSample2 extends React.Component<Record<string, never>, CrudSamp
         + '&orderSequence=' + this.state.ddl.ddlOrderSequence,
       (data) => {
         if (data.result) {
-          this.setState({ message: '', shippers: data.result as ShipperState[], loading: false });
+          this.setState({ shippers: data.result as ShipperState[], loading: false });
         }        
       },
-      (msg) => this.setState({ message: JSON.stringify(msg) }),
+      //(msg) => this.setState({ message: JSON.stringify(msg) }),
+      (msg) => this.props.onSetMessage(JSON.stringify(msg)),
     );  
   }
 
   select() {
-    this.setState({ message: '' });
+    //this.setState({ message: '' });
+    this.props.onClearMessage();
     common.postFetch(
       constants.CrudSampleRootUrl + 'select',
       oauth_oidc.createHttpRequestHeader(true),
@@ -251,12 +284,14 @@ export class CrudSample2 extends React.Component<Record<string, never>, CrudSamp
           });
         }        
       },
-      (msg) => this.setState({ message: JSON.stringify(msg) }),
+      //(msg) => this.setState({ message: JSON.stringify(msg) }),
+      (msg) => this.props.onSetMessage(JSON.stringify(msg)),
     ); 
   }
 
   insert() {
-    this.setState({ message: '' });
+    //this.setState({ message: '' });
+    this.props.onClearMessage();
     common.postFetch(
       constants.CrudSampleRootUrl + 'insert',
       oauth_oidc.createHttpRequestHeader(true),
@@ -273,15 +308,18 @@ export class CrudSample2 extends React.Component<Record<string, never>, CrudSamp
       }),
       (data) => {
         if (data.message) {
-          this.setState({ message: JSON.stringify(data.message) });
+          //this.setState({ message: JSON.stringify(data.message) });
+          this.props.onSetMessage(JSON.stringify(data.message));
         }        
       },
-      (msg) => this.setState({ message: JSON.stringify(msg) }),
+      //(msg) => this.setState({ message: JSON.stringify(msg) }),
+      (msg) => this.props.onSetMessage(JSON.stringify(msg)),
     );
   }
 
   update() {
-    this.setState({ message: '' });
+    //this.setState({ message: '' });
+    this.props.onClearMessage();
     common.postFetch(
       constants.CrudSampleRootUrl + 'update',
       oauth_oidc.createHttpRequestHeader(true),
@@ -298,15 +336,18 @@ export class CrudSample2 extends React.Component<Record<string, never>, CrudSamp
       }),
       (data) => {
         if (data.message) {
-          this.setState({ message: JSON.stringify(data.message) });
+          //this.setState({ message: JSON.stringify(data.message) });
+          this.props.onSetMessage(JSON.stringify(data.message));
         }        
       },
-      (msg) => this.setState({ message: JSON.stringify(msg) }),
+      //(msg) => this.setState({ message: JSON.stringify(msg) }),
+      (msg) => this.props.onSetMessage(JSON.stringify(msg)),
     );
   }
 
   delete() {
-    this.setState({ message: '' });
+    //this.setState({ message: '' });
+    this.props.onClearMessage();
     common.postFetch(
       constants.CrudSampleRootUrl + 'delete',
       oauth_oidc.createHttpRequestHeader(true),
@@ -323,10 +364,25 @@ export class CrudSample2 extends React.Component<Record<string, never>, CrudSamp
       }),
       (data) => {
         if (data.message) {
-          this.setState({ message: JSON.stringify(data.message) });
+          //this.setState({ message: JSON.stringify(data.message) });
+          this.props.onSetMessage(JSON.stringify(data.message));
         }        
       },
-      (msg) => this.setState({ message: JSON.stringify(msg) }),
+      //(msg) => this.setState({ message: JSON.stringify(msg) }),
+      (msg) => this.props.onSetMessage(JSON.stringify(msg)),
     );
   }
 }
+
+// ===== Redux connect =====
+
+const mapStateToProps = (state: RootState): StateProps => ({
+  message: state.crudSample.message,
+});
+
+const mapDispatchToProps = (dispatch: AppDispatch): DispatchProps => ({
+  onSetMessage: (msg: string) => dispatch(setMessage(msg)),
+  onClearMessage: () => dispatch(clearMessage()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CrudSample2);

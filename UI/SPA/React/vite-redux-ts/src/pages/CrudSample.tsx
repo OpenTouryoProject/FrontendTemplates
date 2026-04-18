@@ -3,6 +3,11 @@ import constants from '../const';
 import common from '../common.ts';
 import oauth_oidc from '../touryo/oauth_oidc';
 
+// Redux 関連のインポート
+import { connect } from 'react-redux';
+import type { RootState, AppDispatch } from '../store';
+import { setMessage, clearMessage } from '../store/crudSampleSlice';
+
 // ===== 型定義 =====
 
 interface DdlOption {
@@ -10,6 +15,19 @@ interface DdlOption {
   value: string;
 }
 
+// Propsの型定義
+interface StateProps {
+  message: string;
+}
+interface DispatchProps {
+  onSetMessage: (msg: string) => void;
+  onClearMessage: () => void;
+}
+
+// コンポーネント自身のProps（connect後に外から渡すものは空）
+type CrudSampleProps = StateProps & DispatchProps;
+
+// Stateの型定義
 interface DdlState {
   ddlDap: string;
   ddlMode1: string;
@@ -27,7 +45,7 @@ interface ShipperState {
 }
 
 interface CrudSampleState {
-  message: string;
+  //message: string; は Redux管理のため削除
   ddl: DdlState;
   shipper: ShipperState;
   shippers: ShipperState[];
@@ -36,7 +54,8 @@ interface CrudSampleState {
 
 // ===== コンポーネント =====
 
-export class CrudSample extends React.Component<Record<string, never>, CrudSampleState> {
+export class CrudSample extends React.Component<CrudSampleProps, CrudSampleState> //<Record<string, never>, CrudSampleState> {
+{
   // ドロップダウンリストの選択肢（インスタンス変数）
   private ddlDap: DdlOption[];
   private ddlMode1: DdlOption[];
@@ -46,11 +65,11 @@ export class CrudSample extends React.Component<Record<string, never>, CrudSampl
   private ddlOrder: DdlOption[];
   private ddlOrderSequence: DdlOption[];
 
-  constructor(props: Record<string, never>) {
+  constructor(props: CrudSampleProps) {//Record<string, never>) {
     super(props);
 
     this.state = {
-      message: '',
+      // message: '', は Redux管理のため削除
       ddl: {
         ddlDap: 'SQL',
         ddlMode1: 'individual',
@@ -170,7 +189,7 @@ export class CrudSample extends React.Component<Record<string, never>, CrudSampl
         </div>
         <div style={div2Style}>
           {contents}
-          <p>処理結果：{this.state.message}</p>
+          <p>処理結果：{this.props.message /*this.state.message*/}</p>
         </div>
         <div>
           <button className='btn-primary' onClick={() => { this.selectCount(); }}>SelectCount</button>&nbsp;
@@ -355,9 +374,12 @@ export class CrudSample extends React.Component<Record<string, never>, CrudSampl
   }
 
   // ===== WebAPI イベントハンドラ =====
+  // this.setState({ message: ... }) → this.props.onSetMessage(...) に変更
+  // this.setState({ message: '' })  → this.props.onClearMessage()  に変更
 
   selectCount() {
-    this.setState({ message: '' });
+    //this.setState({ message: '' });
+    this.props.onClearMessage();
     common.postFetch(
       constants.CrudSampleRootUrl + 'SelectCount',
       oauth_oidc.createHttpRequestHeader(false),
@@ -367,15 +389,18 @@ export class CrudSample extends React.Component<Record<string, never>, CrudSampl
         + '&ddlExRollback=' + this.state.ddl.ddlExRollback,
       (data) => {
         if (data.message) {
-          this.setState({ message: JSON.stringify(data.message) });
+          //this.setState({ message: JSON.stringify(data.message) });
+          this.props.onSetMessage(JSON.stringify(data.message));
         }
       },
-      (msg) => this.setState({ message: JSON.stringify(msg) }),
+      //(msg) => this.setState({ message: JSON.stringify(msg) }),
+      (msg) => this.props.onSetMessage(JSON.stringify(msg)),
     );
   }
 
   selectAll_DT() {
-    this.setState({ message: '' });
+    //this.setState({ message: '' });
+    this.props.onClearMessage();
     common.postFetch(
       constants.CrudSampleRootUrl + 'SelectAll_DT',
       oauth_oidc.createHttpRequestHeader(false),
@@ -385,15 +410,17 @@ export class CrudSample extends React.Component<Record<string, never>, CrudSampl
         + '&ddlExRollback=' + this.state.ddl.ddlExRollback,
       (data) => {
         if (data.result) {
-          this.setState({ message: '', shippers: data.result as ShipperState[], loading: false });
+          this.setState({ shippers: data.result as ShipperState[], loading: false });
         }        
       },
-      (msg) => this.setState({ message: JSON.stringify(msg) }),
+      //(msg) => this.setState({ message: JSON.stringify(msg) }),
+      (msg) => this.props.onSetMessage(JSON.stringify(msg)),
     );    
   }
 
   selectAll_DS() {
-    this.setState({ message: '' });
+    //this.setState({ message: '' });
+    this.props.onClearMessage();
     common.postFetch(
       constants.CrudSampleRootUrl + 'selectAll_DS',
       oauth_oidc.createHttpRequestHeader(false),
@@ -403,15 +430,17 @@ export class CrudSample extends React.Component<Record<string, never>, CrudSampl
         + '&ddlExRollback=' + this.state.ddl.ddlExRollback,
       (data) => {
         if (data.result) {
-          this.setState({ message: '', shippers: data.result as ShipperState[], loading: false });
+          this.setState({ shippers: data.result as ShipperState[], loading: false });
         }        
       },
-      (msg) => this.setState({ message: JSON.stringify(msg) }),
+      //(msg) => this.setState({ message: JSON.stringify(msg) }),
+      (msg) => this.props.onSetMessage(JSON.stringify(msg)),
     );  
   }
 
   selectAll_DR() {
-    this.setState({ message: '' });
+    //this.setState({ message: '' });
+    this.props.onClearMessage();
     common.postFetch(
       constants.CrudSampleRootUrl + 'selectAll_DR',
       oauth_oidc.createHttpRequestHeader(false),
@@ -421,15 +450,18 @@ export class CrudSample extends React.Component<Record<string, never>, CrudSampl
         + '&ddlExRollback=' + this.state.ddl.ddlExRollback,
       (data) => {
         if (data.result) {
-          this.setState({ message: '', shippers: data.result as ShipperState[], loading: false });
+          this.setState({ shippers: data.result as ShipperState[], loading: false });
         }        
       },
-      (msg) => this.setState({ message: JSON.stringify(msg) }),
+      //(msg) => this.setState({ message: JSON.stringify(msg) }),
+      (msg) => this.props.onSetMessage(JSON.stringify(msg)),
+
     );  
   }
 
   selectAll_DSQL() {
-    this.setState({ message: '' });
+    //this.setState({ message: '' });
+    this.props.onClearMessage();
     common.postFetch(
       constants.CrudSampleRootUrl + 'selectAll_DSQL',
       oauth_oidc.createHttpRequestHeader(false),
@@ -441,15 +473,17 @@ export class CrudSample extends React.Component<Record<string, never>, CrudSampl
         + '&orderSequence=' + this.state.ddl.ddlOrderSequence,
       (data) => {
         if (data.result) {
-          this.setState({ message: '', shippers: data.result as ShipperState[], loading: false });
+          this.setState({ shippers: data.result as ShipperState[], loading: false });
         }        
       },
-      (msg) => this.setState({ message: JSON.stringify(msg) }),
+      //(msg) => this.setState({ message: JSON.stringify(msg) }),
+      (msg) => this.props.onSetMessage(JSON.stringify(msg)),
     );  
   }
 
   select() {
-    this.setState({ message: '' });
+    //this.setState({ message: '' });
+    this.props.onClearMessage();
     common.postFetch(
       constants.CrudSampleRootUrl + 'select',
       oauth_oidc.createHttpRequestHeader(true),
@@ -476,12 +510,14 @@ export class CrudSample extends React.Component<Record<string, never>, CrudSampl
           });
         }        
       },
-      (msg) => this.setState({ message: JSON.stringify(msg) }),
+      //(msg) => this.setState({ message: JSON.stringify(msg) }),
+      (msg) => this.props.onSetMessage(JSON.stringify(msg)),
     ); 
   }
 
   insert() {
-    this.setState({ message: '' });
+    //this.setState({ message: '' });
+    this.props.onClearMessage();
     common.postFetch(
       constants.CrudSampleRootUrl + 'insert',
       oauth_oidc.createHttpRequestHeader(true),
@@ -498,15 +534,18 @@ export class CrudSample extends React.Component<Record<string, never>, CrudSampl
       }),
       (data) => {
         if (data.message) {
-          this.setState({ message: JSON.stringify(data.message) });
+          //this.setState({ message: JSON.stringify(data.message) });
+          this.props.onSetMessage(JSON.stringify(data.message));
         }        
       },
-      (msg) => this.setState({ message: JSON.stringify(msg) }),
+      //(msg) => this.setState({ message: JSON.stringify(msg) }),
+      (msg) => this.props.onSetMessage(JSON.stringify(msg)),
     );
   }
 
   update() {
-    this.setState({ message: '' });
+    //this.setState({ message: '' });
+    this.props.onClearMessage();
     common.postFetch(
       constants.CrudSampleRootUrl + 'update',
       oauth_oidc.createHttpRequestHeader(true),
@@ -523,15 +562,18 @@ export class CrudSample extends React.Component<Record<string, never>, CrudSampl
       }),
       (data) => {
         if (data.message) {
-          this.setState({ message: JSON.stringify(data.message) });
+          //this.setState({ message: JSON.stringify(data.message) });
+          this.props.onSetMessage(JSON.stringify(data.message));
         }        
       },
-      (msg) => this.setState({ message: JSON.stringify(msg) }),
+      //(msg) => this.setState({ message: JSON.stringify(msg) }),
+      (msg) => this.props.onSetMessage(JSON.stringify(msg)),
     );
   }
 
   delete() {
-    this.setState({ message: '' });
+    //this.setState({ message: '' });
+    this.props.onClearMessage();
     common.postFetch(
       constants.CrudSampleRootUrl + 'delete',
       oauth_oidc.createHttpRequestHeader(true),
@@ -548,10 +590,25 @@ export class CrudSample extends React.Component<Record<string, never>, CrudSampl
       }),
       (data) => {
         if (data.message) {
-          this.setState({ message: JSON.stringify(data.message) });
+          //this.setState({ message: JSON.stringify(data.message) });
+          this.props.onSetMessage(JSON.stringify(data.message));
         }        
       },
-      (msg) => this.setState({ message: JSON.stringify(msg) }),
+      //(msg) => this.setState({ message: JSON.stringify(msg) }),
+      (msg) => this.props.onSetMessage(JSON.stringify(msg)),
     );
   }
 }
+
+// ===== Redux connect =====
+
+const mapStateToProps = (state: RootState): StateProps => ({
+  message: state.crudSample.message,
+});
+
+const mapDispatchToProps = (dispatch: AppDispatch): DispatchProps => ({
+  onSetMessage: (msg: string) => dispatch(setMessage(msg)),
+  onClearMessage: () => dispatch(clearMessage()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CrudSample);
