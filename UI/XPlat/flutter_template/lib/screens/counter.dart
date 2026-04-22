@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class PageCounter extends StatefulWidget {
-  const PageCounter({super.key}); //, required this.title}); 
+class ScreenCounter extends StatefulWidget {
+  const ScreenCounter({super.key}); //, required this.title}); 
 
   // This widget is the counter of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -15,10 +15,10 @@ class PageCounter extends StatefulWidget {
   //final String title;
 
   @override
-  State<PageCounter> createState() => _PageCounterState();
+  State<ScreenCounter> createState() => _ScreenCounterState();
 }
 
-class _PageCounterState extends State<PageCounter> {
+class _ScreenCounterState extends State<ScreenCounter> {
   int _counter = 0;
 
   void _incrementCounter() {

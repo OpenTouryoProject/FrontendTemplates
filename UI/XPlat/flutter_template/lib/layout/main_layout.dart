@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import '../pages/page_home.dart';
-import '../pages/page_about.dart';
-import '../pages/page_settings.dart';
-import '../pages/page_counter.dart';
+import '../widgets/app_header.dart';
+import '../widgets/side_navigation.dart';
+import '../screens/home.dart';
+import '../screens/about.dart';
+import '../screens/settings.dart';
+import '../screens/counter.dart';
 
 class MainLayout extends StatefulWidget {
   const MainLayout({super.key});
@@ -22,48 +24,26 @@ class _MainLayoutState extends State<MainLayout> {
   ];
 
   final List<Widget> _pages = const [
-    PageHome(),
-    PageAbout(),
-    PageSettings(),
-    PageCounter(),
+    ScreenHome(),
+    ScreenAbout(),
+    ScreenSettings(),
+    ScreenCounter(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        title: const Text(
-          'My Application',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications, color: Colors.white),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Icon(Icons.account_circle, color: Colors.white),
-            onPressed: () {},
-          ),
-        ],
-      ),
+      appBar: const AppHeader(),
       body: Row(
         children: [
-          NavigationRail(
+          SideNavigation(
             selectedIndex: _selectedIndex,
             onDestinationSelected: (int index) {
               setState(() {
                 _selectedIndex = index;
               });
             },
-            labelType: NavigationRailLabelType.all,
-            destinations: _menuItems.map((item) {
-              return NavigationRailDestination(
-                icon: Icon(item['icon'] as IconData),
-                label: Text(item['label'] as String),
-              );
-            }).toList(),
+            menuItems: _menuItems,
           ),
           const VerticalDivider(thickness: 1, width: 1),
           Expanded(
