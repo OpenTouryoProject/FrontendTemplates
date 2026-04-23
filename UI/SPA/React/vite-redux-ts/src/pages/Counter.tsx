@@ -44,12 +44,6 @@ export class Counter_org extends React.Component<CounterProps, CounterState> {
       </div>
     );
   }
-
-  /*incrementCounter() {
-    this.setState({
-      currentCount: this.state.currentCount + 1,
-    });
-  }*/
 }
 
 // --- Reduxラッパー ---

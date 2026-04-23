@@ -1,4 +1,4 @@
-import oauth_oidc from './touryo/oauth_oidc';
+import common2 from './touryo/common';
 
 type SuccessHandler = (data: Record<string, unknown>) => void;
 
@@ -18,7 +18,7 @@ export function getFetch(
   setMessage('');
 
   fetch(url, { method: 'GET', headers })
-    .then(oauth_oidc.fetchStatusHandler)
+    .then(common2.fetchStatusHandler)
     .then(response => response.json())
     .then((data: Record<string, unknown>) => {
       if (data.errorMSG) {
@@ -52,7 +52,7 @@ export function postFetch(
   setMessage('');
 
   fetch(url, { method: 'POST', headers, body })
-    .then(oauth_oidc.fetchStatusHandler)
+    .then(common2.fetchStatusHandler)
     .then(response => response.json())
     .then((data: Record<string, unknown>) => {
       if (data.errorMSG) {

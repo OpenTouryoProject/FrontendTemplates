@@ -13,6 +13,17 @@
 // limitations under the License.
 
 // ---------------------------------------------------------------
+// fetch のレスポンスのステータスコードをチェック
+// ---------------------------------------------------------------
+export function fetchStatusHandler(response: Response): Response {
+  if (response.status === 200) {
+    return response;
+  } else {
+    throw new Error(response.statusText);
+  }
+}
+
+// ---------------------------------------------------------------
 // 型拡張：String.prototype.format を TypeScript に認識させる
 // ---------------------------------------------------------------
 declare global {
@@ -84,10 +95,11 @@ export function initStringFormat(): void {
 
 // 全関数をオブジェクトとしてデフォルトエクスポート
 const common = {
+  fetchStatusHandler,
   getRandomString,
   stringToAscii,
   base64URLEncode,
-  initStringFormat,
+  initStringFormat,  
 };
 
 export default common;

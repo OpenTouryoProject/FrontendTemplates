@@ -23,6 +23,9 @@ export class Counter extends React.Component<CounterProps, CounterState> {
         <button className='btn-primary' onClick={() => this.incrementCounter()}>
           Increment
         </button>
+        <button className='btn-primary' onClick={() => this.resetCounter()}>
+          Reset
+        </button>
       </div>
     );
   }
@@ -30,6 +33,12 @@ export class Counter extends React.Component<CounterProps, CounterState> {
   incrementCounter() {
     this.setState({
       currentCount: this.state.currentCount + 1,
+    });
+  }
+
+  resetCounter() {
+    this.setState({
+      currentCount: 0,
     });
   }
 }

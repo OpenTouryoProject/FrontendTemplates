@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import '../importer.dart';
 
 class ScreenSettings extends StatelessWidget {
   const ScreenSettings({super.key});

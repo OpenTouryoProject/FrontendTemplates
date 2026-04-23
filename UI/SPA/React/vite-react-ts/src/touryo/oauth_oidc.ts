@@ -18,6 +18,8 @@
 // ---------------------------------------------------------------
 
 import constants from '../const';
+import common from './common';
+
 import { getRandomString, base64URLEncode } from './common.ts';
 
 // UserInfo の型定義
@@ -131,7 +133,7 @@ export function callConvertCodeToToken(
     "&code_verifier=" + code_verifier;
 
   fetch(constants.TokenRequestUrl, { method, headers, body })
-    .then(fetchStatusHandler)
+    .then(common.fetchStatusHandler)
     .then((response) => response.json() as Promise<TokenResponse>)
     .then((data) => {
       if (data.access_token) {
@@ -157,7 +159,7 @@ export function callUserInfo(
   };
 
   fetch(constants.UserInfoRequestUrl, { method, headers })
-    .then(fetchStatusHandler)
+    .then(common.fetchStatusHandler)
     .then((response) => response.json() as Promise<UserInfo>)
     .then((userInfo) => {
       if (userInfo.sub) {
@@ -195,17 +197,6 @@ export function createHttpRequestHeader(isJsonRpc: boolean): HeadersInit {
   }
 
   return headers;
-}
-
-// ---------------------------------------------------------------
-// fetch のレスポンスのステータスコードをチェック
-// ---------------------------------------------------------------
-export function fetchStatusHandler(response: Response): Response {
-  if (response.status === 200) {
-    return response;
-  } else {
-    throw new Error(response.statusText);
-  }
 }
 
 // ---------------------------------------------------------------
@@ -341,7 +332,6 @@ const oauth_oidc = {
   callConvertCodeToToken,
   callUserInfo,
   createHttpRequestHeader,
-  fetchStatusHandler,
   initSignUpStatus,
   getState,
   getCodeVerifier,
