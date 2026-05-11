@@ -1,4 +1,5 @@
 import '../importer.dart';
+import './sign_in.dart';
 
 class AppHeader extends StatelessWidget implements PreferredSizeWidget {
   const AppHeader({super.key});
@@ -16,10 +17,12 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
           icon: const Icon(Icons.notifications, color: Colors.white),
           onPressed: () {},
         ),
-        IconButton(
+        /*IconButton(
           icon: const Icon(Icons.account_circle, color: Colors.white),
           onPressed: () {},
-        ),
+        ),*/
+        // サインインボタンを追加
+        const SignIn(),
       ],
     );
   }

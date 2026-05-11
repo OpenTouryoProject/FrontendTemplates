@@ -1,0 +1,8 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\myapp]
+@="URL:myapp Protocol"
+"URL Protocol"=""
+
+[HKEY_CLASSES_ROOT\myapp\shell\open\command]
+@="\"D:\\git\\local\\OpenTouryoProject\\FrontendTemplates\\UI\\XPlat\\flutter_template\\build\\windows\\x64\\runner\\Debug\\my_app.exe\" \"%1\""

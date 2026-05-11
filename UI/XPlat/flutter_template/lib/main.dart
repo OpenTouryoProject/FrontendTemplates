@@ -1,12 +1,102 @@
-import 'package:flutter/material.dart';
+import 'importer.dart';
 import 'layout/main_layout.dart';
+import 'touryo/auth_state.dart';
 
-void main() {
+import 'package:app_links/app_links.dart';
+import 'package:flutter_single_instance/flutter_single_instance.dart';
+import 'package:windows_single_instance/windows_single_instance.dart';
+
+void main(List<String> args) async {
+  WidgetsFlutterBinding.ensureInitialized(); // ← 必須
+
+  // iOS / Android / Web はOSがシングルインスタンスを保証
+
+  if (Platform.isWindows) { // Windows は WindowsSingleInstance を使用
+    await WindowsSingleInstance.ensureSingleInstance(
+      args,
+      'my_app_instance_key',
+      onSecondWindow: (args) {
+        // 2ndプロセスから渡されたURIを処理
+        // args[0] にカスタムURLスキームのURIが入る想定
+        if (args.isNotEmpty) {
+          final uri = Uri.tryParse(args[0]);
+          if (uri != null) {
+            MyApp.handleUri(uri); // ← グローバルなハンドラを呼ぶ
+          }
+        }
+      },
+    );
+  } else if (Platform.isMacOS || Platform.isLinux) { // Mac / Linux は FlutterSingleInstance を使用
+    await windowManager.ensureInitialized();
+    if (!await FlutterSingleInstance().isFirstInstance()) {
+      await FlutterSingleInstance().focus();
+      exit(0);
+    }
+  }
+
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+// 起動パターン対応箇所
+// - コールドスタート（URLスキームでアプリ起動）対応不要
+// - ウォームスタート（起動中にURLスキームで呼ばれる）：以下対応
+
+// StatefulWidget に変更：ウォームスタート時のカスタムURLスキーム対応のため
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+  
+  // グローバルからURIを受け取るための静的ハンドラ
+  static void handleUri(Uri uri) async {
+    await _MyAppState._instance?._handleUri(uri);
+  }
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+// アプリが起動中（ウォームスタート）にカスタムURLスキームで呼ばれた時、特定の画面へ遷移する処理。
+class _MyAppState extends State<MyApp> {
+  // onSecondWindow から呼ぶため保持
+  static _MyAppState? _instance; 
+  // Widget外からの画面遷移に使用
+  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
+
+  @override
+  void initState() {
+    super.initState();
+    _instance = this;
+    _initAppLinks();
+  }
+
+  @override
+  void dispose() {
+    _instance = null;
+    super.dispose();
+  }
+
+  void _initAppLinks() {    
+     // ウォームスタート（Mac / Linux / iOS / Android）
+    AppLinks().uriLinkStream.listen((uri) async {
+      await _handleUri(uri);      
+    });
+  }
+
+  Future<void> _handleUri(Uri uri) async {
+    
+    if (uri.scheme != 'myapp') return;
+
+    final params = getParameterFromFragment(uri);
+    final code = params['code'];    
+    if (code == null || code.isEmpty) return;
+
+    final codeVerifier = await OAuthOidc.instance.getCodeVerifier();
+    if (codeVerifier == null) return;
+
+    await callConvertCodeToToken(code, codeVerifier);
+
+    // ↓ 追加：トークン取得完了をSignInウィジェットへ通知
+    AuthState.instance.notifyAuthCompleted();
+  }
 
   @override
   Widget build(BuildContext context) {

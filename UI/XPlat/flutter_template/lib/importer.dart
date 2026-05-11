@@ -1,12 +1,13 @@
 // dart
 export 'dart:io';
 export 'dart:async';
+export 'dart:math';
 export 'dart:convert';
+export 'dart:typed_data';
 
 // package
 export 'package:flutter/material.dart';
 export 'package:flutter/foundation.dart';
-export 'package:shared_preferences/shared_preferences.dart';
 
 // Use relative imports for your own files
 export 'common.dart';

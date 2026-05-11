@@ -23,7 +23,11 @@ class AppConfig {
   static const String baseUrl = '~/';
   static const String clientId = String.fromEnvironment(
     'CLIENT_ID',
-    defaultValue: 'f374a155909d486a9234693c34e94479',
+    defaultValue: '40319c0100f94ff3aab3004c8bdb5e52',
+  );
+  static const String redirectUrl = String.fromEnvironment(
+    'REDIRECT_URL',
+    defaultValue: 'myapp:/oauthredirect',
   );
 
   // 派生URL（文字列補間はconstにできないためstaticゲッターで定義）
