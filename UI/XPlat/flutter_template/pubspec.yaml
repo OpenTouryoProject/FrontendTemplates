@@ -42,6 +42,7 @@ dependencies:
   app_links: ^7.0.0
   flutter_single_instance: ^1.7.0
   windows_single_instance: ^1.1.0
+  flutter_riverpod: ^3.3.1
 
 dev_dependencies:
   flutter_test:

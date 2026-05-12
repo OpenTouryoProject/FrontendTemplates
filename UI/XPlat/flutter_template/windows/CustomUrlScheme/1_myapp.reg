@@ -5,4 +5,4 @@ Windows Registry Editor Version 5.00
 "URL Protocol"=""
 
 [HKEY_CLASSES_ROOT\myapp\shell\open\command]
-@="\"D:\\git\\local\\OpenTouryoProject\\FrontendTemplates\\UI\\XPlat\\flutter_template\\build\\windows\\x64\\runner\\Debug\\my_app.exe\" \"%1\""
+@="\"(絶対パスを記入)\\FrontendTemplates\\UI\\XPlat\\flutter_template\\build\\windows\\x64\\runner\\Debug\\my_app.exe\" \"%1\""

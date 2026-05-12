@@ -1,6 +1,7 @@
 import '../importer.dart';
 
-class ScreenCounter extends StatefulWidget {
+// StatefulWidget → ConsumerStatefulWidget に変更
+class ScreenCounter extends ConsumerStatefulWidget  {
   const ScreenCounter({super.key}); //, required this.title}); 
 
   // This widget is the counter of your application. It is stateful, meaning
@@ -15,21 +16,27 @@ class ScreenCounter extends StatefulWidget {
   //final String title;
 
   @override
-  State<ScreenCounter> createState() => _ScreenCounterState();
+  // State → ConsumerState に直す
+  ConsumerState<ScreenCounter> createState() => _ScreenCounterState();
 }
 
-class _ScreenCounterState extends State<ScreenCounter> {
-  int _counter = 0;
+// State<ScreenCounter> → ConsumerState<ScreenCounter> に変更
+class _ScreenCounterState extends ConsumerState<ScreenCounter>{
+  //int _counter = 0;
 
   void _incrementCounter() {
-    setState(() {
+    /*setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
       _counter++;
-    });
+    });*/
+
+    // ローカルの setState は不要、ref.read で notifier を取得し、updateCount を呼び出す
+    final currentCount = ref.read(myProvider).count;
+    ref.read(myProvider.notifier).updateCount(currentCount + 1);
   }
 
   @override
@@ -40,6 +47,10 @@ class _ScreenCounterState extends State<ScreenCounter> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+
+    // watch でカウントだけ購読
+    final count = ref.watch(myProvider).count;
+
     return Scaffold(
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
@@ -64,7 +75,7 @@ class _ScreenCounterState extends State<ScreenCounter> {
             const SizedBox(height: 16),
             const Text('ボタンを押した回数:'),
             Text(
-              '$_counter',
+              '$count', // _counter → count に変更
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],

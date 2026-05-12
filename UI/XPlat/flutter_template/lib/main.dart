@@ -34,7 +34,12 @@ void main(List<String> args) async {
     }
   }
 
-  runApp(const MyApp());
+  runApp(
+    // ProviderScope を追加して Riverpod を有効化
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
 // 起動パターン対応箇所
@@ -57,9 +62,7 @@ class MyApp extends StatefulWidget {
 // アプリが起動中（ウォームスタート）にカスタムURLスキームで呼ばれた時、特定の画面へ遷移する処理。
 class _MyAppState extends State<MyApp> {
   // onSecondWindow から呼ぶため保持
-  static _MyAppState? _instance; 
-  // Widget外からの画面遷移に使用
-  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
+  static _MyAppState? _instance;
 
   @override
   void initState() {

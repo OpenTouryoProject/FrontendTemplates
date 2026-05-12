@@ -1,15 +1,17 @@
 import '../importer.dart';
 
-class ScreenCrudSample extends StatefulWidget {
+// StatefulWidget → ConsumerStatefulWidget に変更
+class ScreenCrudSample extends ConsumerStatefulWidget {
   const ScreenCrudSample({super.key, required this.title});
 
   final String title;
 
   @override
-  State<ScreenCrudSample> createState() => _CrudSampleState();
+  ConsumerState<ScreenCrudSample> createState() => _CrudSampleState();
 }
 
-class _CrudSampleState extends State<ScreenCrudSample> {
+// State<ScreenCounter> → ConsumerState<ScreenCounter> に変更
+class _CrudSampleState extends ConsumerState<ScreenCrudSample> {
   // ddl値
   String _ddlDap = "SQL";
   String _ddlMode1 = "individual";
@@ -35,7 +37,7 @@ class _CrudSampleState extends State<ScreenCrudSample> {
   final _phoneFocusNode = FocusNode();
 
   // JSON値
-  String _display = "";
+  //String _display = "";
   List<dynamic> _jsonItems  = jsonDecode(
       '[{"shipperID":"shipperID","companyName":"companyName","phone":"phone"}]'
   );
@@ -43,6 +45,12 @@ class _CrudSampleState extends State<ScreenCrudSample> {
   @override
   void initState() {
     super.initState();
+  }
+
+  void _updateMessage(String message) {
+    // ローカルの setState は不要、ref.read で notifier を取得し、updateCount を呼び出す
+    //final currentMessage = ref.read(myProvider).count;
+    ref.read(myProvider.notifier).updateMessage(message);
   }
 
   Future<void> _selectCount() async {
@@ -61,14 +69,16 @@ class _CrudSampleState extends State<ScreenCrudSample> {
       headers,
       body,
       (data) {
-        setState(() {
-          _display = (data as Map<String, dynamic>)['message'];
-        });
+        /*setState(() {
+          _display = (data as Map<String, dynamic>)['message'];          
+        });*/
+        _updateMessage((data as Map<String, dynamic>)['message']);
       },
       (msg) {
-        setState(() {
+        /*setState(() {
           _display = msg;
-        });
+        });*/
+        _updateMessage(msg);
       },
     );
   }
@@ -90,14 +100,16 @@ class _CrudSampleState extends State<ScreenCrudSample> {
       },
       (data) {
         setState(() {
-          _display = data['message'];
+          //_display = data['message'];
           _jsonItems = data['result'];
         });
+        _updateMessage(data['message']);
       },
       (msg) {
-        setState(() {
+        /*setState(() {
           _display = msg;
-        });
+        });*/
+        _updateMessage(msg);
       },
     );
   }
@@ -126,7 +138,7 @@ class _CrudSampleState extends State<ScreenCrudSample> {
       body,
       (data) {
         setState(() {
-          _display = data['message'];
+          //_display = data['message'];
           if (urlPrefix == "Select") {
             final shipper = data['result'];
             _shipperIDKey.currentState?.didChange(shipper['shipperID']);
@@ -134,17 +146,23 @@ class _CrudSampleState extends State<ScreenCrudSample> {
             _phoneKey.currentState?.didChange(shipper['phone']);
           }
         });
+        _updateMessage(data['message']);
       },
       (msg) {
-        setState(() {
+        /*setState(() {
           _display = msg;
-        });
+        });*/
+        _updateMessage(msg);
       },
     );
   }
 
   @override
   Widget build(BuildContext context) {
+
+    // watch でカウントだけ購読
+    final display = ref.watch(myProvider).message;
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -294,7 +312,7 @@ class _CrudSampleState extends State<ScreenCrudSample> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text('件数:'),
-                Text(_display),
+                Text(display), // _display → display
               ],
             ),
             Form(
